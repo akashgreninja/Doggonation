@@ -16,14 +16,19 @@ app = Flask(__name__)
 load_dotenv()
 app_port = os.getenv('PORT')
 azure_password = os.getenv('PASSWORD')
-print(azure_password)
+
 put_requests=Put()
 
 
 conn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};Server=tcp:doggonation.database.windows.net,1433;Database=doggonation;Uid=doggonation;Pwd='+azure_password+';Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
-print(conn)
 
 
+query = 'SELECT COUNT(*) FROM information_schema.tables'
+checkers=conn.execute(query)
+
+
+result = checkers.fetchone()
+print(f'There are {result[0]} tables in the  database')
 
 
 
