@@ -1,6 +1,6 @@
 
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from flask import Flask,jsonify,abort,request,send_file
 
 class Post:  
     def __init__(self):
@@ -15,7 +15,7 @@ class Post:
 
         return "done"
 
-    def register(self,data,cursor):
+    def register(self,data,cursor,db):
         email=data['email']
         password=data['password']
         name=data['name']
@@ -37,10 +37,11 @@ class Post:
             return message
         else:
             cursor.execute(query_add)
-            cursor.execute(self.get_all_users)
+            db.commit()
+            cursor.execute  (self.get_all_users)
             result=cursor.fetchall()
             print(result)
-            return result
+            return jsonify(result)
             
 
         

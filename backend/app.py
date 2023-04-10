@@ -34,7 +34,9 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   password="",
-  database="doggonation"
+  database="doggonation",
+  port=3306
+
 )
 
 # create a cursor object
@@ -59,8 +61,8 @@ def route_path():
 @app.route('/register',methods=["POST"])
 def register():
     data=request.json
-    return post_requests.register(data,mycursor)
-
+    
+    return post_requests.register(data,mycursor,mydb)
 
 
 
