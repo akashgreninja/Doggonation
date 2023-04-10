@@ -59,7 +59,7 @@ def route_path():
 @app.route('/register',methods=["POST"])
 def register():
     data=request.json
-    return post_requests.register(data,mycursor)
+    return post_requests.register(data,mycursor,mydb)
 
 
 
