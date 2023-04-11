@@ -11,6 +11,15 @@ class Get:
         }
         return dict
     
+    def get_user (self,id,mycursor,mydb):
+        query=f"SELECT * FROM user WHERE user_id='{id}'"
+        mycursor.execute(query)
+        # mycursor.close()
+        return jsonify(mycursor.fetchone())
+
+
+
+
     def getallposts(self,cursor):
         cursor.execute("SELECT * FROM `posts` ORDER BY `posts`.`post_id` DESC")
         result=cursor.fetchall()
@@ -18,6 +27,4 @@ class Get:
             return jsonify(result)
         else:
             return jsonify("there were no posts to be found")
-
-
 

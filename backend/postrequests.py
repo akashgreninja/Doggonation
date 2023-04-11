@@ -1,6 +1,7 @@
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask,jsonify,abort,request,send_file
+from flask_login import LoginManager,login_required,current_user,logout_user,login_user
 
 class Post:  
     def __init__(self):
@@ -101,6 +102,7 @@ class Post:
     
      
         if result:
+           
             return sucess
         else:
             return failure

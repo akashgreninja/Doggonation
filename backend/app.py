@@ -3,6 +3,7 @@
 from flask import Flask,jsonify,abort,request,send_file
 from dotenv import load_dotenv
 import os
+from flask_login import LoginManager,login_required,current_user,logout_user,login_user
 # import pyodbc   this was the azure connection
 import base64
 import mysql.connector
@@ -22,6 +23,11 @@ azure_database = os.getenv('DATABASE')
 
 get_requests=Get()
 post_requests=Post()
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+app.app_context().push()
+
 
 
 
@@ -35,7 +41,7 @@ mydb = mysql.connector.connect(
   user="root",
   password="",
   database="doggonation",
-  port=3306
+
 
 )
 
@@ -49,9 +55,37 @@ mydb = mysql.connector.connect(
 
 
 # check if the db connection is working
-mycursor = mydb.cursor()
+mycursor = mydb.cursor(buffered=True)
 if mycursor:
     print("connected")
+
+
+query=f"SELECT * FROM user WHERE user_id='{1}'"
+mycursor.execute(query)
+# print(mycursor.fetchall())
+
+
+#flask token connection
+# @login_manager.user_loader
+# def load_user(id):
+#     print (f'this is executed,{id}')
+#     query=f"SELECT * FROM user WHERE user_id='{id}'"
+#     mycursor.execute(query)
+    
+#     user_data_str= mycursor.fetchone()
+#     print(user_data_str)
+#     user_data_dict = {
+#         'id': user_data_str[0],
+#         'email': user_data_str[1],
+#         'password': user_data_str[2],
+#         'name': user_data_str[3],
+#         'gender': user_data_str[4]
+#     }
+
+#     print(user_data_dict)
+    
+#     return  user_data_dict
+
 
 
 
@@ -60,7 +94,6 @@ if mycursor:
 @app.route('/')
 def route_path():
     return post_requests.startup()
-
 
 
 @app.route('/getallposts')
@@ -99,9 +132,7 @@ def rmlike():
 @app.route('/register',methods=["POST"])
 def register():
     data=request.json
-    
     return post_requests.register(data,mycursor,mydb)
-
 
 
 
@@ -111,14 +142,24 @@ def register():
 #     return data
 
 
-@app.route('/example', methods=['GET','POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
     data=request.json
     return  post_requests.login(data,mycursor)
 
 
+@app.route('/logout')
+def logout():
+    logout_user()
 
 
+
+
+
+@app.route('/getuser/<int:id>', methods=['GET'])
+def getuser(id):
+    
+    return get_requests.get_user(id,mycursor,mydb)
 
 
 
