@@ -34,7 +34,9 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   password="",
-  database="doggonation"
+  database="doggonation",
+  port=3306
+
 )
 
 
@@ -61,17 +63,44 @@ def route_path():
 
 
 
-
-
+@app.route('/getallposts')
+def getall():
+    return get_requests.getallposts(mycursor)
 
 
 # post requests
 
+@app.route('/addpost',methods=["POST"])
+def addpost():
+    data=request.json
+    return post_requests.addpost(data,mycursor,mydb)
+
+@app.route('/updatepost',methods=["POST"])
+def updatepost():
+    data=request.json
+    return post_requests.updatepost(data,mycursor,mydb)
+
+@app.route('/deletepost',methods=["POST"])
+def deletepost():
+    data=request.json
+    return post_requests.deletepost(data['post_id'],mycursor,mydb)
+
+@app.route('/like_post',methods=["POST"])
+def like():
+    data=request.json
+    return post_requests.like(data['post_id'],mycursor,mydb)
+
+
+@app.route('/rmlike_post',methods=["POST"])
+def rmlike():
+    data=request.json
+    return post_requests.rmlike(data['post_id'],mycursor,mydb)
+  
 @app.route('/register',methods=["POST"])
 def register():
     data=request.json
+    
     return post_requests.register(data,mycursor,mydb)
-
 
 
 

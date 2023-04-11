@@ -1,19 +1,53 @@
 
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from flask import Flask,jsonify,abort,request,send_file
 
 class Post:  
     def __init__(self):
         self.get_all_users="SELECT * FROM user"
+     #posts crud
+    #adding a new post
+    def addpost(self,data,cursor,db):
+        pic=data['pic_url']
+        location=data['location']
+        caption=data['caption']
+        user_id=data['user_id']
+        query=f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},' {location}')"
+        cursor.execute(query)
+        db.commit()
+        return jsonify("post added succesfully")
+    
+    def updatepost(self,data,cursor,db):
+        location=data['location']
+        caption=data['caption']
+        post_id=data['post_id']
+        query=f"UPDATE `posts` SET `caption` = '{caption}', `location` = '{location}' WHERE `posts`.`post_id` = {post_id}"
+        cursor.execute(query)
+        db.commit()
+        return jsonify("post updated succesfully")
+    
+    def deletepost(self,post_id,cursor,db):
+        cursor.execute(f"select * from posts where post_id={post_id}")
+        result=cursor.fetchone()
+        if result:
+           query= f"DELETE FROM posts WHERE `posts`.`post_id` = {post_id}"
+           cursor.execute(query)
+           db.commit()
+           return jsonify("post deleted successfully")
+        else:
+            return jsonify("failed")
+    #like and unlike
+    def like(self,post_id,cursor,db):
+        cursor.execute(f"UPDATE `posts` SET `liked` = '1' WHERE `posts`.`post_id` = {post_id}")
+        db.commit()
+        return jsonify("like updated")
+    def rmlike(self,post_id,cursor,db):
+        cursor.execute(f"UPDATE `posts` SET `liked` = '0' WHERE `posts`.`post_id` = {post_id}")
+        db.commit()
+        return jsonify("like updated")
+    
 
-    def addpost(self,file,conn):
-        file_mime=file.mimetype
-        file_content = file.read() 
-        query = f"INSERT INTO posts (pic,mimetype,user_id) VALUES (?, ?, ?)"
-        result=conn.execute(query, ( file_content,file_mime,1))
-        conn.commit()
 
-        return "done"
 
     def register(self,data,cursor,mydb):
         email=data['email']
