@@ -49,13 +49,7 @@ class Post:
 
 
 
-
-
-
-
-
-#register and login
-    def register(self,data,cursor,db):
+    def register(self,data,cursor,mydb):
         email=data['email']
         password=data['password']
         name=data['name']
@@ -77,11 +71,13 @@ class Post:
             return message
         else:
             cursor.execute(query_add)
-            db.commit()
-            cursor.execute  (self.get_all_users)
+            mydb.commit()
+            cursor.execute(self.get_all_users)
             result=cursor.fetchall()
             print(result)
-            return jsonify(result)
+            mydb.close()
+            cursor.close()
+            return result
             
 
         
@@ -99,6 +95,7 @@ class Post:
         mycursor.execute(query)
         result =mycursor.fetchall()
         print(result)
+        mycursor.close()
         if not  check_password_hash(result[0][2], password):
             return failure
     
