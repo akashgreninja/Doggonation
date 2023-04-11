@@ -37,9 +37,20 @@ mydb = mysql.connector.connect(
   database="doggonation"
 )
 
-# create a cursor object
+
+# all the queries for deployement
+
+
+
+
+
+
+
+# check if the db connection is working
 mycursor = mydb.cursor()
-print(mycursor)
+if mycursor:
+    print("connected")
+
 
 
 
