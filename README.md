@@ -23,7 +23,29 @@
   <li>Azure App Services for hosting the backend</li>
   <li>Azure Cognitive Services for translation (coming soon)</li>
 </ul>
+
+
+## Text Speech Analysis
+
+![Sentiment Analysis](https://raw.githubusercontent.com/akashgreninja/helper-repository-for-doggo-nation/main/sentiment_analysis.jpg)
+
+In this project, we performed text speech analysis using various natural language processing techniques to extract insights from textual data. We utilized tools such as sentiment analysis, topic modeling, and named entity recognition to gain a deeper understanding of the language used in our dataset.
+
+Our sentiment analysis, as depicted in the above image, revealed a generally positive sentiment towards our product. This information can be used to inform marketing strategies and improve overall customer satisfaction.
+
+Here's another image that shows the word cloud generated from our dataset:
+
+![Word Cloud](https://raw.githubusercontent.com/akashgreninja/helper-repository-for-doggo-nation/main/image1.png)
+
+
 <h2>Getting Started 🛠️</h2>
 <p>To get started with Doggonation, simply clone the repository and install the required dependencies. You will also need to set up the database and backend API.</p>
 <h2>License 📝</h2>
 <p>Doggonation is an open source project and is available under the <a href="https://github.com/your/your-project/blob/master/LICENSE">MIT License</a>.</p>
+
+
+## ❤️ Thanks to all the contributors
+
+<a href="https://github.com/akashgreninja/doggonation/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=akashgreninja/doggonation" />
+</a>
