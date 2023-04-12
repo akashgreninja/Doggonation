@@ -14,16 +14,14 @@
   <li>🤖 Use the Roberto Model for Advanced Text Sentiment Analysis to Ensure Appropriate Content for All Users</li>
   <li>🔍 Employ Image Analysis to Detect and Prevent Inappropriate Content</li>
 </ul>
-<h2>Technologies 🚀</h2>
-<p>Doggonation employs a host of cutting-edge technologies to deliver a seamless and secure user experience. The app is built using:</p>
-<ul style="list-style-type: none; display: flex; justify-content: center;">
-  <li><img src="https://img.icons8.com/color/48/000000/react-native.png" alt="React" style="margin-right: 10px;">The React framework with Vite for the frontend</li>
-  <li><img src="https://img.icons8.com/color/48/000000/flask.png" alt="Flask" style="margin-right: 10px;">The Flask web framework for the backend API</li>
-  <li><img src="https://img.icons8.com/color/48/000000/mysql-logo.png" alt="Azure MySQL" style="margin-right: 10px;">Azure MySQL for the SQL database hosting</li>
-  <li><img src="https://img.icons8.com/color/48/000000/microsoft-azure.png" alt="Azure App Services" style="margin-right: 10px;">Azure App Services for hosting the backend</li>
-  <li><img src="https://img.icons8.com/color/48/000000/brain.png" alt="Roberto Model" style="margin-right: 10px;">The Roberto Model for Text Sentiment Analysis</li>
-  <li><img src="https://img.icons8.com/color/48/000000/transformer.png" alt="Transformers Module" style="margin-right: 10px;">The Transformers module for Python for Natural Language Processing tasks</li>
-  <li><img src="https://img.icons8.com/color/48/000000/translator.png" alt="Azure Cognitive Services" style="margin-right: 10px;">Azure Cognitive Services for Translation (coming soon)</li>
+<h2>Technologies</h2>
+<p>Doggonation is built using the following technologies:</p>
+<ul>
+  <li>React with Vite for the frontend</li>
+  <li>Flask for the backend API</li>
+  <li>Azure MySQL for the SQL database hosting</li>
+  <li>Azure App Services for hosting the backend</li>
+  <li>Azure Cognitive Services for translation (coming soon)</li>
 </ul>
 <h2>Getting Started 🛠️</h2>
 <p>To get started with Doggonation, simply clone the repository and install the required dependencies. You will also need to set up the database and backend API.</p>
