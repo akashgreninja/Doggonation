@@ -65,26 +65,6 @@ mycursor.execute(query)
 # print(mycursor.fetchall())
 
 
-#flask token connection
-# @login_manager.user_loader
-# def load_user(id):
-#     print (f'this is executed,{id}')
-#     query=f"SELECT * FROM user WHERE user_id='{id}'"
-#     mycursor.execute(query)
-    
-#     user_data_str= mycursor.fetchone()
-#     print(user_data_str)
-#     user_data_dict = {
-#         'id': user_data_str[0],
-#         'email': user_data_str[1],
-#         'password': user_data_str[2],
-#         'name': user_data_str[3],
-#         'gender': user_data_str[4]
-#     }
-
-#     print(user_data_dict)
-    
-#     return  user_data_dict
 
 
 
@@ -129,10 +109,23 @@ def rmlike():
     data=request.json
     return post_requests.rmlike(data['post_id'],mycursor,mydb)
   
+
+#authentication routes and user routes
 @app.route('/register',methods=["POST"])
 def register():
     data=request.json
     return post_requests.register(data,mycursor,mydb)
+
+@app.route('/login', methods=['GET','POST'])
+def login():
+    data=request.json
+    return  post_requests.login(data,mycursor)
+
+
+@app.route('/getuser/<int:id>', methods=['GET'])
+def getuser(id):
+    
+    return get_requests.get_user(id,mycursor,mydb)
 
 
 
@@ -142,24 +135,35 @@ def register():
 #     return data
 
 
-@app.route('/login', methods=['GET','POST'])
-def login():
+
+
+
+
+@app.route('/comment', methods=["POST","GET"])
+def pushcomment():
     data=request.json
-    return  post_requests.login(data,mycursor)
-
-
-@app.route('/logout')
-def logout():
-    logout_user()
-
-
-
-
-
-@app.route('/getuser/<int:id>', methods=['GET'])
-def getuser(id):
     
-    return get_requests.get_user(id,mycursor,mydb)
+    return post_requests.addcomment(data,mycursor,mydb)
+@app.route('/likecomment', methods=["POST","GET"])
+def like_comment():
+    data=request.json
+    
+    return post_requests.likecomment(data,mycursor,mydb)
+@app.route('/unlikecomment', methods=["POST","GET"])
+def unlike_comment():
+    data=request.json
+    
+    return post_requests.removelikecomment(data,mycursor,mydb)
+
+
+
+@app.route('/getcomment/<int:post_id>', methods=["GET"])
+def get_comments(post_id):
+  
+    
+    return get_requests.getcomments(mycursor,post_id)
+
+
 
 
 

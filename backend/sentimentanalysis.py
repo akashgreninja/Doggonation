@@ -6,10 +6,11 @@
 
 
 
-
+# there is a error line below this ignore it its the vs code error
 from transformers import AutoTokenizer
 from transformers import AutoModelForSequenceClassification
 from scipy.special import softmax
+# from transformers import pipeline
 
 class SentimentAnalysis:
     
@@ -18,6 +19,7 @@ class SentimentAnalysis:
         self.MODEL=f"cardiffnlp/twitter-roberta-base-sentiment"
         self.tokenizer = AutoTokenizer.from_pretrained(self.MODEL)
         self.model = AutoModelForSequenceClassification.from_pretrained(self.MODEL)
+        # self.sent_pipeline=pipeline("sentiment-analysis")
 
     def get_sentiment(self,text):
         encoded_text=self.tokenizer(text,return_tensors='pt')
@@ -32,8 +34,13 @@ class SentimentAnalysis:
 
         }
 
-        print(scores_dict)
+      
         maximunval=max(scores_dict, key=scores_dict.get)
+        print(maximunval)
+
+
+        # maximunval= self.sent_pipeline('thats bad')
+        #if you want to use the transformers pipeline uncomment the following line and comment the above line
         if maximunval == 'positive':
             return 'positive'
         elif maximunval == 'negative' and scores_dict['negative'] > 0.6:
@@ -42,6 +49,9 @@ class SentimentAnalysis:
             return 'neutral'
 
 
+
+checkers=SentimentAnalysis()
+print(checkers.get_sentiment('thats bad'))
 
 
 

@@ -37,6 +37,9 @@ class Post:
            return jsonify("post deleted successfully")
         else:
             return jsonify("failed")
+        
+
+
     #like and unlike
     def like(self,post_id,cursor,db):
         cursor.execute(f"UPDATE `posts` SET `liked` = '1' WHERE `posts`.`post_id` = {post_id}")
@@ -107,3 +110,31 @@ class Post:
         else:
             return failure
  
+    def addcomment(self,data,cursor,mydb):
+        comment=data['comment']
+        user_id=data['user_id']
+        post_id=data['post_id']
+
+        query=f"INSERT INTO comments  (`comment_id`, `post_id`, `user_id`, `comment`, `liked`) VALUES (NULL, '{post_id}', '{user_id}', '{comment}',NULL)"
+        cursor.execute(query)
+        mydb.commit()
+        
+        
+
+        return jsonify("comment added succesfully")
+    
+    def likecomment(self,data,cursor,mydb):
+        comment_id=data['comment_id']
+        user_id=data['user_id']
+        cursor.execute(f"UPDATE `comments` SET `liked` = liked+1 WHERE `comment_id` = {comment_id}")
+        mydb.commit()
+        return jsonify("like  increased by 1")
+    
+    
+    def removelikecomment(self,data,cursor,mydb):
+        comment_id=data['comment_id']
+        user_id=data['user_id']
+        cursor.execute(f"UPDATE `comments` SET `liked` = liked-1 WHERE `comment_id` = {comment_id}")
+        mydb.commit()
+        return jsonify("like reduced by 1")
+    

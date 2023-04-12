@@ -28,3 +28,9 @@ class Get:
         else:
             return jsonify("there were no posts to be found")
 
+    def getcomments(self,cursor,post_id):
+        query=f"SELECT * FROM `comments` WHERE post_id={post_id}"
+        cursor.execute(query)
+        result=cursor.fetchall()
+        if result:
+            return jsonify(result)
