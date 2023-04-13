@@ -13,8 +13,16 @@ class Post:
         location=data['location']
         caption=data['caption']
         user_id=data['user_id']
-        query=f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},' {location}')"
+        tags=data['tags']
+        
+        query=f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},' {location}');"
         cursor.execute(query)
+        db.commit()
+        cursor.execute("SELECT LAST_INSERT_ID();")
+        post_id = cursor.fetchone()[0]
+        for i in tags:
+            cursor.execute(f"INSERT INTO `tags` (`tag`, `post_id`, `tag_id`) VALUES ('{i}', '{post_id}', NULL);")
+         
         db.commit()
         return jsonify("post added succesfully")
     
@@ -22,7 +30,13 @@ class Post:
         location=data['location']
         caption=data['caption']
         post_id=data['post_id']
+        tags=data['tags']
+        cursor.execute(f"delete from tags where post_id={post_id}")
+        for i in tags:
+            cursor.execute(f"INSERT INTO `tags` (`tag`, `post_id`, `tag_id`) VALUES ('{i}', '{post_id}', NULL);")
+         
         query=f"UPDATE `posts` SET `caption` = '{caption}', `location` = '{location}' WHERE `posts`.`post_id` = {post_id}"
+        
         cursor.execute(query)
         db.commit()
         return jsonify("post updated succesfully")
@@ -32,6 +46,7 @@ class Post:
         result=cursor.fetchone()
         if result:
            query= f"DELETE FROM posts WHERE `posts`.`post_id` = {post_id}"
+           cursor.execute(f"delete from tags where post_id={post_id}")
            cursor.execute(query)
            db.commit()
            return jsonify("post deleted successfully")
