@@ -32,5 +32,9 @@ class Get:
         query=f"SELECT * FROM `comments` WHERE post_id={post_id}"
         cursor.execute(query)
         result=cursor.fetchall()
+        cursor.execute(f"select tag from tags where post_id={post_id}")
+        tags=cursor.fetchall()
         if result:
-            return jsonify(result)
+            return jsonify(result,tags)
+        else:
+            return jsonify("no comments...")
