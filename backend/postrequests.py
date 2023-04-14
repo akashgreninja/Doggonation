@@ -73,6 +73,7 @@ class Post:
         password=data['password']
         name=data['name']
         gender=data['gender']
+        profile_pic=['profile_pic']
         finalpassword=generate_password_hash(password, method='pbkdf2:sha256', salt_length=16)
 
 
@@ -80,7 +81,7 @@ class Post:
         cursor.execute(query)
 
         result=cursor.fetchall()
-        query_add=f"INSERT INTO user (`user_id`, `email`, `password`, `name`, `gender`) VALUES (NULL, '{email}', '{finalpassword}', '{name}', '{gender}')"
+        query_add=f"INSERT INTO user (`profile_pic`,`user_id`, `email`, `password`, `name`, `gender`) VALUES ('{profile_pic}',NULL, '{email}', '{finalpassword}', '{name}', '{gender}')"
 
         if result:
             message={
@@ -98,7 +99,15 @@ class Post:
             cursor.close()
             return result
             
-
+    def profile(self,data,cursor,db):
+        dob=data['dob']
+        name=data['name']
+        profile_pic=data['profile_pic']
+        gender=data['gender']
+        user_id=data['user_id']
+        cursor.execute(f"update user set `name`='{name}',`dob`='{dob}',`profile_pic`='{profile_pic}',`gender`='{gender}' where user_id='{user_id}'")
+        db.commit()
+        return jsonify("successfully updated")
         
     def login(self,data,mycursor):
         sucess={
@@ -153,3 +162,14 @@ class Post:
         mydb.commit()
         return jsonify("like reduced by 1")
     
+    def report(self,data,cursor,db):
+        reason=data['reason']
+        post_id=data['post_id']
+        cursor.execute(f"insert into report  values ('{reason}','{post_id}',NULL)")
+        cursor.execute(f"select reported from posts where post_id={post_id}")
+        reported=cursor.fetchone()[0]
+        reported+=1
+        cursor.execute(f"update posts set reported={reported} where post_id={post_id}")
+        db.commit()
+        return jsonify("reported successfully")
+

@@ -80,6 +80,11 @@ def route_path():
 def getall():
     return get_requests.getallposts(mycursor)
 
+#report
+@app.route('/report',methods=['POST'])
+def report():
+    data=request.json
+    return post_requests.report(data,mycursor,mydb)
 
 # post requests
 
@@ -115,6 +120,12 @@ def rmlike():
 def register():
     data=request.json
     return post_requests.register(data,mycursor,mydb)
+
+@app.route('/update_profile',methods=["POST"])
+def updateprofile():
+    data=request.json
+    return post_requests.profile(data,mycursor,mydb)
+
 
 @app.route('/login', methods=['GET','POST'])
 def login():
