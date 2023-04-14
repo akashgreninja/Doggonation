@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import Twitter from './components/buttons/twitter'
+
 
 
 function App() {
@@ -7,6 +9,8 @@ function App() {
   return (
     <div >
       <h1>ook</h1>
+      <Twitter/>
+     
    
     </div>
   )
