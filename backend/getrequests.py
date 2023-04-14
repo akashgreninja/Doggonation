@@ -19,9 +19,12 @@ class Get:
 
 
     def followers(self,data,cursor):
+        # route is /getfollowers
+
         user_id=data['user_id']
         cursor.execute(f"select follower from follow where following={user_id}")
         followers=cursor.fetchall()
+       
         new=[]
         if followers != []:
          for i in followers:

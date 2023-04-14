@@ -177,13 +177,17 @@ class Post:
     def follow(self,data,cursor,db):
         user_id=data['user_id']
         followed_id=data['followed_id']
+        cursor.execute(f"select * from follow where `follower`={user_id}")
+        result=cursor.fetchall()
+        if result:
+            return jsonify("already following")
         cursor.execute(f"insert into follow (`follower`,`following`) values ({user_id},{followed_id})")
         db.commit()
         return jsonify("done")
     
     def unfollow(self,data,cursor,db):
         follower=data['user_id']
-        following=data['following_id']
+        following=data['followed_id']
         cursor.execute(f"delete from follow where `follower`={follower} and `following`={following}")
         db.commit()
         return jsonify("successfully unfollowed")
