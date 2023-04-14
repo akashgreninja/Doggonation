@@ -65,3 +65,21 @@ class Get:
             return jsonify(result,tags)
         else:
             return jsonify("no comments...")
+
+
+    def followers_list(self,data,cursor,user_id):
+        user_id=data['user_id']
+        query=f"SELECT * FROM user JOIN followers ON user.user_id = followers.follower_id WHERE followers.follower_id IN (SELECT follower_id FROM followers WHERE user_id = {user_id}) AND followers.follower_id IN (SELECT user_id FROM user)"
+        cursor.execute(query)
+        result=cursor.fetchall()
+        print(len(result))
+        return jsonify(result[:-1])
+    
+    def following_list(self,data,cursor,user_id):
+        user_id=data['user_id']
+        query=f"SELECT * FROM user JOIN followers ON followers.user_id = user.user_id WHERE followers.user_id IN (SELECT user_id FROM followers WHERE follower_id = {user_id}) AND followers.follower_id IN (SELECT user_id FROM user)"
+        cursor.execute(query)
+        result=cursor.fetchall()
+        print(len(result))
+        return jsonify(result[:-1])
+  
