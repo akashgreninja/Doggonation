@@ -173,3 +173,10 @@ class Post:
         db.commit()
         return jsonify("reported successfully")
 
+    def follow(self,data,cursor,db):
+        user_id=data['user_id']
+        followed_id=data['followed_id']
+        cursor.execute(f"insert into follow (`follower`,`following`) values ({user_id},{followed_id})")
+        db.commit()
+        return jsonify("done")
+

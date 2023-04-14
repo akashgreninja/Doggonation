@@ -18,7 +18,34 @@ class Get:
         return jsonify(mycursor.fetchone())
 
 
+    def followers(self,data,cursor):
+        user_id=data['user_id']
+        cursor.execute(f"select follower from follow where following={user_id}")
+        followers=cursor.fetchall()
+        new=[]
+        if followers != []:
+         for i in followers:
+            cursor.execute(f"select * from user where user_id={i[0]}")
+            result=cursor.fetchone()
+            new.append(result)
 
+         return jsonify(new)
+        else:
+            return jsonify(0)
+    def following(self,data,cursor):
+        user_id=data['user_id']
+        cursor.execute(f"select following from follow where follower={user_id}")
+        following=cursor.fetchall()
+        new=[]
+        if following != []:
+         for i in following:
+            cursor.execute(f"select * from user where user_id={i[0]}")
+            result=cursor.fetchone()
+            new.append(result)
+
+         return jsonify(new)
+        else:
+            return jsonify(0)
 
     def getallposts(self,cursor):
         cursor.execute("SELECT * FROM `posts` ORDER BY `posts`.`post_id` DESC")

@@ -138,6 +138,20 @@ def getuser(id):
     
     return get_requests.get_user(id,mycursor,mydb)
 
+@app.route('/follow', methods=['GET','POST'])
+def follow():
+    data=request.json
+    return  post_requests.follow(data,mycursor,mydb)
+
+@app.route('/getfollowers', methods=['GET','POST'])
+def follower():
+    data=request.json
+    return  get_requests.followers(data,mycursor)
+
+@app.route('/getfollowing', methods=['GET','POST'])
+def following():
+    data=request.json
+    return  get_requests.following(data,mycursor)
 
 
 # @app.errorhandler(404)
