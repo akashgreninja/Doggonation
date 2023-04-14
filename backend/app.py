@@ -129,6 +129,34 @@ def getuser(id):
 
 
 
+
+
+
+# following and unfollowing routes
+
+@app.route('/follow', methods=['POST'])
+def follow():
+    data=request.json
+    return post_requests.follow(data,mycursor,mydb)
+
+@app.route('/unfollow', methods=['POST'])
+def unfollow():
+    data=request.json
+    return post_requests.unfollow(data,mycursor,mydb)
+
+
+
+@app.route('/following_list', methods=['GET'])
+def following_list():
+    data=request.json
+    return get_requests.following_list(data,mycursor,mydb)
+
+@app.route('/followers_list', methods=['GET'])
+def followers_list():
+    data=request.json
+    return get_requests.followers_list(data,mycursor,mydb)
+
+
 # @app.errorhandler(404)
 # def page_not_found(e):
 #     data={"message":"route not found"}

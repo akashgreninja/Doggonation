@@ -153,3 +153,30 @@ class Post:
         mydb.commit()
         return jsonify("like reduced by 1")
     
+    def follow(self,data,cursor,mydb):
+        user_id=data['user_id']
+        follower_id=data['follower_id']
+        query_to_check_if_already_following=f"select * from followers where user_id={user_id} and follower_id={follower_id}"
+        cursor.execute(query_to_check_if_already_following)
+        result=cursor.fetchall()
+        if result:
+            return jsonify("already following")
+        
+        query=f'INSERT INTo followers (`follower_id`, `user_id`) VALUES ({follower_id},{user_id})'
+        cursor.execute(query)
+        mydb.commit()
+        return jsonify(f"followed user {follower_id}")
+    
+    def unfollow(self,data,cursor,mydb):
+        user_id=data['user_id']
+        follower_id=data['follower_id']
+        query_to_check_if_already_following=f"select * from followers where user_id={user_id} and follower_id={follower_id}"
+        cursor.execute(query_to_check_if_already_following)
+        result=cursor.fetchall()
+        if not result:
+            return jsonify("not following")
+        
+        query=f'delete from followers where user_id={user_id} and follower_id={follower_id}'
+        cursor.execute(query)
+        mydb.commit()
+        return jsonify(f"unfollowed user {follower_id}")
