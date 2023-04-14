@@ -143,6 +143,12 @@ def follow():
     data=request.json
     return  post_requests.follow(data,mycursor,mydb)
 
+
+@app.route('/unfollow', methods=['GET','POST'])
+def unfollow():
+    data=request.json
+    return  post_requests.unfollow(data,mycursor,mydb)
+
 @app.route('/getfollowers', methods=['GET','POST'])
 def follower():
     data=request.json
@@ -157,17 +163,17 @@ def following():
 
 
 
-# following and unfollowing routes
+# # following and unfollowing routes
 
-@app.route('/follow', methods=['POST'])
-def follow():
-    data=request.json
-    return post_requests.follow(data,mycursor,mydb)
+# @app.route('/follow', methods=['POST'])
+# def follow():
+#     data=request.json
+#     return post_requests.follow(data,mycursor,mydb)
 
-@app.route('/unfollow', methods=['POST'])
-def unfollow():
-    data=request.json
-    return post_requests.unfollow(data,mycursor,mydb)
+# @app.route('/unfollow', methods=['POST'])
+# def unfollow():
+#     data=request.json
+#     return post_requests.unfollow(data,mycursor,mydb)
 
 
 

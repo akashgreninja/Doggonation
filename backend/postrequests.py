@@ -180,4 +180,11 @@ class Post:
         cursor.execute(f"insert into follow (`follower`,`following`) values ({user_id},{followed_id})")
         db.commit()
         return jsonify("done")
+    
+    def unfollow(self,data,cursor,db):
+        follower=data['user_id']
+        following=data['following_id']
+        cursor.execute(f"delete from follow where `follower`={follower} and `following`={following}")
+        db.commit()
+        return jsonify("successfully unfollowed")
 
