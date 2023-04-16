@@ -1,20 +1,32 @@
-import React from "react";
+import React,{useEffect} from "react";
 import preimage from "../images/logo-no-background.png";
 import { useNavigate } from "react-router-dom";
 
 const PreLoaderPage = () => {
   const navigate = useNavigate();
   // useEffect(() => {
-  //     Navigate
+  //   const timeour=setTimeout(() => {
+  //     navigate("/home")
+  //   }, 3000)
+  //    return () => {
+
+  //    }
 
   //   }, [])
+  // uncomment this at last
 
   return (
     <>
-      <div className="w-100 h-100 m-auto flex flex-row bg-red-500">
-        <img src={preimage} alt="preimage" srcset="" className="w-44 h-48 justify-center align-middle" />
+      <div className=" h-screen w-screen    ">
+        <div className=" h-screen w-screen flex justify-center align-center items-center   ">
+          <img
+            src={preimage}
+            alt="preimage"
+            srcset=""
+            className="justify-center animate-bounce hover:animate-none h-lastsectionh w-lastsectionw "
+          />
+        </div>
       </div>
-      <h1 className="font-extrabold bg-red-500">hello world </h1>
     </>
   );
 };

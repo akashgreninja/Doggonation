@@ -18,6 +18,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<PreLoaderPage/>} />
+          <Route path="/home" element={<PreLoaderPage/>} />
 
         </Routes>
 
