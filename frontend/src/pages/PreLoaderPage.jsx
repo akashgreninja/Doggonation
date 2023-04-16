@@ -2,17 +2,18 @@ import React,{useEffect} from "react";
 import preimage from "../images/logo-no-background.png";
 import { useNavigate } from "react-router-dom";
 
-const PreLoaderPage = () => {
+const PreLoaderPage = (props) => {
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   const timeour=setTimeout(() => {
-  //     navigate("/home")
-  //   }, 3000)
-  //    return () => {
+  useEffect(() => {
+    const timeour=setTimeout(() => {
+      navigate("/home")
+  props.shouldit(true)
+    }, 3000)
+     return () => {
 
-  //    }
+     }
 
-  //   }, [])
+    }, [])
   // uncomment this at last
 
   return (
