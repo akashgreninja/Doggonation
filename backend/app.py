@@ -160,6 +160,12 @@ def following():
     return  get_requests.following(data,mycursor)
 
 
+@app.route('/search', methods=['GET','POST'])
+def search():
+    data=request.json
+    return  get_requests.search(data,mycursor)
+
+
 
 
 

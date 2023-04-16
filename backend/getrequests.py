@@ -85,4 +85,18 @@ class Get:
         result=cursor.fetchall()
         print(len(result))
         return jsonify(result[:-1])
-  
+    
+    def search(self,data,cursor):
+        keywords=data['keywords']
+        cursor.execute(f"select * from user where `name` like '{keywords}%'")
+        result=cursor.fetchall()
+        if result:
+            return jsonify(result)
+        else:
+           cursor.execute(f"select * from user where `name` like '%{keywords}%'")
+           result=cursor.fetchall()
+        if result:
+            return jsonify(result)
+        else:
+            return jsonify('no matches found')
+        
