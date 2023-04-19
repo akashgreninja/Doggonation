@@ -1,43 +1,34 @@
-import React, { Suspense,useState } from "react";
+import React, { Suspense, useState } from "react";
 import Twitter from "./components/buttons/twitter";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbars/Navbar/Navbar";
 import Sidebar from "./components/Navbars/Sidebar/Sidebar";
 // import HomePage from "./components/pages/HomePage";
 import PreLoaderPage from "./pages/PreLoaderPage";
+import HomePage from "./pages/HomePage";
 
 function App() {
-  const [preLoader, setpreLoader] = useState(false)
-
+  const [preLoader, setpreLoader] = useState(false);
 
   return (
     <>
-    <Router>
-      {
-        preLoader?
-        <Navbar/>
-        :null
-      }
-            {
-        preLoader?
-        <Sidebar/>
-        :null
-      }
-    
-
-      <Suspense>
+      <Router>
+        {preLoader ? null : <Sidebar/>}
        
 
-        <Routes>
-          <Route path="/" element={<PreLoaderPage shouldit={setpreLoader}/>} />
-          {/* <Route path="/home" element={<PreLoaderPage/>} /> */}
+        <Suspense>
+          <Routes>
+            <Route
+              path="/"
+              element={<PreLoaderPage shouldit={setpreLoader} />}
+            />
+            <Route path="/home" element={<HomePage/>} />
+          </Routes>
 
-        </Routes>
-
-        {/* <Loader  loader={loader}/> */}
-        {/* <Footer /> */}
-      </Suspense>
-    </Router>
+          {/* <Loader  loader={loader}/> */}
+          {/* <Footer /> */}
+        </Suspense>
+      </Router>
     </>
   );
 }

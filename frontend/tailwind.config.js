@@ -44,11 +44,16 @@ module.exports = {
         // "3/4": "60px",
         forgif: "30rem",
         // "footer-height": "16rem",
-        lastsectionh:"10vw"
+        lastsectionh:"10vw",
+        sidebarh:"3.95rem",
+        sidebarhimg:"2.75rem",
       },
       width: {
         forgif: "70vw",
-        lastsectionw:"30vw"
+        lastsectionw:"30vw",
+        sidebarw:"19.75rem",
+        sidebarwimg:"8.75rem",
+        searchbarw:"28rem",
       },
       margin: {
         "4/5": "13rem",
@@ -56,6 +61,12 @@ module.exports = {
         test: "10%",
         fortest2:"20%",
         bottommargin:"70px"
+      },
+      borderWidth: {
+        "1": "0.5px",
+        
+        
+        
       },
       backgroundColor: {
         "chakranti-200": "rgb(15 15 15)",
