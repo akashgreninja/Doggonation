@@ -3,6 +3,7 @@
 from flask import  Flask,jsonify,abort,request,send_file
 from dotenv import load_dotenv
 import os
+from flask_cors import CORS
 from flask_login import LoginManager,login_required,current_user,logout_user,login_user
 # import pyodbc   this was the azure connection
 import base64
@@ -16,6 +17,7 @@ from postrequests import Post
 
 
 app = Flask(__name__)
+CORS(app)
 load_dotenv()
 app_port = os.getenv('PORT')
 azure_password = os.getenv('PASSWORD')
@@ -160,7 +162,7 @@ def following():
     return  get_requests.following(data,mycursor)
 
 
-@app.route('/search', methods=['POST'])
+@app.route('/search', methods=['POST'],strict_slashes=False)
 def search():
     data=request.json
     return  get_requests.search(data,mycursor)

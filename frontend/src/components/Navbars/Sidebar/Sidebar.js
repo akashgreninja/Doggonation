@@ -1,7 +1,8 @@
 import React,{useEffect, useState} from "react";
 import logo from "../../../images/logo-no-background.png";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 import SearchButton from "../../buttons/SearchButton";
+
 
 const Sidebar = () => {
   useEffect(() => {
@@ -11,19 +12,25 @@ const Sidebar = () => {
   }, [])
   
   
+  const [searchdata, setsearchdata] = useState([])
   const search = async ()=>{
     let searchbar=document.getElementById('searchbar').value
-   
-    const response =await fetch('http://localhost:3003/search', {
+   if (searchbar===''){
+    return
+   }
+    const response =await fetch('http://127.0.0.1:3003/search', {
       method: "POST",
-      mode:'no-cors',
+   
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ keywords:searchbar}),
     });
-    console.log(response)
-    // const json =  response.json();
+   
+      let json = await response.json();
+     setsearchdata(json)
+     //console.log(json)
+
   }
   
   return (
@@ -62,6 +69,13 @@ const Sidebar = () => {
             id="searchbar"
           />
           <SearchButton />
+          <table>
+         {searchdata.map((element) => {
+return <div className="col-md-4 container searchres" key={element}>
+<tr><td>{element[3]}</td></tr> 
+</div>
+})}
+</table>
         </div>
       </nav>
     </div>
