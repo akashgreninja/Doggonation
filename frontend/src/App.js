@@ -21,7 +21,7 @@ function App() {
               path="/"
               element={<PreLoaderPage shouldit={setpreLoader} />}
             />
-            <Route path="/home" element={<HomePage />} />
+            <Route path="/home" element={<HomePage  shouldit={setpreLoader}/>} />
           </Routes>
 
           {/* <Loader  loader={loader}/> */}

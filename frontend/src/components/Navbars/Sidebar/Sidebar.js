@@ -1,38 +1,49 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../../images/logo-no-background.png";
 import { Link, json } from "react-router-dom";
 import SearchButton from "../../buttons/SearchButton";
-
+import { startsearch } from "../../../api/search";
 
 const Sidebar = () => {
   useEffect(() => {
-    search()
-  
-  
-  }, [])
-  
-  
-  const [searchdata, setsearchdata] = useState([])
-  const search = async ()=>{
-    let searchbar=document.getElementById('searchbar').value
-   if (searchbar===''){
-    return
-   }
-    const response =await fetch('http://127.0.0.1:3003/search', {
-      method: "POST",
-   
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ keywords:searchbar}),
-    });
-   
-      let json = await response.json();
-     setsearchdata(json)
-     //console.log(json)
+    search();
+  }, []);
 
-  }
-  
+  const [searchdata, setsearchdata] = useState([]);
+  const [emptyinput, setemptyinput] = useState(false);
+
+  const handleValue = (e) => {
+    if (e.target.value === "") {
+      setemptyinput(true);
+    } else {
+      setemptyinput(false);
+    }
+  };
+
+  const search = async () => {
+    let searchbar = document.getElementById("searchbar").value;
+    if (searchbar === "") {
+      setemptyinput(true);
+      return;
+    }
+
+    const { data } = await startsearch(searchbar);
+    //   const response =await fetch('http://127.0.0.1:3003/search', {
+    //     method: "POST",
+
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({ keywords:searchbar}),
+    //   });
+
+    //     let json = await response.json();
+    setsearchdata(data);
+    console.log(data);
+
+    // }
+  };
+
   return (
     <div className="flex  flex-row absolute">
       <div className="h-screen  w-sidebarw  border-r-1 border-gray-400">
@@ -60,22 +71,38 @@ const Sidebar = () => {
           <span class="font-bold text-lg ml-4">Home</span>
         </div>
 
-        <div class="flex items-center w-searchbarw rounded-lg px-4 py-2">
-          <input
-            className="w-full px-4 py-2 rounded-lg text-gray-700 focus:outline-none border"
-            type="text"
-            placeholder="Search..."
-            onKeyUp={search}
-            id="searchbar"
-          />
-          <SearchButton />
-          <table>
-         {searchdata.map((element) => {
-return <div className="col-md-4 container searchres" key={element}>
-<tr><td>{element[3]}</td></tr> 
-</div>
-})}
-</table>
+        <div class="flex flex-col">
+          <div className="flex items-center w-searchbarw rounded-lg px-4 py-2">
+            <input
+              className="w-full px-4 py-2 rounded-lg text-gray-700 focus:outline-none border"
+              type="text"
+              placeholder="Search..."
+              onKeyUp={search}
+              id="searchbar"
+              onChange={handleValue}
+            />
+            <SearchButton />
+          </div>
+
+          {searchdata.length > 0
+            ? searchdata.map((element) => {
+                return (
+                  <div>
+                    <div class="mt-0">
+                      {emptyinput === true ? null : (
+                        <ul class="bg-white rounded-md shadow divide-y divide-gray-200">
+                          <li class="px-6 py-4 hover:bg-gray-50">
+                            <a href="#" class="block hover:text-blue-500">
+                              {element[3]}
+                            </a>
+                          </li>
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                );
+              })
+            : null}
         </div>
       </nav>
     </div>
