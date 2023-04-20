@@ -8,13 +8,12 @@ import PreLoaderPage from "./pages/PreLoaderPage";
 import HomePage from "./pages/HomePage";
 
 function App() {
-  const [preLoader, setpreLoader] = useState(false);
+  const [preLoader, setpreLoader] = useState(true);
 
   return (
     <>
       <Router>
-        {preLoader ? null : <Sidebar/>}
-       
+        {preLoader ? null : <Sidebar />}
 
         <Suspense>
           <Routes>
@@ -22,7 +21,7 @@ function App() {
               path="/"
               element={<PreLoaderPage shouldit={setpreLoader} />}
             />
-            <Route path="/home" element={<HomePage/>} />
+            <Route path="/home" element={<HomePage />} />
           </Routes>
 
           {/* <Loader  loader={loader}/> */}

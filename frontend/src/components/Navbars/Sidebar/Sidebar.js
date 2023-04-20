@@ -1,9 +1,15 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import logo from "../../../images/logo-no-background.png";
 import { Link } from "react-router-dom";
 import SearchButton from "../../buttons/SearchButton";
 
 const Sidebar = () => {
+  useEffect(() => {
+    search()
+  
+  
+  }, [])
+  
   
   const search = async ()=>{
     let searchbar=document.getElementById('searchbar').value

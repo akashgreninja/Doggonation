@@ -6,7 +6,7 @@ const PreLoaderPage = (props) => {
   const navigate = useNavigate();
   useEffect(() => {
     const timeour = setTimeout(() => {
-      props.shouldit(true)
+      // props.shouldit(true)
       navigate("/home");
       props.shouldit(false);
     }, 3000);
