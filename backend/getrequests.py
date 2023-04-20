@@ -88,6 +88,8 @@ class Get:
     
     def search(self,data,cursor):
         keywords=data['keywords']
+        if keywords=="":
+            return jsonify("no relatable data")
         cursor.execute(f"select * from user where `name` like '{keywords}%'")
         result=cursor.fetchall()
         if result:

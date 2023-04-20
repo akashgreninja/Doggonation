@@ -1,8 +1,25 @@
-import React from "react";
+import React,{useState} from "react";
 import logo from "../../../images/logo-no-background.png";
 import { Link } from "react-router-dom";
 import SearchButton from "../../buttons/SearchButton";
+
 const Sidebar = () => {
+  
+  const search = async ()=>{
+    let searchbar=document.getElementById('searchbar').value
+   
+    const response =await fetch('http://localhost:3003/search', {
+      method: "POST",
+      mode:'no-cors',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ keywords:searchbar}),
+    });
+    console.log(response)
+    // const json =  response.json();
+  }
+  
   return (
     <div className="flex  flex-row absolute">
       <div className="h-screen  w-sidebarw  border-r-1 border-gray-400">
@@ -32,9 +49,11 @@ const Sidebar = () => {
 
         <div class="flex items-center w-searchbarw rounded-lg px-4 py-2">
           <input
-            class="w-full px-4 py-2 rounded-lg text-gray-700 focus:outline-none border"
+            className="w-full px-4 py-2 rounded-lg text-gray-700 focus:outline-none border"
             type="text"
             placeholder="Search..."
+            onKeyUp={search}
+            id="searchbar"
           />
           <SearchButton />
         </div>

@@ -8,3 +8,9 @@ export const SetPosts=(posts)=>{
     }
 }
 
+export const SetSearchdata=(result)=>{
+    return {
+        type:ActionTypes.SET_SEARCH_DATA,
+        payload:result
+    }
+}

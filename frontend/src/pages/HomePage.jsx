@@ -1,9 +1,10 @@
 import React from 'react'
+import Feedtable from '../components/Feedtable/Feedtable'
 
 const HomePage = () => {
   return (
-    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus fuga atque ipsam error tenetur, placeat sequi sapiente voluptates similique adipisci voluptas minus culpa qui, esse provident at dolorum accusamus? Maiores.</div>
-  )
+<div className='float-right my-20 mx-10 '><Feedtable /></div>
+    )
 }
 
 export default HomePage
