@@ -98,7 +98,10 @@ class Get:
            cursor.execute(f"select * from user where `name` like '%{keywords}%'")
            result=cursor.fetchall()
         if result:
-            return jsonify(result)
+            response = jsonify(result)
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            return response
+            
         else:
             return jsonify('no matches found')
         
