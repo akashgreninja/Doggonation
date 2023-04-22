@@ -22,6 +22,8 @@ load_dotenv()
 app_port = os.getenv('PORT')
 azure_password = os.getenv('PASSWORD')
 azure_database = os.getenv('DATABASE')
+razorpay_secret= os.getenv('RAZORPAY_SECRET')
+razorpay_key = os.getenv('RAZORPAY_KEY_ID')
 
 get_requests=Get()
 post_requests=Post()
@@ -252,6 +254,27 @@ def get_comments(post_id):
 #     # my_blob_mimetype =result.mimetype
 #     # return jsonify(data=my_blob_data,mimetype=my_blob_mimetype)
 #     return "not done"
+
+
+
+#Razorpay integration code
+
+@app.route('/get-razorpay-key', methods=['GET' ])
+def get_razorpay_key():
+    return get_requests.getRazorpayKey()
+ 
+@app.route('/create-order', methods=['POST'])
+def create_order():
+    data=request.json
+    amount=data['amount']
+    return post_requests.create_order(razorpay_key,razorpay_secret,amount)
+ 
+
+
+# @app.route ('/verify-payment', methods=['POST'])
+# def verify_payment():
+#     data=request.json
+#     return post_requests.verify_payment(razorpay_key,razorpay_secret,data)
    
 if __name__ == '__main__':
     app.run(debug=True,port=app_port)

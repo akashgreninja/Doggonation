@@ -2,7 +2,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask,jsonify,abort,request,send_file
 from flask_login import LoginManager,login_required,current_user,logout_user,login_user
-
+import razorpay
 class Post:  
     def __init__(self):
         self.get_all_users="SELECT * FROM user"
@@ -191,4 +191,12 @@ class Post:
         cursor.execute(f"delete from follow where `follower`={follower} and `following`={following}")
         db.commit()
         return jsonify("successfully unfollowed")
+    
+    def create_order(self,razorpay_key,razorpay_secret,amount):
+        print(amount)
+        
+        instance=razorpay.Client(auth=(razorpay_key, razorpay_secret))
+        order=instance.order.create({'amount':int(amount),'currency':'INR','payment_capture':'1'})
+        return order
+
 

@@ -6,6 +6,7 @@ import Sidebar from "./components/Navbars/Sidebar/Sidebar";
 // import HomePage from "./components/pages/HomePage";
 import PreLoaderPage from "./pages/PreLoaderPage";
 import HomePage from "./pages/HomePage";
+import Razorpay from "./components/Razorpay/Razorpay";
 
 function App() {
   const [preLoader, setpreLoader] = useState(true);
@@ -13,15 +14,16 @@ function App() {
   return (
     <>
       <Router>
-        {preLoader ? null : <Sidebar />}
+        {/* {preLoader ? null : <Sidebar />} */}
 
         <Suspense>
           <Routes>
-            <Route
+            {/* <Route
               path="/"
               element={<PreLoaderPage shouldit={setpreLoader} />}
             />
-            <Route path="/home" element={<HomePage  shouldit={setpreLoader}/>} />
+            <Route path="/home" element={<HomePage  shouldit={setpreLoader}/>} /> */}
+            <Route path="/" element={<Razorpay/>} />
           </Routes>
 
           {/* <Loader  loader={loader}/> */}

@@ -105,3 +105,10 @@ class Get:
         else:
             return jsonify('no matches found')
         
+    
+    def getRazorpayKey(self):
+        key={
+            "key":"rzp_test_v0GwBrDGUuFtEq"
+        }
+        return jsonify(key)
+       
