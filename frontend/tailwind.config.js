@@ -54,6 +54,7 @@ module.exports = {
         sidebarw:"19.75rem",
         sidebarwimg:"8.75rem",
         searchbarw:"28rem",
+        half:"70%",
       },
       margin: {
         "4/5": "13rem",
@@ -73,7 +74,7 @@ module.exports = {
         "footer-400": "rgb(22 21  23)",
       },
       backgroundImage: {
-        "garvi-background": "url('./images/1120_Slice-Illos-2-copy.gif')",
+        "doggo-background": "url('/src/images/signuppage.jpg')",
       },
       fontSize: {
         bigg: "6rem",

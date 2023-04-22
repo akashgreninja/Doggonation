@@ -1,9 +1,12 @@
 import React from "react";
-import './Loginform.css'
+import "./Loginform.css";
+import logo from  '../../images/logo-white.png'
 const LoginForm = () => {
   return (
     <form class="form_container">
-      <div class="logo_container"></div>
+      <div class="logo_container">
+        <img src={logo} alt="" />
+      </div>
       <div class="title_container">
         <p class="title">Login to your Account</p>
         <span class="subtitle">
@@ -86,9 +89,38 @@ const LoginForm = () => {
           id="password_field"
         />
       </div>
-      <button title="Sign In" type="submit" class="sign-in_btn">
-        <span>Sign In</span>
+
+      <button class="c-button c-button--gooey">
+        {" "}
+        Login
+        <div class="c-button__blobs">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </button>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+        style={{display:"block", height: 0, width: 0}}
+      >
+        <defs>
+          <filter id="goo">
+            <feGaussianBlur
+              in="SourceGraphic"
+              stdDeviation="10"
+              result="blur"
+            ></feGaussianBlur>
+            <feColorMatrix
+              in="blur"
+              mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+              result="goo"
+            ></feColorMatrix>
+            <feBlend in="SourceGraphic" in2="goo"></feBlend>
+          </filter>
+        </defs>
+      </svg>
 
       <div class="separator">
         <hr class="line" />
@@ -100,7 +132,7 @@ const LoginForm = () => {
           height="18"
           width="18"
           viewBox="0 0 32 32"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
@@ -129,7 +161,7 @@ const LoginForm = () => {
             ></path>
           </g>
         </svg>
-        <span>Sign In with Google</span>
+        <div>Sign In with Google</div>
       </button>
       <button title="Sign In" type="submit" class="sign-in_apl">
         <svg
@@ -138,7 +170,7 @@ const LoginForm = () => {
           viewBox="0 0 256 315"
           height="20px"
           width="16px"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
           xmlns="http://www.w3.org/2000/svg"
         >
           <g>
@@ -148,7 +180,7 @@ const LoginForm = () => {
             ></path>
           </g>
         </svg>
-        <span>Sign In with Apple</span>
+        <div className="bg-color-black">Sign In with Apple</div>
       </button>
       <p class="note">Terms of use &amp; Conditions</p>
     </form>
