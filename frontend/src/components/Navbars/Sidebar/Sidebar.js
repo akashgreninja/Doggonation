@@ -45,13 +45,13 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex  flex-row absolute">
-      <div className="h-screen  w-sidebarw  border-r-1 border-gray-400">
+    <div className="flex fixed  flex-row ">
+      <div className="h-screen bg-gray-600  w-sidebarw  border-r-1 border-gray-400">
         <div className="flex justify-center  m-5">
           <img src={logo} alt="" className="w-sidebarwimg h-sidebarhimg" />
         </div>
       </div>
-      <nav className="w-screen h-sidebarh  flex flex-row border-b-1 border-gray-400">
+      <nav className="w-screen h-sidebarh bg-gray-600 flex flex-row border-b-1 border-gray-400">
         <div class="flex items-center ml-10 mr-9">
           <svg
             xmlns="http://www.w3.org/2000/svg"

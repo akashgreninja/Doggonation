@@ -16,15 +16,15 @@ function App() {
   return (
     <>
       <Router>
-        {/* {preLoader ? null : <Sidebar />} */}
+        {preLoader ? null : <Sidebar  />}
 
         <Suspense>
           <Routes>
-            {/* <Route
+            <Route
               path="/"
               element={<PreLoaderPage shouldit={setpreLoader} />}
             />
-            <Route path="/home" element={<HomePage  shouldit={setpreLoader}/>} /> */}
+            <Route path="/home" element={<HomePage  shouldit={setpreLoader}/>} />
             {/* <Route path="/" element={<Razorpay/>} /> */}
             <Route path="/" element={<SignIn/>} />
 

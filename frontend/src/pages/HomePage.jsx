@@ -7,7 +7,7 @@ const HomePage = (props) => {
   }, []);
 
   return (
-    <div className="float-right my-20 mx-10 ">
+    <div className='' style={{'margin-left':'350px','padding-top':'100px'}}>
       <Feedtable />
     </div>
   );
