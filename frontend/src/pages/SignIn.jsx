@@ -11,7 +11,7 @@ const SignIn = () => {
       </div>
     </div>
     <div>
-njwdjdwjn
+
     </div>
     </>
   )

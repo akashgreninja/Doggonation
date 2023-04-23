@@ -1,9 +1,14 @@
 import React from "react";
 import "./Loginform.css";
-import logo from  '../../images/logo-white.png'
+import logo from "../../images/logo-white.png";
+import {Facebook, Google} from './authservice'
 const LoginForm = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+  }
   return (
-    <form class="form_container">
+    <form class="form_container" onClick={handleSubmit}>
       <div class="logo_container">
         <img src={logo} alt="" />
       </div>
@@ -102,7 +107,7 @@ const LoginForm = () => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
-        style={{display:"block", height: 0, width: 0}}
+        style={{ display: "block", height: 0, width: 0 }}
       >
         <defs>
           <filter id="goo">
@@ -127,60 +132,42 @@ const LoginForm = () => {
         <span>Or</span>
         <hr class="line" />
       </div>
-      <button title="Sign In" type="submit" class="sign-in_ggl">
+      <button className="buttonforgoogle" onClick={Google}>
         <svg
-          height="18"
-          width="18"
-          viewBox="0 0 32 32"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
           xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <path
-              d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"
-              id="A"
-            ></path>
-          </defs>
-          <clipPath id="B"></clipPath>
-          <g transform="matrix(.727273 0 0 .727273 -.954545 -1.45455)">
-            <path fill="#fbbc05" clip-path="url(#B)" d="M0 37V11l17 13z"></path>
-            <path
-              fill="#ea4335"
-              clip-path="url(#B)"
-              d="M0 11l17 13 7-6.1L48 14V0H0z"
-            ></path>
-            <path
-              fill="#34a853"
-              clip-path="url(#B)"
-              d="M0 37l30-23 7.9 1L48 0v48H0z"
-            ></path>
-            <path
-              fill="#4285f4"
-              clip-path="url(#B)"
-              d="M48 48L17 24l-4-3 35-10z"
-            ></path>
-          </g>
-        </svg>
-        <div>Sign In with Google</div>
-      </button>
-      <button title="Sign In" type="submit" class="sign-in_apl">
-        <svg
           preserveAspectRatio="xMidYMid"
-          version="1.1"
-          viewBox="0 0 256 315"
-          height="20px"
-          width="16px"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 256 262"
         >
-          <g>
-            <path
-              fill="#ffffff"
-              d="M213.803394,167.030943 C214.2452,214.609646 255.542482,230.442639 256,230.644727 C255.650812,231.761357 249.401383,253.208293 234.24263,275.361446 C221.138555,294.513969 207.538253,313.596333 186.113759,313.991545 C165.062051,314.379442 158.292752,301.507828 134.22469,301.507828 C110.163898,301.507828 102.642899,313.596301 82.7151126,314.379442 C62.0350407,315.16201 46.2873831,293.668525 33.0744079,274.586162 C6.07529317,235.552544 -14.5576169,164.286328 13.147166,116.18047 C26.9103111,92.2909053 51.5060917,77.1630356 78.2026125,76.7751096 C98.5099145,76.3877456 117.677594,90.4371851 130.091705,90.4371851 C142.497945,90.4371851 165.790755,73.5415029 190.277627,76.0228474 C200.528668,76.4495055 229.303509,80.1636878 247.780625,107.209389 C246.291825,108.132333 213.44635,127.253405 213.803394,167.030988 M174.239142,50.1987033 C185.218331,36.9088319 192.607958,18.4081019 190.591988,0 C174.766312,0.636050225 155.629514,10.5457909 144.278109,23.8283506 C134.10507,35.5906758 125.195775,54.4170275 127.599657,72.4607932 C145.239231,73.8255433 163.259413,63.4970262 174.239142,50.1987249"
-            ></path>
-          </g>
+          <path
+            fill="#4285F4"
+            d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"
+          ></path>
+          <path
+            fill="#34A853"
+            d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"
+          ></path>
+          <path
+            fill="#FBBC05"
+            d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"
+          ></path>
+          <path
+            fill="#EB4335"
+            d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
+          ></path>
         </svg>
-        <div className="bg-color-black">Sign In with Apple</div>
+        Continue with Google
+      </button>
+      <div id='recaptcha-container'/>
+      <button className="twittersignin" onClick={Facebook} >
+        Sign in with Twitter
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path
+              fill="#fff"
+              d="M16 3.539a6.839 6.839 0 0 1-1.89.518 3.262 3.262 0 0 0 1.443-1.813 6.555 6.555 0 0 1-2.08.794 3.28 3.28 0 0 0-5.674 2.243c0 .26.022.51.076.748a9.284 9.284 0 0 1-6.761-3.431 3.285 3.285 0 0 0 1.008 4.384A3.24 3.24 0 0 1 .64 6.578v.036a3.295 3.295 0 0 0 2.628 3.223 3.274 3.274 0 0 1-.86.108 2.9 2.9 0 0 1-.621-.056 3.311 3.311 0 0 0 3.065 2.285 6.59 6.59 0 0 1-4.067 1.399c-.269 0-.527-.012-.785-.045A9.234 9.234 0 0 0 5.032 15c6.036 0 9.336-5 9.336-9.334 0-.145-.005-.285-.012-.424A6.544 6.544 0 0 0 16 3.539z"
+            ></path>
+          </svg>
+        </span>
       </button>
       <p class="note">Terms of use &amp; Conditions</p>
     </form>
