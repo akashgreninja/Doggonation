@@ -47,6 +47,8 @@ module.exports = {
         lastsectionh:"10vw",
         sidebarh:"3.95rem",
         sidebarhimg:"2.75rem",
+        postheight:"40rem",
+        postimage:"20rem",
       },
       width: {
         forgif: "70vw",
@@ -55,13 +57,16 @@ module.exports = {
         sidebarwimg:"8.75rem",
         searchbarw:"28rem",
         half:"70%",
+        postwidth:"35rem",
+        buttonli:"10rem"
       },
       margin: {
         "4/5": "13rem",
         check: "10%",
         test: "10%",
         fortest2:"20%",
-        bottommargin:"70px"
+        bottommargin:"70px",
+        threething:"65%"
       },
       borderWidth: {
         "1": "0.5px",
