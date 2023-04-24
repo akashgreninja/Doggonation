@@ -1,4 +1,4 @@
-# Doggonation - Where Dogs and Their Owners Unite: Welcome to Doggonation
+# Doggonation - Where Dogs and Their Owners Unite: Welcome to Doggonation (Looking for frontend devs)
 
 <img src="https://raw.githubusercontent.com/akashgreninja/helper-repository-for-doggo-nation/main/logo-no-background.png" alt="Doggo Nation Logo">
 
