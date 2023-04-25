@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage";
 import Razorpay from "./components/Razorpay/Razorpay";
 import LoginForm from "./components/form/LoginForm";
 import SignIn from "./pages/SignIn";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const [preLoader, setpreLoader] = useState(true);
@@ -16,17 +17,19 @@ function App() {
   return (
     <>
       <Router>
-        {preLoader ? null : <Sidebar  />}
+        {/* {preLoader ? null : <Sidebar  />} */}
+        <Sidebar/>
 
         <Suspense>
           <Routes>
-            <Route
+            {/* <Route
               path="/"
               element={<PreLoaderPage shouldit={setpreLoader} />}
-            />
+            /> */}
             <Route path="/home" element={<HomePage  shouldit={setpreLoader}/>} />
+            <Route path="/" element={<ProfilePage  shouldit={setpreLoader}/>} />
             {/* <Route path="/" element={<Razorpay/>} /> */}
-            <Route path="/" element={<SignIn/>} />
+            {/* <Route path="/" element={<SignIn/>} /> */}
 
           </Routes>
 
