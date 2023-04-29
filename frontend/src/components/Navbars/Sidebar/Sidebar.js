@@ -3,6 +3,9 @@ import logo from "../../../images/logo-no-background.png";
 import { Link, json } from "react-router-dom";
 import SearchButton from "../../buttons/SearchButton";
 import { startsearch } from "../../../api/search";
+import { FaUserCircle } from 'react-icons/fa';
+import { FiCompass } from 'react-icons/fi';
+import { FaEnvelope } from 'react-icons/fa';
 
 const Sidebar = () => {
   useEffect(() => {
@@ -49,7 +52,24 @@ const Sidebar = () => {
       <div className="h-screen bg-white  w-sidebarw  border-r-1 border-gray-400">
         <div className="flex justify-center  m-5">
           <img src={logo} alt="" className="w-sidebarwimg h-sidebarhimg" />
-        </div>
+
+         
+        </div><br />
+        <div className="float-left mx-10 ">
+        <ul>
+          <li>
+            <button className="my-3 px-20 py-2"> <FaUserCircle />Profile</button>
+          </li>
+          <li>
+            <button className="my-3 py-2" style={{"padding-left":"75px","padding-right":"75px"}}><FiCompass />explore</button>
+          </li>
+          <li>
+            <button className=" px-16 py-2"><FaEnvelope />
+              messaging
+            </button>
+          </li>
+        </ul>
+</div>
         
       </div>
       <nav className="w-screen h-sidebarh bg-white flex flex-row border-b-1 border-gray-400">
