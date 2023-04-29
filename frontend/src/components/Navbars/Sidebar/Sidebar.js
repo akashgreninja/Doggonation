@@ -3,11 +3,20 @@ import logo from "../../../images/logo-no-background.png";
 import { Link, json } from "react-router-dom";
 import SearchButton from "../../buttons/SearchButton";
 import { startsearch } from "../../../api/search";
-import { FaUserCircle } from 'react-icons/fa';
-import { FiCompass } from 'react-icons/fi';
-import { FaEnvelope } from 'react-icons/fa';
+import { FaUserCircle } from "react-icons/fa";
+import { FiCompass } from "react-icons/fi";
+import { FaEnvelope } from "react-icons/fa";
 
 const Sidebar = () => {
+  
+  const dropdown=()=> {
+    console.log("targetted")
+    const check=document.querySelector("#submenu").classList.toggle("hidden");
+    console.log(check)
+    document.querySelector("#arrow").classList.toggle("rotate-0");
+  }
+  
+
   useEffect(() => {
     search();
   }, []);
@@ -52,10 +61,9 @@ const Sidebar = () => {
       <div className="h-screen bg-white  w-sidebarw  border-r-1 border-gray-400">
         <div className="flex justify-center  m-5">
           <img src={logo} alt="" className="w-sidebarwimg h-sidebarhimg" />
-
-         
-        </div><br />
-        <div className="float-left mx-10 ">
+        </div>
+        <br />
+        {/* <div className="float-left mx-10 ">
         <ul>
           <li>
             <button className="my-3 px-20 py-2"> <FaUserCircle />Profile</button>
@@ -69,8 +77,48 @@ const Sidebar = () => {
             </button>
           </li>
         </ul>
-</div>
-        
+</div> */}
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-black">
+          <i class="bi bi-house-door-fill"></i>
+          <span class="text-[15px] ml-4 text-black font-bold">Home</span>
+        </div>
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-black">
+          <i class="bi bi-bookmark-fill"></i>
+          <span class="text-[15px] ml-4 text-black font-bold">Bookmark</span>
+        </div>
+        <div class="my-4 bg-gray-600 h-[1px]"></div>
+        <div
+          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-black"
+          onClick={dropdown}
+        >
+          <i class="bi bi-chat-left-text-fill"></i>
+          <div class="flex justify-between w-full items-center">
+            <span class="text-[15px] ml-4 text-black font-bold">
+              Chatbox
+            </span>
+            <span class="text-sm rotate-180" id="arrow">
+              <i class="bi bi-chevron-down"></i>
+            </span>
+          </div>
+        </div>
+        <div
+          class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
+          id="submenu"
+        >
+          <h1 class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
+            Social
+          </h1>
+          <h1 class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
+            Personal
+          </h1>
+          <h1 class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
+            Friends
+          </h1>
+        </div>
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-black">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span class="text-[15px] ml-4 text-black font-bold">Logout</span>
+        </div>
       </div>
       <nav className="w-screen h-sidebarh bg-white flex flex-row border-b-1 border-gray-400">
         <div class="flex items-center ml-10 mr-9">
@@ -126,6 +174,7 @@ const Sidebar = () => {
             : null}
         </div>
       </nav>
+      
     </div>
   );
 };
