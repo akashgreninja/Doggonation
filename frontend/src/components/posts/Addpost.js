@@ -50,7 +50,7 @@ const Addpost = () => {
 
   return (
     <div>
-      <div className="flex w-7/12 mb-2 items-center h-10 border border-gray-300 rounded-lg p-2">
+      <div className="flex w-7/12 mb-2 items-center h-12 border border-gray-300 rounded-lg p-2">
         <input
           type="text"
           placeholder="Have something to share...??"
