@@ -51,7 +51,7 @@ class SentimentAnalysis:
 
 
 checkers=SentimentAnalysis()
-print(checkers.get_sentiment('thats bad'))
+print(checkers.get_sentiment('wow good boy'))
 
 
 
