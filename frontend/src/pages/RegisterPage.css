@@ -1,15 +1,23 @@
 .form-container {
   /* margin-top: 7rem; */
   /* margin-top:23px; */
-
+ 
   max-width: 340px;
   font: 700 14px Menlo, Roboto Mono, monospace;
   text-align: center;
   color: #333;
   margin-bottom: 20rem;
+  padding-top: 20px;
+  padding-left: 20px;
+
+}
+.main-cont{
+  overflow-y: hidden;
 }
 .need-padding {
   padding-bottom: 20rem;
+  
+ 
 }
 
 .form-container form {

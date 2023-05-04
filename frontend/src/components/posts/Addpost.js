@@ -1,13 +1,10 @@
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import Icon from "@mui/material/Icon";
 import "./Addposts.css";
-import React, { useEffect, useState, useRef } from "react";
+import React, {  useState } from "react";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { add_post } from "../../api/addpost";
 
