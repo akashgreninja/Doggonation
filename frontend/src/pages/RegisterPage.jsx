@@ -2,7 +2,7 @@ import React from "react";
 import "./RegisterPage.css";
 const RegisterPage = () => {
   return (
-    <div class="bg-cover bg-no-repeat bg-opacity-20 bg-right bg-doggo-background-register s mb-9 pl-11">
+    <div  class="bg-cover bg-no-repeat main-cont bg-opacity-20 bg-right bg-doggo-background-register s  pl-11">
       <div class="form-container opacity-100 ">
         <form class="need-padding">
           <div class="form-container__sign-buttons">
