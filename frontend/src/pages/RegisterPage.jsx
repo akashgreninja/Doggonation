@@ -1,12 +1,27 @@
 import React from "react";
 import "./RegisterPage.css";
+import {Facebook, Google} from '../components/form/authservice'
 const RegisterPage = () => {
+  const HandleGoogle=(e)=>{
+    const logger="register"
+    const response={
+      logger:"register",
+      dob:"2023-05-02",
+      gender:"male"
+    }
+    Google(response)
+    
+  }
+  const HandleClick=(e)=>{
+    e.preventDefault();
+    console.log("clicked");
+  }
   return (
     <div class="bg-cover bg-no-repeat bg-opacity-20 bg-right bg-doggo-background-register s mb-9 pl-11">
       <div class="form-container opacity-100 ">
         <form class="need-padding">
           <div class="form-container__sign-buttons">
-            <button type="button">
+            <button type="button" onClick={Facebook}>
               <svg viewBox="0 0 24 24" width="16" height="40">
                 <path
                   fill="currentColor"
@@ -23,7 +38,7 @@ const RegisterPage = () => {
               </svg>
               <div>Sign Up with GitHub</div>
             </button>
-            <button type="button">
+            <button type="button" onClick={HandleGoogle}>
               <svg width="16" height="16">
                 <g fill="none">
                   <path
@@ -69,18 +84,24 @@ const RegisterPage = () => {
               <span></span>
             </label>
             <div class="relative inline-block w-64 mb-7">
-  <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-    <option>Male</option>
-    <option>Female</option>
-    <option>Not specified</option>
-    <option>Banana</option>
-  </select>
-  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.71 6.71a1 1 0 0 0-1.42 0L10 9.59l-3.29-3.3a1 1 0 0 0-1.42 1.42l4 4a1 1 0 0 0 1.42 0l4-4a1 1 0 0 0 0-1.42z"/></svg>
-  </div>
-</div>
+              <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <option>Male</option>
+                <option>Female</option>
+                <option>Not specified</option>
+                <option>Banana</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  class="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M14.71 6.71a1 1 0 0 0-1.42 0L10 9.59l-3.29-3.3a1 1 0 0 0-1.42 1.42l4 4a1 1 0 0 0 1.42 0l4-4a1 1 0 0 0 0-1.42z" />
+                </svg>
+              </div>
+            </div>
 
-            <button class="submit-button" type="submit">
+            <button class="submit-button" onClick={HandleClick}>
               Login
             </button>
           </div>

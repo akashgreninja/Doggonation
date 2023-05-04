@@ -73,7 +73,9 @@ class Post:
         password=data['password']
         name=data['name']
         gender=data['gender']
-        profile_pic=['profile_pic']
+        profile_pic=data['profile_pic']
+        dob=data['dob']
+        print(profile_pic)
         finalpassword=generate_password_hash(password, method='pbkdf2:sha256', salt_length=16)
 
 
@@ -81,7 +83,7 @@ class Post:
         cursor.execute(query)
 
         result=cursor.fetchall()
-        query_add=f"INSERT INTO user (`profile_pic`,`user_id`, `email`, `password`, `name`, `gender`) VALUES ('{profile_pic}',NULL, '{email}', '{finalpassword}', '{name}', '{gender}')"
+        query_add=f"INSERT INTO user (`profile_pic`, `email`, `password`, `name`, `gender`,`dob`) VALUES ('{profile_pic}', '{email}', '{finalpassword}', '{name}', '{gender}','{dob}')"
 
         if result:
             message={
@@ -95,8 +97,7 @@ class Post:
             cursor.execute(self.get_all_users)
             result=cursor.fetchall()
             print(result)
-            mydb.close()
-            cursor.close()
+          
             return result
             
     def profile(self,data,cursor,db):
