@@ -1,15 +1,37 @@
-import React from "react";
+import React,{useState} from "react";
 import "./RegisterPage.css";
 import {Facebook, Google} from '../components/form/authservice'
+import { useDispatch, useSelector } from 'react-redux'
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 const RegisterPage = () => {
-  const HandleGoogle=(e)=>{
+  // const isregistered=useSelector((state)=> state)
+  const [registered, setregistered] = useState(false)
+
+
+
+
+  const HandleGoogle=async(e)=>{
     const logger="register"
     const response={
       logger:"register",
       dob:"2023-05-02",
       gender:"male"
     }
-    Google(response)
+    try {
+      const data=await Google(response)
+      console.log(data)
+      if (data===true) {
+        setregistered(true)
+        console.log(registered)
+        
+      }
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+   
     
   }
   const HandleClick=(e)=>{
@@ -18,6 +40,13 @@ const RegisterPage = () => {
   }
   return (
     <div  class="bg-cover bg-no-repeat main-cont bg-opacity-20 bg-right bg-doggo-background-register s  pl-11">
+      {
+        registered===true?    <Stack sx={{ width: '100%' }} spacing={2}>
+      <Alert severity="error">You already have an account please head to our Signin page</Alert>
+
+    </Stack>
+      :null
+      }
       <div class="form-container opacity-100 ">
         <form class="need-padding">
           <div class="form-container__sign-buttons">

@@ -83,15 +83,18 @@ class Post:
         cursor.execute(query)
 
         result=cursor.fetchall()
-        query_add=f"INSERT INTO user (`profile_pic`, `email`, `password`, `name`, `gender`,`dob`) VALUES ('{profile_pic}', '{email}', '{finalpassword}', '{name}', '{gender}','{dob}')"
+        print(result)
+     
 
         if result:
             message={
                 "error":"User already exists"
             }
-
+            print("we in this")
+            
             return message
         else:
+            query_add=f"INSERT INTO user (`profile_pic`, `email`, `password`, `name`, `gender`,`dob`) VALUES ('{profile_pic}', '{email}', '{finalpassword}', '{name}', '{gender}','{dob}')"
             cursor.execute(query_add)
             mydb.commit()
             cursor.execute(self.get_all_users)
