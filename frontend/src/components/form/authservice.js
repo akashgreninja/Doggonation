@@ -31,6 +31,8 @@ export const Google = async (e) => {
         if (data.error) {
           console.log("user esists");
           logger = false;
+        }else{
+          logger=data.result
         }
       } catch (error) {
         console.log(error);
@@ -38,10 +40,10 @@ export const Google = async (e) => {
     }
   });
   if (logger === false) {
-  
     return true;
   } else {
-    console.log("nopw");
+    console.log(logger);
+    return logger;
   }
 };
 export const Facebook = async (e) => {
