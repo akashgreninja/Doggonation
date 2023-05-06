@@ -9,22 +9,25 @@ class Post:
      #posts crud
     #adding a new post
     def addpost(self,data,cursor,db):
-        pic=data['pic_url']
-        location=data['location']
-        caption=data['caption']
-        user_id=data['user_id']
-        tags=data['tags']
+        image=data['pic_url']
         
-        query=f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},' {location}');"
-        cursor.execute(query)
-        db.commit()
-        cursor.execute("SELECT LAST_INSERT_ID();")
-        post_id = cursor.fetchone()[0]
-        for i in tags:
-            cursor.execute(f"INSERT INTO `tags` (`tag`, `post_id`, `tag_id`) VALUES ('{i}', '{post_id}', NULL);")
-         
-        db.commit()
-        return jsonify("post added succesfully")
+        if True:
+            pic=data['pic_url']
+            location=data['location']
+            caption=data['caption']
+            user_id=data['user_id']
+            tags=data['tags']
+            
+            query=f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},' {location}');"
+            cursor.execute(query)
+            db.commit()
+            cursor.execute("SELECT LAST_INSERT_ID();")
+            post_id = cursor.fetchone()[0]
+            for i in tags:
+                cursor.execute(f"INSERT INTO `tags` (`tag`, `post_id`, `tag_id`) VALUES ('{i}', '{post_id}', NULL);")
+            
+            db.commit()
+            return jsonify("post added succesfully")
     
     def updatepost(self,data,cursor,db):
         location=data['location']

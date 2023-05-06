@@ -4,7 +4,7 @@ import { BsThreeDots } from "react-icons/bs";
 const PostCard = () => {
   const [showOptions, setShowOptions] = useState(false);
   return (
-    <div className="w-postwidth h-postheight bg-slate-600 rounded-md">
+    <div className="w-postwidth  h-postheight bg-slate-600 rounded-md" >
       <div>
         <div class="flex items-center pt-3 pl-3 ">
           <img

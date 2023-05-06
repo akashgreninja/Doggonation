@@ -57,7 +57,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex fixed  flex-row  z-50">
+    <div className="flex fixed  flex-row  " style={{"pointer-events": "auto"}}>
       <div className="h-screen bg-white  w-sidebarw  border-r-1 border-gray-400">
         <div className="flex justify-center  m-5">
           <img src={logo} alt="" className="w-sidebarwimg h-sidebarhimg" />

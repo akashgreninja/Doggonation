@@ -74,13 +74,12 @@ const Addpost = () => {
       );
     }
 
-    if (data === "post added succesfully") {
+    if (data.status === 200) {
       handleClose();
     } else {
       //add alert
       let button = document.getElementById("submit");
       button.textContent = "Retry";
-      console.log("error");
     }
   };
   //tags handling
@@ -107,15 +106,15 @@ const Addpost = () => {
 
   return (
     <div>
-      <div className="flex w-7/12 mb-2 items-center h-12 border border-gray-300 rounded-lg p-2">
+      <div className="flex w-11/12 mb-2 ml-2 items-center h-12 border border-gray-300 rounded-lg p-2">
         <input
           type="text"
           placeholder="Have something to share...??"
           className="w-full px-2 py-1 text-gray-700 "
         />
         <button
-          onClick={handleOpen}
-          className="w-3/12 z-50 pl-3 h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+          onClick={handleOpen} 
+          className="w-3/12 z-0 pl-3 h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
         >
           Create Post
         </button>
