@@ -14,3 +14,9 @@ export const SetSearchdata=(result)=>{
         payload:result
     }
 }
+export const UserAlreadyExists=(result)=>{
+    return {
+        type:ActionTypes.USER_ALREADY_EXISTS,
+        payload:result
+    }
+}
