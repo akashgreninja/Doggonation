@@ -8,7 +8,7 @@ const HomePage = (props) => {
 
   return (
     <div className='' style={{'margin-left':'350px','padding-top':'100px'}}>
-      <Feedtable />
+      <Feedtable loader={props.shouldit} />
     </div>
   );
 };

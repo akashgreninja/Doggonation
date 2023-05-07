@@ -2,8 +2,10 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 import time
 from flask import Flask,jsonify,abort,request,send_file
+from flask import Flask,jsonify,abort,request,send_file,Response
 from flask_login import LoginManager,login_required,current_user,logout_user,login_user
 import razorpay
+from fiftyonemodel import identifydog
 class Post:  
     def __init__(self):
         self.get_all_users="SELECT * FROM user"
@@ -11,13 +13,15 @@ class Post:
     #adding a new post
     def addpost(self,data,cursor,db):
         image=data['pic_url']
-        
-        if True:
+        result=identifydog.run_check(imageurl=image)
+        result=list(result)
+        if result!=0:
             pic=data['pic_url']
             location=data['location']
             caption=data['caption']
             user_id=data['user_id']
-            tags=data['tags']
+            tags=data['tags'] + result
+
             
             query=f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},' {location}');"
             cursor.execute(query)
@@ -29,7 +33,10 @@ class Post:
             
             db.commit()
             return jsonify("post added succesfully")
-    
+        else:
+            return Response("no dogs found", status=201, mimetype='application/json')
+        
+
     def updatepost(self,data,cursor,db):
         location=data['location']
         caption=data['caption']

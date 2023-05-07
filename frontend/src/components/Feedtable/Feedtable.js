@@ -2,12 +2,12 @@ import React from "react";
 import PostCard from "../posts/PostCard";
 import Addpost from "../posts/Addpost";
 import "./Feed.css"
-const Feedtable = () => {
+const Feedtable = (props) => {
   return (
     <div className="" style={{ "margin-bottom": "50px", "height": "vh-70","pointer-events":"auto" }}>
       <div className="post-box" >
      
-       <Addpost/>
+       <Addpost loader={props.loader}/>
         <div className="float-left ">
           <PostCard />
         </div>

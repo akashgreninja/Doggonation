@@ -4,11 +4,14 @@ import TextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import "./Addposts.css";
+import ReactLoading from "react-loading";
 import React, {  useState } from "react";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { add_post } from "../../api/addpost";
 
-const Addpost = () => {
+
+
+const Addpost = (props) => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -20,12 +23,24 @@ const Addpost = () => {
     p: 4,
   };
   const user_id = 3;
+  const [loading, setloading] = useState(false)
+  const [laodingtext, setlaodingtext] = useState("submit")
   const [keyset, setkeyset] = useState(1);
   const [tags, settags] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {setOpen(true);
+
+  }
+  const [warning, setwarning] = useState("")
+  const handleClose = () =>{ setOpen(false);
+    setloading(false)
+    setlaodingtext("submit")
+    setwarning("")
+    settags([])
+  }
+
   const [image, setimage] = useState("");
+  const [imageurl, setimageurl] = useState("")
   const [content, setcontent] = useState({ caption: "", location: "" });
 
   // const setLoader=(data)=>{
@@ -42,31 +57,34 @@ const Addpost = () => {
     }
   };
   //uploading post
-  const CreateUpload = (e) => {
+  const CreateUpload = async (e) => {
     e.preventDefault();
+    setloading(true)
     try {
       const storage = getStorage();
 
       const storageRef = ref(storage, `posts/${image.name}`);
-
+     
       uploadBytes(storageRef, image).then(() => {
         getDownloadURL(storageRef).then((url) => {
-          setimage(url);
+          setimageurl(url);
+          console.log(imageurl)
+          handleNewPost();
         });
       });
     } catch (e) {
       console.log(e);
-      let button = document.getElementById("submit");
-      button.textContent = "Retry";
+      setloading(false)
+      setlaodingtext("retry")
     }
-    handleNewPost();
+    
   };
 
   const handleNewPost = async () => {
     let data = "";
-    if (content.caption !== "" && content.location !== "" && image !== "") {
+    if (content.caption !== "" && content.location !== "" && imageurl !== "") {
       data = await add_post(
-        image,
+        imageurl,
         content.location,
         content.caption,
         user_id,
@@ -75,12 +93,18 @@ const Addpost = () => {
     }
 
     if (data.status === 200) {
+      setlaodingtext("upload successfull")
       handleClose();
-    } else {
+
+    } 
+    
+    else {
       //add alert
-      let button = document.getElementById("submit");
-      button.textContent = "Retry";
+      setloading(false)
+      setlaodingtext("Retry")
+      setwarning("upload unsuccessfull..sorry we didnt find any dogs in this picture")
     }
+   
   };
   //tags handling
   const handleDelete = (element) => {
@@ -195,8 +219,12 @@ const Addpost = () => {
               id="submit"
               className="float-right mx-10 p-3 h-10 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
             >
-              Submit
+               
+               {loading ? <ReactLoading  />: laodingtext }
+             
             </button>
+            <small>do not click outside modal till upload is complete</small><br />
+            <small style={{"color":"red"}}>{warning}</small>
           </Box>
         </Modal>
       </div>
