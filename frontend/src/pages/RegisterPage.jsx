@@ -1,52 +1,88 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "./RegisterPage.css";
-import {Facebook, Google} from '../components/form/authservice'
-import { useDispatch, useSelector } from 'react-redux'
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
+import { Register } from "../api/register";
+import { Facebook, Google } from "../components/form/authservice";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+
 const RegisterPage = () => {
+  const nav = useNavigate();
   // const isregistered=useSelector((state)=> state)
-  const [registered, setregistered] = useState(false)
+  const [registered, setregistered] = useState(false);
+  const [ridata, risetdata] = useState({
+    email: "",
+    password: "",
+    name: "",
+    dob: "",
+    gender: "",
+  });
 
+  const HandleChange = (e) => {
+    risetdata({ ...ridata, [e.target.name]: e.target.value });
+    console.log(ridata);
+  };
 
-
-
-  const HandleGoogle=async(e)=>{
-    const logger="register"
-    const response={
-      logger:"register",
-      dob:"2023-05-02",
-      gender:"male"
-    }
+  const HandleGoogle = async (e) => {
+    const logger = "register";
+    const response = {
+      logger: "register",
+      dob: "2023-05-02",
+      gender: "male",
+    };
     try {
-      const data=await Google(response)
-      console.log(data)
-      if (data===true) {
-        setregistered(true)
-        console.log(registered)
-        
+      const data = await Google(response);
+      console.log(data);
+      if (data === true) {
+        setregistered(true);
+        console.log(registered);
       }
+      // this line will induce a bug for sure
+      else {
+        localStorage.setItem("token", data);
       
+        // nav("/home");
+        // window.location.reload();
+        console.log(data)
+      }
     } catch (error) {
-      console.log(error)
-      
+      console.log(error);
     }
-   
-    
-  }
-  const HandleClick=(e)=>{
+  };
+  const HandleClick = async (e) => {
     e.preventDefault();
-    console.log("clicked");
-  }
-  return (
-    <div  class="bg-cover bg-no-repeat main-cont bg-opacity-20 bg-right bg-doggo-background-register s  pl-11">
-      {
-        registered===true?    <Stack sx={{ width: '100%' }} spacing={2}>
-      <Alert severity="error">You already have an account please head to our Signin page</Alert>
 
-    </Stack>
-      :null
+    const { data } = await Register(
+      ridata.name,
+      ridata.email,
+      ridata.password,
+      ridata.dob,
+      ridata.gender
+    );
+    try {
+      if (data.error) {
+        console.log("user esists");
+      } else {
+        console.log("in the else");
+        console.log(data.result);
+        localStorage.setItem("token", data.result);
+        // nav("/home");
+        // window.location.reload();
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return (
+    <div class="bg-cover bg-no-repeat main-cont bg-opacity-20 bg-right bg-doggo-background-register s  pl-11">
+      {registered === true ? (
+        <Stack sx={{ width: "100%" }} spacing={2}>
+          <Alert severity="error">
+            You already have an account please head to our Signin page
+          </Alert>
+        </Stack>
+      ) : null}
       <div class="form-container opacity-100 ">
         <form class="need-padding">
           <div class="form-container__sign-buttons">
@@ -93,12 +129,25 @@ const RegisterPage = () => {
           </div>
           <div class="form-container__sign-inputs">
             <label>
+              <legend>Name</legend>
+              <input
+                required=""
+                type="text"
+                name="name"
+                placeholder="Input your Username"
+                onChange={HandleChange}
+              />
+              <span></span>
+            </label>
+            <label>
               <legend>Email</legend>
               <input
                 pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                 required=""
                 type="email"
+                name="email"
                 placeholder="Input with email validation"
+                onChange={HandleChange}
               />
               <span></span>
             </label>
@@ -108,12 +157,18 @@ const RegisterPage = () => {
                 required=""
                 pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$"
                 type="password"
+                name="password"
                 placeholder="Input with password validation"
+                onChange={HandleChange}
               />
               <span></span>
             </label>
             <div class="relative inline-block w-64 mb-7">
-              <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              <select
+                class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                onChange={HandleChange}
+                name="gender"
+              >
                 <option>Male</option>
                 <option>Female</option>
                 <option>Not specified</option>
@@ -128,6 +183,10 @@ const RegisterPage = () => {
                   <path d="M14.71 6.71a1 1 0 0 0-1.42 0L10 9.59l-3.29-3.3a1 1 0 0 0-1.42 1.42l4 4a1 1 0 0 0 1.42 0l4-4a1 1 0 0 0 0-1.42z" />
                 </svg>
               </div>
+            </div>
+            <div>
+              <input type="date" name="dob" onChange={HandleChange} />
+              <p>Selected date: {ridata.dob}</p>
             </div>
 
             <button class="submit-button" onClick={HandleClick}>

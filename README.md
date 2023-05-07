@@ -26,12 +26,27 @@
 <p>Doggonation is built using the following technologies:</p>
 <ul>
   <li>React with Vite for the frontend</li>
+  <li>Redux for state Management</li>
   <li>Flask for the backend API</li>
   <li>Azure MySQL for the SQL database hosting</li>
   <li>Azure App Services for hosting the backend</li>
   <li>Azure Cognitive Services for translation (coming soon)</li>
 </ul>
 
+
+<h2>CI/CD using GitHub Actions</h2>
+<p>This repository implements continuous integration and continuous deployment (CI/CD) pipelines for frontend React and backend Flask code, using GitHub Actions. GitHub Actions is a platform that allows for the creation of automated workflows, including continuous integration and deployment, for software development.</p>
+<h2>Workflows</h2>
+<p>The repository has two main workflows:</p>
+<h3>1. Frontend React Workflow</h3>
+<p>The workflow runs whenever a pull request is created or updated. It checks the frontend React code for linting errors and runs unit tests. If any of the tests fail, the workflow will fail and prevent merging the pull request.</p>
+<h3>2. Backend Flask Workflow</h3>
+<p>The workflow runs whenever a pull request is created or updated. It checks the backend Flask code for linting errors and runs unit tests. If any of the tests fail, the workflow will fail and prevent merging the pull request.</p>
+<h2>Continuous Integration</h2>
+<p>By using GitHub Actions, we can ensure that every pull request to the repository is automatically checked for code quality and unit tests. This means that any errors can be detected early in the development process, saving time and effort in the long run.</p>
+<h2>Continuous Deployment</h2>
+<p>Using GitHub Actions, we can also automate the deployment process for our applications. We can set up a workflow that deploys our code to a staging environment for testing and then to production once it has been approved. This ensures that our code is always up-to-date and running smoothly.</p>
+<img src="https://i.ytimg.com/vi/0tMkRSdp-Go/maxresdefault.jpg" alt="CI/CD with GitHub Actions">
 
 ## Text Speech Analysis
 

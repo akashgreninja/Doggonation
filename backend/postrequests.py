@@ -1,5 +1,7 @@
 
 from werkzeug.security import generate_password_hash, check_password_hash
+import time
+from flask import Flask,jsonify,abort,request,send_file
 from flask import Flask,jsonify,abort,request,send_file,Response
 from flask_login import LoginManager,login_required,current_user,logout_user,login_user
 import razorpay
@@ -78,11 +80,17 @@ class Post:
 
 
     def register(self,data,cursor,mydb):
+        print(data)
         email=data['email']
         password=data['password']
         name=data['name']
         gender=data['gender']
-        profile_pic=data['profile_pic']
+        try:
+            profile_pic=data['profile_pic']
+        except Exception as NameError:
+            profile_pic=None
+
+       
         dob=data['dob']
         print(profile_pic)
         finalpassword=generate_password_hash(password, method='pbkdf2:sha256', salt_length=16)
@@ -106,11 +114,17 @@ class Post:
             query_add=f"INSERT INTO user (`profile_pic`, `email`, `password`, `name`, `gender`,`dob`) VALUES ('{profile_pic}', '{email}', '{finalpassword}', '{name}', '{gender}','{dob}')"
             cursor.execute(query_add)
             mydb.commit()
-            cursor.execute(self.get_all_users)
-            result=cursor.fetchall()
-            print(result)
           
-            return result
+            query1=f"SELECT * FROM user WHERE email  = '{email}'"
+            cursor.execute(query1)
+            result=cursor.fetchall()
+
+            print(result)
+            result={
+                "result":result[0][0]
+            }
+          
+            return (result)
             
     def profile(self,data,cursor,db):
         dob=data['dob']
