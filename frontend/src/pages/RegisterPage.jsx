@@ -42,8 +42,8 @@ const RegisterPage = () => {
       else {
         localStorage.setItem("token", data);
       
-        // nav("/home");
-        // window.location.reload();
+        nav("/home");
+        window.location.reload();
         console.log(data)
       }
     } catch (error) {

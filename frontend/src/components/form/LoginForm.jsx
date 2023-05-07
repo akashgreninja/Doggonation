@@ -1,14 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Loginform.css";
+import { useNavigate } from "react-router-dom";
 import logo from "../../images/logo-white.png";
-import {Facebook, Google} from './authservice'
+import { Facebook, Google } from "./authservice";
+import { Login } from "../../api/login";
 const LoginForm = () => {
-  const handleSubmit = (e) => {
+  const nav = useNavigate();
+  const [ridata, setridata] = useState({ email: "", password: "" });
+
+  const HandleGoogle = async (e) => {
     e.preventDefault();
-    
-  }
+    const logger = "login";
+    const response = {
+      logger: "login",
+    };
+    try {
+      const data = await Google(response);
+      console.log(data);
+      if (data === true) {
+        console.log("not registered");
+      } else {
+        console.log(data[0][0]);
+        localStorage.setItem("token", data[0][0]);
+
+        nav("/home");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const HandleChange = (e) => {
+    setridata({ ...ridata, [e.target.name]: e.target.value });
+    console.log(ridata);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { data } = await Login(ridata.email, ridata.password);
+    if (data.sucess === true) {
+      localStorage.setItem("token", data.user_id);
+
+      nav("/home");
+      window.location.reload();
+      console.log(data);
+    } else {
+      console.log("error");
+    }
+  };
   return (
-    <form class="form_container" onClick={handleSubmit}>
+    <form class="form_container">
       <div class="logo_container">
         <img src={logo} alt="" />
       </div>
@@ -48,11 +89,12 @@ const LoginForm = () => {
         </svg>
         <input
           placeholder="name@mail.com"
-          title="Inpit title"
-          name="input-name"
+          title="Enter your email"
+          name="email"
           type="text"
           class="input_field"
           id="email_field"
+          onChange={HandleChange}
         />
       </div>
       <div class="input_container">
@@ -88,14 +130,15 @@ const LoginForm = () => {
         <input
           placeholder="Password"
           title="Inpit title"
-          name="input-name"
+          name="password"
           type="password"
           class="input_field"
           id="password_field"
+          onChange={HandleChange}
         />
       </div>
 
-      <button class="c-button c-button--gooey">
+      <button class="c-button c-button--gooey" onClick={handleSubmit}>
         {" "}
         Login
         <div class="c-button__blobs">
@@ -132,7 +175,7 @@ const LoginForm = () => {
         <span>Or</span>
         <hr class="line" />
       </div>
-      <button className="buttonforgoogle" onClick={Google}>
+      <button className="buttonforgoogle" onClick={HandleGoogle}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="xMidYMid"
@@ -157,8 +200,8 @@ const LoginForm = () => {
         </svg>
         Continue with Google
       </button>
-      <div id='recaptcha-container'/>
-      <button className="twittersignin" onClick={Facebook} >
+      <div id="recaptcha-container" />
+      <button className="twittersignin" onClick={Facebook}>
         Sign in with Twitter
         <span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
