@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import image from "../../images/logo-white.png";
 import { BsThreeDots } from "react-icons/bs";
+import Comment from "./Comment";
 
 
 
@@ -69,6 +70,9 @@ const Post = (props) => {
           <button className=" w-buttonli">Like</button>
           <button className=" w-buttonli">comment</button>
           <button className=" w-buttonli h-10">share</button>
+        </div>
+        <div className="container">
+            <Comment post_id={element[2]}/>
         </div>
       </div>
     </div>
