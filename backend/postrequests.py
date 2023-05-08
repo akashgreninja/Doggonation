@@ -170,7 +170,7 @@ class Post:
         user_id = data["user_id"]
         post_id = data["post_id"]
 
-        query = f"INSERT INTO comments  (`comment_id`, `post_id`, `user_id`, `comment`, `liked`) VALUES (NULL, '{post_id}', '{user_id}', '{comment}',NULL)"
+        query = f"INSERT INTO comments  (`comment_id`, `post_id`, `user_id`, `comment`, `liked`) VALUES (NULL, '{post_id}', '{user_id}', '{comment}',0)"
         cursor.execute(query)
         mydb.commit()
 
