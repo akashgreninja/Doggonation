@@ -14,8 +14,9 @@ class Post:
     def addpost(self,data,cursor,db):
         image=data['pic_url']
         result=identifydog.run_check(imageurl=image)
-        result=list(result)
+        
         if result!=0:
+            result=list(result)
             pic=data['pic_url']
             location=data['location']
             caption=data['caption']
