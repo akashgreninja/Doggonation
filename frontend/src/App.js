@@ -19,8 +19,11 @@ function App() {
   return (
     <>
       <Router>
+
         {preLoader ? null : <Sidebar  />}
-        {/* <Sidebar/> */}
+
+        <Sidebar/>
+
 
         <Suspense>
           <Routes>
@@ -29,10 +32,13 @@ function App() {
               element={<PreLoaderPage shouldit={setpreLoader} />}
             /> */}
             <Route path="/home" element={<HomePage  shouldit={setpreLoader}/>} />
-            <Route path="/" element={<RegisterPage/>} />
-            {/* <Route path="/" element={<Razorpay/>} /> */}
+            {/* <Route path="/" element={<RegisterPage/>} /> */}
+            <Route path="/" element={<Razorpay/>} />
             <Route path="/signin" element={<SignIn/>} />
-            <Route path="/about-us" element={<DonationPage shouldit={setpreLoader}/>}/>
+
+            <Route path="/about-us" element={<DonationPage shouldit={setpreLoader}/>}/
+            <Route path="/profile/:id" element={<ProfilePage/>} />
+
 
           </Routes>
 

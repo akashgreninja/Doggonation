@@ -11,26 +11,25 @@ from flask_login import (
 )
 import razorpay
 from fiftyonemodel import identifydog
-
-
-class Post:
+class Post:  
     def __init__(self):
-        self.get_all_users = "SELECT * FROM user"
+        self.get_all_users="SELECT * FROM user"
+     #posts crud
+    #adding a new post
+    def addpost(self,data,cursor,db):
+        image=data['pic_url']
+        result=identifydog.run_check(imageurl=image)
+        
+        if result!=0:
+            result=list(result)
+            pic=data['pic_url']
+            location=data['location']
+            caption=data['caption']
+            user_id=data['user_id']
+            tags=data['tags'] + result
 
-    # posts crud
-    # adding a new post
-    def addpost(self, data, cursor, db):
-        image = data["pic_url"]
-        result = identifydog.run_check(imageurl=image)
-        result = list(result)
-        if result != 0:
-            pic = data["pic_url"]
-            location = data["location"]
-            caption = data["caption"]
-            user_id = data["user_id"]
-            tags = data["tags"] + result
-
-            query = f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},' {location}');"
+            
+            query=f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},' {location}');"
             cursor.execute(query)
             db.commit()
             cursor.execute("SELECT LAST_INSERT_ID();")
@@ -171,7 +170,7 @@ class Post:
         user_id = data["user_id"]
         post_id = data["post_id"]
 
-        query = f"INSERT INTO comments  (`comment_id`, `post_id`, `user_id`, `comment`, `liked`) VALUES (NULL, '{post_id}', '{user_id}', '{comment}',NULL)"
+        query = f"INSERT INTO comments  (`comment_id`, `post_id`, `user_id`, `comment`, `liked`) VALUES (NULL, '{post_id}', '{user_id}', '{comment}',0)"
         cursor.execute(query)
         mydb.commit()
 

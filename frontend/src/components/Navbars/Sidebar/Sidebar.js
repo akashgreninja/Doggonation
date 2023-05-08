@@ -8,14 +8,12 @@ import { FiCompass } from "react-icons/fi";
 import { FaEnvelope } from "react-icons/fa";
 
 const Sidebar = () => {
-  
-  const dropdown=()=> {
-    console.log("targetted")
-    const check=document.querySelector("#submenu").classList.toggle("hidden");
-    console.log(check)
+  const dropdown = () => {
+    console.log("targetted");
+    const check = document.querySelector("#submenu").classList.toggle("hidden");
+    console.log(check);
     document.querySelector("#arrow").classList.toggle("rotate-0");
-  }
-  
+  };
 
   useEffect(() => {
     search();
@@ -57,7 +55,10 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex fixed  flex-row  " style={{"pointer-events": "auto"}}>
+    <div
+      className="flex fixed  flex-row  "
+      style={{ "pointer-events": "auto" }}
+    >
       <div className="h-screen bg-white  w-sidebarw  border-r-1 border-gray-400">
         <div className="flex justify-center  m-5">
           <img src={logo} alt="" className="w-sidebarwimg h-sidebarhimg" />
@@ -93,9 +94,7 @@ const Sidebar = () => {
         >
           <i class="bi bi-chat-left-text-fill"></i>
           <div class="flex justify-between w-full items-center">
-            <span class="text-[15px] ml-4 text-black font-bold">
-              Chatbox
-            </span>
+            <span class="text-[15px] ml-4 text-black font-bold">Chatbox</span>
             <span class="text-sm rotate-180" id="arrow">
               <i class="bi bi-chevron-down"></i>
             </span>
@@ -161,9 +160,19 @@ const Sidebar = () => {
                       {emptyinput === true ? null : (
                         <ul class="bg-white rounded-md shadow divide-y divide-gray-200">
                           <li class="px-6 py-4 hover:bg-gray-50">
-                            <a href="#" class="block hover:text-blue-500">
-                              {element[3]}
-                            </a>
+                            <div className="flex flex-row items-center   ">
+                              <div class="flex items-center justify-center h-16 w-16 bg-gray-200 rounded-full mr-10" >
+                                <img
+                                  class="h-12 w-12 rounded-full"
+                                  src={element[6]}
+                                  alt="your-image-alt-text-here"
+                                />
+                              </div>
+
+                              <Link to={`/profile/${element[0]}`} class="block hover:text-blue-500">
+                                {element[3]}
+                              </Link>
+                            </div>
                           </li>
                         </ul>
                       )}
@@ -174,7 +183,6 @@ const Sidebar = () => {
             : null}
         </div>
       </nav>
-      
     </div>
   );
 };

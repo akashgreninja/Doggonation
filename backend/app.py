@@ -80,6 +80,12 @@ def route_path():
     return post_requests.startup()
 
 
+@app.route('/getcomment',methods=['POST'])
+def get_comments():
+    data=request.json
+    post_id=data['post_id']
+    return get_requests.getcomments(mycursor,post_id)
+
 @app.route('/getallposts')
 def getall():
     return get_requests.getallposts(mycursor)
@@ -137,10 +143,11 @@ def login():
     return  post_requests.login(data,mycursor)
 
 
-@app.route('/getuser/<int:id>', methods=['GET'])
-def getuser(id):
+@app.route('/getuser', methods=['GET','POST'])
+def getuser():
+    data=request.json
     
-    return get_requests.get_user(id,mycursor,mydb)
+    return get_requests.get_user(data,mycursor,mydb)
 
 @app.route('/follow', methods=['GET','POST'])
 def follow():
@@ -226,11 +233,6 @@ def unlike_comment():
 
 
 
-@app.route('/getcomment/<int:post_id>', methods=["GET"])
-def get_comments(post_id):
-  
-    
-    return get_requests.getcomments(mycursor,post_id)
 
 
 
