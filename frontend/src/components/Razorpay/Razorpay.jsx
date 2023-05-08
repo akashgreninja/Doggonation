@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { createOrder, getKey } from "../../api/razorpay";
+import './RazorpayButton.css';
 
 const Razorpay = () => {
   const [orderAmount, setorderAmount] = useState(0);
@@ -116,7 +117,7 @@ const Razorpay = () => {
         value={orderAmount}
         onChange={handleChange}
       />
-      <button onClick={loadRazorpay}>Razorpay</button>
+      <button className="btn-donate" onClick={loadRazorpay}>Razorpay</button>
     </div>
   );
 };
