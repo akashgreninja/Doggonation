@@ -13,7 +13,7 @@ from scipy.special import softmax
 # from transformers import pipeline
 
 class SentimentAnalysis:
-    
+    # vader= no grammer and no context
 
     def __init__(self):
         self.MODEL=f"cardiffnlp/twitter-roberta-base-sentiment"
@@ -44,7 +44,7 @@ class SentimentAnalysis:
         if maximunval == 'positive':
             return 'positive'
         elif maximunval == 'negative' and scores_dict['negative'] > 0.6:
-            return 'negative'
+            return len(maximunval)
         else:
             return 'neutral'
 

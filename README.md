@@ -48,6 +48,51 @@
 <p>Using GitHub Actions, we can also automate the deployment process for our applications. We can set up a workflow that deploys our code to a staging environment for testing and then to production once it has been approved. This ensures that our code is always up-to-date and running smoothly.</p>
 <img src="https://i.ytimg.com/vi/0tMkRSdp-Go/maxresdefault.jpg" alt="CI/CD with GitHub Actions">
 
+# Using the torchvision library with AlexNet
+<div align="center">
+  <img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*cQwk1chsEgnSlyILwenqsw.png" width="500px">
+</div>
+
+
+
+## Introduction
+
+The torchvision library is a popular computer vision library for PyTorch. It provides a set of functions and classes that can be used to easily and efficiently load and preprocess image datasets, as well as pre-trained models for image classification and object detection.
+
+One of the pre-trained models available in torchvision is AlexNet, a deep convolutional neural network that was developed by Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton in 2012. AlexNet is known for its outstanding performance on the ImageNet dataset, and it helped to popularize deep learning in computer vision.
+
+
+
+<p>The <code>torchvision</code> module is a collection of datasets, models, and transforms for computer vision tasks in PyTorch. One of the pre-trained models included in torchvision is AlexNet, which is a deep convolutional neural network that was introduced in 2012 and won the ImageNet Large Scale Visual Recognition Challenge that year.</p>
+
+<p>AlexNet is designed to classify images into one of 1,000 categories, such as dogs, cats, cars, and so on. The model consists of 5 convolutional layers, 3 fully connected layers, and 1 softmax layer. The input to the model is a 224x224 RGB image.</p>
+
+<p>In our project, we used AlexNet and torchvision to analyze input pictures and determine if they contain a dog or not. Specifically, we fine-tuned the AlexNet model on a dataset of dog images using transfer learning, which allowed us to use the pre-trained weights of the model and train only the last layer on our own dataset.</p>
+
+<p>Using this approach, we were able to achieve high accuracy in classifying images as containing a dog or not. We then used this model to enforce a requirement that user-uploaded pictures must contain a dog in order to be accepted by our application.</p>
+
+<p>By leveraging the power of pre-trained models and transfer learning, we were able to quickly and effectively build a solution for our image analysis needs.</p>
+
+
+## Usage
+
+To use the AlexNet model in your PyTorch project, you can simply import it from torchvision.models:
+
+```python
+import torch
+import torchvision.models as models
+
+# Load the pre-trained AlexNet model
+alexnet = models.alexnet(pretrained=True)
+
+# Set the model to evaluation mode
+alexnet.eval()
+
+# Use the model to make predictions on your data
+outputs = alexnet(inputs)
+
+```
+
 ## Text Speech Analysis
 
 ![Sentiment Analysis](https://raw.githubusercontent.com/akashgreninja/helper-repository-for-doggo-nation/main/sentiment_analysis.jpg)

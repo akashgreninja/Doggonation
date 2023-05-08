@@ -30,7 +30,7 @@ function App() {
             <Route path="/home" element={<HomePage  shouldit={setpreLoader}/>} />
             <Route path="/" element={<RegisterPage/>} />
             {/* <Route path="/" element={<Razorpay/>} /> */}
-            {/* <Route path="/signin" element={<SignIn/>} /> */}
+            <Route path="/signin" element={<SignIn/>} />
 
           </Routes>
 
