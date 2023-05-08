@@ -1,8 +1,31 @@
 // make me a profile page that has a users image rounded and a button to update their info and below that it should display their info and follwers + following also below that their posts all this in tailwind genertae this for me github copilot
 
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "./ProfilePage.css";
+import { useParams } from "react-router-dom";
+import { Getuser } from "../api/getuser";
 const ProfilePage = () => {
+  const {id}=useParams()
+  const [body, setbody] = useState()
+ useEffect(() => {
+ 
+  getuser()
+   
+
+ }, [])
+ 
+//  const {id}=useParams()
+
+
+const getuser=async()=>{
+  console.log(id)
+  
+  const {data}=await  Getuser(id)
+  console.log(data)
+  setbody(data)
+  console.log(body)
+}
+
   return (
     <div class="col-md-5 mx-auto">
       {" "}
@@ -12,12 +35,12 @@ const ProfilePage = () => {
           {" "}
           <div class="media align-items-end profile-head">
             {" "}
-            <div class="profile mr-3">
+            <div class="profile mr-3 -z-10">
               <img
-                src="https://images.unsplash.com/photo-1575425186775-b8de9a427e67?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8ZnVubnklMjBkb2d8ZW58MHx8MHx8&w=1000&q=80"
+                src={body?body[6]:null}
                 alt="..."
                 width="130"
-                class="rounded mb-2 img-thumbnail"
+                class="rounded mb-2 img-thumbnail "
               />
               <a href="#" class="btn btn-outline-dark btn-sm btn-block">
                 Edit profile
@@ -25,10 +48,10 @@ const ProfilePage = () => {
             </div>{" "}
             <div class="media-body mb-5 text-white">
               {" "}
-              <h4 class="mt-0 mb-0">Nugget Master</h4>{" "}
+              {/* <h4 class="mt-0 mb-0">{body[1]}</h4>{" "} */}
               <p class="small mb-4">
                 {" "}
-                <i class="fas fa-map-marker-alt mr-2"></i>New York
+                <i class="fas fa-map-marker-alt mr-2"></i>Earth
               </p>{" "}
             </div>{" "}
           </div>{" "}

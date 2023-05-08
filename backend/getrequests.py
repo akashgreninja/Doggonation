@@ -11,11 +11,14 @@ class Get:
         }
         return dict
     
-    def get_user (self,id,mycursor,mydb):
+    def get_user (self,data,mycursor,mydb):
+        id=data['id']
         query=f"SELECT * FROM user WHERE user_id='{id}'"
         mycursor.execute(query)
         # mycursor.close()
-        return jsonify(mycursor.fetchone())
+        console=mycursor.fetchone()
+        print(console)
+        return jsonify(console)
 
 
     def followers(self,data,cursor):

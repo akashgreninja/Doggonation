@@ -137,10 +137,11 @@ def login():
     return  post_requests.login(data,mycursor)
 
 
-@app.route('/getuser/<int:id>', methods=['GET'])
-def getuser(id):
+@app.route('/getuser', methods=['GET','POST'])
+def getuser():
+    data=request.json
     
-    return get_requests.get_user(id,mycursor,mydb)
+    return get_requests.get_user(data,mycursor,mydb)
 
 @app.route('/follow', methods=['GET','POST'])
 def follow():

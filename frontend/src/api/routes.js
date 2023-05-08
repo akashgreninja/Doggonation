@@ -4,6 +4,10 @@ export const LOGIN_URL='/login'
 // export const LOGIN_URL='/login'
 
 
+// get user details
+
+export const GET_USER_DETAILS='/getuser'
+
 //Signup Api
 export const SIGNUP_URL='/register'
 

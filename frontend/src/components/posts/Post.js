@@ -18,7 +18,7 @@ const Post = (props) => {
           />
           <div class="ml-4">
             <h2 class="text-l font-bold">
-                {element[3]}
+                {element[1]}
             </h2>
             <p class="text-gray-500 text-xs  "> {element[5]}</p>
           </div>
