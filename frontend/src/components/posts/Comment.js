@@ -1,11 +1,13 @@
 import React,{useEffect,useState,useRef} from 'react'
 import { add_comment } from '../../api/addcomment'
 import { getallcomment } from '../../api/getallcomments'
+import { gettags } from '../../api/gettags'
 
 const Comment = (props) => {
    let user_id=3
    useEffect(() => {
     loadcomments()
+    loadtags()
    }, [])
 
    const inputRef = useRef(null);
@@ -14,6 +16,13 @@ const Comment = (props) => {
   
    const [comments, setcomments] = useState([])
    const [tags, settags] = useState([])
+
+   const loadtags=async()=>{
+    let data =await  gettags(props.post_id)
+    if (data.status===200){
+      settags(data.data)
+      }
+   }
    const loadcomments=async()=>{
       let data=await getallcomment(props.post_id)
       if (data.status===200){
@@ -31,6 +40,15 @@ const Comment = (props) => {
    }
        return (
    <div>
+    <div className='flex'>
+      {
+        tags.map((element)=>{
+          return <p key={element}>
+           #{element[0]}
+          </p>
+        })
+      }
+    </div>
     <div className='h-20 overflow-y-auto'>{
       comments.map((element)=>{
         return <div className='px-2 mx-2' key={element[0]}>

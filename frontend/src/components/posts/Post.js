@@ -19,6 +19,9 @@ const Post = (props) => {
       }
 
   }
+  const handleLike =async()=>{
+    
+  }
   return (
     <div className="w-postwidth  h-postheight bg-slate-600 rounded-md">
       <div>
@@ -78,7 +81,7 @@ const Post = (props) => {
           />
         </div>
         <div className=" flex flex-row justify-around">
-          <button className=" w-buttonli">Like</button>
+          <button className=" w-buttonli" onClick={handleLike} >Like</button>
           <button className=" w-buttonli" onClick={handlecomment}>comment</button>
           <button className=" w-buttonli h-10">share</button>
         </div>

@@ -27,6 +27,7 @@ export const ADD_COMMENT='/comment'
 export const LIKE_COMMENT='/likecomment'
 export const UNLIKE_COMMENT='/unlikecomment'
 export const GET_COMMENT='/getcomment' 
+export const GET_TAGS='/gettags'
 // check this once
 
 

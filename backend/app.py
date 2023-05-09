@@ -80,6 +80,12 @@ def route_path():
     return post_requests.startup()
 
 
+@app.route('/gettags',methods=['POST'])
+def get_tags():
+    data=request.json
+    post_id=data['post_id']
+    return get_requests.gettags(mycursor,post_id)
+
 @app.route('/getcomment',methods=['POST'])
 def get_comments():
     data=request.json

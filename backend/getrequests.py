@@ -83,10 +83,10 @@ class Get:
             return Response("no comments", status=201, mimetype="application/json")
     
     def gettags(self,cursor,post_id):
-        cursor.execute(f"select tag from tags where post_id={post_id}")
+        cursor.execute(f"select * from `tags` where `post_id`='{post_id}'")
         result=cursor.fetchall()
         if result:
-            return jsonify(tags)
+            return jsonify(result)
         else:
             return Response("no tags", status=201, mimetype="application/json")
 
