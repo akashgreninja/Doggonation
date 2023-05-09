@@ -11,6 +11,7 @@ import LoginForm from "./components/form/LoginForm";
 import SignIn from "./pages/SignIn";
 import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
+import DonationPage from "./pages/DonationPage"
 
 function App() {
   // const [Sidebar, setsidebar] = useState(true);
@@ -22,6 +23,7 @@ function App() {
         {sidebar===true? <Sidebar  />:null }
         {/* <Sidebar/> */}
 
+
         <Suspense>
           <Routes>
             {/* uncomment once done completely  */}
@@ -31,9 +33,10 @@ function App() {
             /> */}
             <Route path="/" element={<HomePage  Sidebarrender={setsidebar}/>} />
             <Route path="/SignUp" element={<RegisterPage Sidebarrender={setsidebar}/>} />
-            {/* <Route path="/About" element={<Razorpay Sidebarrender={setsidebar}/>} /> */}
+            <Route path="/About" element={<DonationPage Sidebarrender={setsidebar}/>} />
             <Route path="/Signin" element={<SignIn Sidebarrender={setsidebar}/>} />
             <Route path="/profile/:id" element={<ProfilePage Sidebarrender={setsidebar}/>} />
+
 
           </Routes>
 
