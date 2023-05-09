@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import image from "../../images/logo-white.png";
 import { BsThreeDots } from "react-icons/bs";
 import Comment from "./Comment";
@@ -6,8 +6,19 @@ import Comment from "./Comment";
 
 
 const Post = (props) => {
+  let toggle=false
   const [showOptions, setShowOptions] = useState(false);
   let element=props.element
+  let commentRef=useRef(null)
+  const handlecomment=()=>{
+      if (toggle==true){commentRef.current.style.display="none"
+      toggle=false}
+      else{
+        commentRef.current.style.display="block"
+      toggle=true
+      }
+
+  }
   return (
     <div className="w-postwidth  h-postheight bg-slate-600 rounded-md">
       <div>
@@ -68,10 +79,10 @@ const Post = (props) => {
         </div>
         <div className=" flex flex-row justify-around">
           <button className=" w-buttonli">Like</button>
-          <button className=" w-buttonli">comment</button>
+          <button className=" w-buttonli" onClick={handlecomment}>comment</button>
           <button className=" w-buttonli h-10">share</button>
         </div>
-        <div className="container">
+        <div ref={commentRef} style={{"display":"none"}} className="container">
             <Comment post_id={element[2]}/>
         </div>
       </div>

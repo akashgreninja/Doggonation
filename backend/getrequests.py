@@ -74,7 +74,7 @@ class Get:
             return jsonify(result)
 
     def getcomments(self,cursor,post_id):
-        query=f"SELECT * FROM `comments` WHERE post_id={post_id}"
+        query=f"SELECT * FROM `comments` WHERE post_id={post_id} ORDER BY  `comments`.`comment_id` DESC"
         cursor.execute(query)
         result=cursor.fetchall()
         if result:

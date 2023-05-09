@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useRef} from 'react'
 import { add_comment } from '../../api/addcomment'
 import { getallcomment } from '../../api/getallcomments'
 
@@ -8,12 +8,10 @@ const Comment = (props) => {
     loadcomments()
    }, [])
 
-   
-  const HandleChange = (e) => {
-    setcommentinput({ ...commentinput, [e.target.name]: e.target.value });
-    
-  };
-  const [commentinput, setcommentinput] = useState({ comment: "" })
+   const inputRef = useRef(null);
+ 
+ 
+  
    const [comments, setcomments] = useState([])
    const [tags, settags] = useState([])
    const loadcomments=async()=>{
@@ -25,24 +23,24 @@ const Comment = (props) => {
    }
    
    const addcomment=async()=>{
-    let data=await add_comment(commentinput,props.post_id,user_id)
+    let data=await add_comment(inputRef.current.value,props.post_id,user_id)
     if (data.status===200){
-        setcommentinput("")
+        inputRef.current.value=""
         loadcomments()
     }
    }
        return (
    <div>
-    {
+    <div className='h-20 overflow-y-auto'>{
       comments.map((element)=>{
-        return <div key={element[0]}>
+        return <div className='px-2 mx-2' key={element[0]}>
            {element[3]}
         </div>
       })
-    }
+    }</div>
     <div className='flex m-5 '>
       
-        <input type="text" className='p-2 rounded' name='comment' onChange={HandleChange} id='commentin' placeholder="Add a comment" />
+        <input type="text" className='p-2 z-20 rounded' ref={inputRef} name='comment'  placeholder="Add a comment" />
         <button onClick={addcomment} className='p-2 mx-2'><i class="fa-solid fa-paper-plane"></i></button>
     </div></div>
   )
