@@ -23,7 +23,7 @@ const LoginForm = () => {
         console.log(data[0][0]);
         localStorage.setItem("token", data[0][0]);
 
-        nav("/home");
+        nav("/");
         window.location.reload();
       }
     } catch (error) {

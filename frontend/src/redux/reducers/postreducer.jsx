@@ -1,8 +1,9 @@
 import { ActionTypes } from "../constants/action-types";
 
 const initialState = {
-  posts: [],
-  Userexists: false,
+  // posts: [],
+  // Userexists: false,
+  Userinfo: [],
 };
 
 export const postsreducer = (state = initialState, { type, payload }) => {
@@ -14,10 +15,11 @@ export const postsreducer = (state = initialState, { type, payload }) => {
       return state;
   }
 };
-export const RegisterReducer = (state = initialState, { type, payload }) => {
+
+export const UserIdReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case ActionTypes.USER_ALREADY_EXISTS:
-      return { ...state, Userexists: payload };
+    case ActionTypes.USER_INFO:
+      return { ...state, Userinfo: payload };
 
     default:
       return state;

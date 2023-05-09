@@ -20,3 +20,9 @@ export const UserAlreadyExists=(result)=>{
         payload:result
     }
 }
+export const UserInfo=(result)=>{
+    return {
+        type:ActionTypes.USER_INFO,
+        payload:result
+    }
+}
