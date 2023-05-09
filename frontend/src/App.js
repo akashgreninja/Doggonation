@@ -1,7 +1,7 @@
 import React, { Suspense, useState } from "react";
 import Twitter from "./components/buttons/twitter";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbars/Navbar/Navbar";
+
 import Sidebar from "./components/Navbars/Sidebar/Sidebar";
 // import HomePage from "./components/pages/HomePage";
 import PreLoaderPage from "./pages/PreLoaderPage";
@@ -13,25 +13,27 @@ import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
 
 function App() {
-  const [preLoader, setpreLoader] = useState(true);
+  // const [Sidebar, setsidebar] = useState(true);
+  const [sidebar, setsidebar] = useState(false)
 
   return (
     <>
       <Router>
-        {/* {preLoader ? null : <Sidebar  />} */}
-        <Sidebar/>
+        {sidebar===true? <Sidebar  />:null }
+        {/* <Sidebar/> */}
 
         <Suspense>
           <Routes>
+            {/* uncomment once done completely  */}
             {/* <Route
               path="/"
-              element={<PreLoaderPage shouldit={setpreLoader} />}
+              element={<PreLoaderPage shouldit={setsidebar} />}
             /> */}
-            <Route path="/home" element={<HomePage  shouldit={setpreLoader}/>} />
-            {/* <Route path="/" element={<RegisterPage/>} /> */}
-            <Route path="/" element={<Razorpay/>} />
-            <Route path="/signin" element={<SignIn/>} />
-            <Route path="/profile/:id" element={<ProfilePage/>} />
+            <Route path="/" element={<HomePage  Sidebarrender={setsidebar}/>} />
+            <Route path="/SignUp" element={<RegisterPage Sidebarrender={setsidebar}/>} />
+            {/* <Route path="/About" element={<Razorpay Sidebarrender={setsidebar}/>} /> */}
+            <Route path="/Signin" element={<SignIn Sidebarrender={setsidebar}/>} />
+            <Route path="/profile/:id" element={<ProfilePage Sidebarrender={setsidebar}/>} />
 
           </Routes>
 

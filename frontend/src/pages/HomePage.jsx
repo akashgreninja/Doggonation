@@ -3,7 +3,7 @@ import Feedtable from "../components/Feedtable/Feedtable";
 
 const HomePage = (props) => {
   useEffect(() => {
-    props.shouldit(false);
+    props.Sidebarrender(true);
   }, []);
 
   return (

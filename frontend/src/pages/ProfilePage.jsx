@@ -1,30 +1,28 @@
 // make me a profile page that has a users image rounded and a button to update their info and below that it should display their info and follwers + following also below that their posts all this in tailwind genertae this for me github copilot
 
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./ProfilePage.css";
 import { useParams } from "react-router-dom";
 import { Getuser } from "../api/getuser";
-const ProfilePage = () => {
-  const {id}=useParams()
-  const [body, setbody] = useState()
- useEffect(() => {
- 
-  getuser()
-   
+const ProfilePage = (props) => {
+  const { id } = useParams();
+  const [body, setbody] = useState();
+  useEffect(() => {
+    props.Sidebarrender(true);
 
- }, [])
- 
-//  const {id}=useParams()
+    getuser();
+  }, []);
 
+  //  const {id}=useParams()
 
-const getuser=async()=>{
-  console.log(id)
-  
-  const {data}=await  Getuser(id)
-  console.log(data)
-  setbody(data)
-  console.log(body)
-}
+  const getuser = async () => {
+    console.log(id);
+
+    const { data } = await Getuser(id);
+    console.log(data);
+    setbody(data);
+    console.log(body);
+  };
 
   return (
     <div class="col-md-5 mx-auto">
@@ -37,7 +35,7 @@ const getuser=async()=>{
             {" "}
             <div class="profile mr-3 -z-10">
               <img
-                src={body?body[6]:null}
+                src={body ? body[6] : null}
                 alt="..."
                 width="130"
                 class="rounded mb-2 img-thumbnail "
@@ -121,7 +119,6 @@ const getuser=async()=>{
                 class="img-fluid rounded shadow-sm"
               />
             </div>{" "}
-           
           </div>{" "}
         </div>{" "}
       </div>{" "}

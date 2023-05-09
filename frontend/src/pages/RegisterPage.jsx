@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./RegisterPage.css";
 import { Register } from "../api/register";
 import { Facebook, Google } from "../components/form/authservice";
@@ -7,7 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 
-const RegisterPage = () => {
+const RegisterPage = (props) => {
+  useEffect(() => {
+   props.Sidebarrender(false)
+  }, [])
+  
   const nav = useNavigate();
   // const isregistered=useSelector((state)=> state)
   const [registered, setregistered] = useState(false);
