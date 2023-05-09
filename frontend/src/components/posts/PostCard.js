@@ -5,17 +5,17 @@ import { json } from "react-router-dom";
 
 
 const PostCard = () => {
+  let user_id=3
   const [posts, setposts] = useState([]);
   useEffect(() => {
     load();
   }, []);
   const load = async () => {
-    let data = await getallposts();
+    let data = await getallposts(user_id);
     data= await data.data
     setposts(data);
-    console.log(posts)
   };
- console.log(posts)
+
   return (
     <div>
 

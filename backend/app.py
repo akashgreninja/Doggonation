@@ -86,9 +86,11 @@ def get_comments():
     post_id=data['post_id']
     return get_requests.getcomments(mycursor,post_id)
 
-@app.route('/getallposts')
+@app.route('/getallposts',methods=['POST'])
 def getall():
-    return get_requests.getallposts(mycursor)
+    data=request.json
+    user_id=data['user_id']
+    return get_requests.getallposts(mycursor,user_id)
 
 #report
 @app.route('/report',methods=['POST'])

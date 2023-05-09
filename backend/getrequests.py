@@ -1,4 +1,4 @@
-from flask import Flask, abort,jsonify
+from flask import Flask, abort,jsonify,Response
 from werkzeug.security import generate_password_hash, check_password_hash
 class Get:
     def __init__(self):
@@ -50,25 +50,42 @@ class Get:
         else:
             return jsonify(0)
 
-    def getallposts(self,cursor):
-        cursor.execute("SELECT * FROM `posts` ORDER BY `posts`.`post_id` DESC")
+    def getallposts(self,cursor,user_id):
+        cursor.execute(f"select `following` from `follow` where `follower`='{user_id}'")
         result=cursor.fetchall()
+        print(result)
+        final_res=[]
         if result:
-            return jsonify(result)
+            for i in result:
+                cursor.execute(f"SELECT * FROM `posts` where `user_id`='{i[0]}' ORDER BY `posts`.`post_id` DESC")
+                result_post=cursor.fetchone()
+                if result_post:
+                    
+                    final_res+=[result_post]
+                else:
+                   continue
+            return jsonify(final_res)
         else:
-            return jsonify("there were no posts to be found")
+            cursor.execute(f"select * from `posts` ORDER BY `post_id` DESC")
+            result=cursor.fetchall()
+            return jsonify(result)
 
     def getcomments(self,cursor,post_id):
         query=f"SELECT * FROM `comments` WHERE post_id={post_id}"
         cursor.execute(query)
         result=cursor.fetchall()
-        cursor.execute(f"select tag from tags where post_id={post_id}")
-        tags=cursor.fetchall()
         if result:
-            return jsonify(result,tags)
+            return jsonify(result)
         else:
-            return jsonify("no comments...")
-
+            return Response("no comments", status=201, mimetype="application/json")
+    
+    def gettags(self,cursor,post_id):
+        cursor.execute(f"select tag from tags where post_id={post_id}")
+        result=cursor.fetchall()
+        if result:
+            return jsonify(tags)
+        else:
+            return Response("no tags", status=201, mimetype="application/json")
 
     def followers_list(self,data,cursor,user_id):
         user_id=data['user_id']
