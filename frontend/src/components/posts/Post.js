@@ -2,11 +2,16 @@ import React, { useState, useEffect,useRef } from "react";
 import image from "../../images/logo-white.png";
 import { BsThreeDots } from "react-icons/bs";
 import Comment from "./Comment";
+import { like_post } from "../../api/likepost";
+import { remove_like_post } from "../../api/unlikepost";
 
 
 
 const Post = (props) => {
   let toggle=false
+  let likeRef=useRef(null)
+  const [likerender, setlikerender] = useState(null)
+
   const [showOptions, setShowOptions] = useState(false);
   let element=props.element
   let commentRef=useRef(null)
@@ -20,8 +25,16 @@ const Post = (props) => {
 
   }
   const handleLike =async()=>{
-    
-  }
+    if(element[4]===0){
+    let data=await like_post(element[2])
+    if (data.status===200){element[4]=1
+    setlikerender(1)    }
+  }else{
+    let data =await remove_like_post(element[2])
+    if (data.status===200){
+    element[4]=0
+    setlikerender(2)}
+  }}
   return (
     <div className="w-postwidth  h-postheight bg-slate-600 rounded-md">
       <div>
@@ -80,8 +93,8 @@ const Post = (props) => {
             className="px-10"
           />
         </div>
-        <div className=" flex flex-row justify-around">
-          <button className=" w-buttonli" onClick={handleLike} >Like</button>
+        <div  className=" flex flex-row justify-around">
+          <button className=" w-buttonli" key={likerender} onClick={handleLike} >{element[4]===0?<i class="fa-regular fa-2x fa-heart"></i>:<i class="fa-solid fa-2x fa-heart"></i>}  </button>
           <button className=" w-buttonli" onClick={handlecomment}>comment</button>
           <button className=" w-buttonli h-10">share</button>
         </div>
