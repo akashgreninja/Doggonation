@@ -138,10 +138,11 @@ const Addpost = (props) => {
         />
         <button
           onClick={handleOpen} 
-          className="w-3/12 z-0 pl-3 h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
+          className="w-3/12 z-0 pl-3 h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-lg -z-10"
         >
           Create Post
         </button>
+      
         <Modal
           open={open}
           onClose={handleClose}
