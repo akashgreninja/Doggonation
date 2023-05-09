@@ -11,6 +11,7 @@ import LoginForm from "./components/form/LoginForm";
 import SignIn from "./pages/SignIn";
 import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
+import DonationPage from "./pages/DonationPage"
 
 function App() {
   const [preLoader, setpreLoader] = useState(true);
@@ -18,8 +19,11 @@ function App() {
   return (
     <>
       <Router>
-        {/* {preLoader ? null : <Sidebar  />} */}
+
+        {preLoader ? null : <Sidebar  />}
+
         <Sidebar/>
+
 
         <Suspense>
           <Routes>
@@ -31,7 +35,10 @@ function App() {
             {/* <Route path="/" element={<RegisterPage/>} /> */}
             <Route path="/" element={<Razorpay/>} />
             <Route path="/signin" element={<SignIn/>} />
+
+            <Route path="/about-us" element={<DonationPage shouldit={setpreLoader}/>}/
             <Route path="/profile/:id" element={<ProfilePage/>} />
+
 
           </Routes>
 
