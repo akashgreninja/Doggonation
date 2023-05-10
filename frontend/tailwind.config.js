@@ -41,7 +41,7 @@ module.exports = {
         banana: {
           0: "#FFFDF7",
           50: "#FDD85D",
-          100: "##6798C0",
+          100: "#FDC921",
         },
         ocean: {
           50: "#99D6EA",

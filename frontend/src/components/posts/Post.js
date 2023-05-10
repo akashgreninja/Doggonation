@@ -4,6 +4,7 @@ import { BsThreeDots } from "react-icons/bs";
 import Comment from "./Comment";
 import { like_post } from "../../api/likepost";
 import { remove_like_post } from "../../api/unlikepost";
+import "./Post.css"
 
 const Post = (props) => {
   let toggle = false;
@@ -41,7 +42,7 @@ const Post = (props) => {
   };
   return (
     <div className="w-full bg-white  mb-2 mt-2 rounded-lg p-2 border-2 border-grey-500">
-      <div>
+      <div className="flex flex-col w-full">
         <div class="flex items-center pt-3 pl-3 ">
           <img
             src={element[0]}
@@ -50,7 +51,7 @@ const Post = (props) => {
           />
           <div class="ml-4">
             <h2 class="text-l font-bold">{element[1]}</h2>
-            <p class="text-gray-500 text-xs  "> {element[5]}</p>
+            <p class="text-gray-500 text-xs "> {element[5]}</p>
           </div>
           <div className="relative ml-threething">
             <div
@@ -83,28 +84,28 @@ const Post = (props) => {
             )}
           </div>
         </div>
-        <div className="text-sm">{element[1]}</div>
-        <div className=" h-postimage">
+        <div className="text-sm border-b-2">{element[1]}</div>
+        <div className="w-full">
           <img
             src={element[0]}
             alt=""
             srcset=""
             width={450}
-            className="px-10"
+            className="px-10 w-full"
           />
         </div>
-        <div className=" flex flex-row justify-around">
-          <button className=" w-buttonli" key={likerender} onClick={handleLike}>
+        <div className="  flex flex-row w-full border-t-2">
+          <button className="interaction-button" key={likerender} onClick={handleLike}>
             {element[4] === 0 ? (
               <i class="fa-regular fa-2x fa-heart"></i>
             ) : (
               <i class="fa-solid fa-2x fa-heart"></i>
             )}{"Like"}
           </button>
-          <button className=" w-buttonli" onClick={handlecomment}>
+          <button className="interaction-button" onClick={handlecomment}>
             comment
           </button>
-          <button className=" w-buttonli ">share</button>
+          <button className="interaction-button">share</button>
         </div>
         <div ref={commentRef} style={{ display: "none" }} className="container">
           {loadcomments ? <Comment post_id={element[2]} /> : null}

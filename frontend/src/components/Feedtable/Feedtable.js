@@ -4,7 +4,7 @@ import Addpost from "../posts/Addpost";
 import "./Feed.css"
 const Feedtable = (props) => {
   return (
-    <div className="" style={{ "margin-bottom": "50px", "height": "vh-70","pointer-events":"auto" }}>
+    <div className="" style={{ "margin-bottom": "50px", "pointer-events":"auto" }}>
       <div className="post-box " >
 
        <Addpost loader={props.loader}/>

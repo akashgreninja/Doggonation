@@ -27,7 +27,7 @@ const HomePage = (props) => {
   }
 
   return (
-    <div className='bg-[#f5f1eb]' style={{'margin-left':'316px','padding-top':'100px'}}>
+    <div className='bg-[#f5f1eb]' style={{'margin-left':'316px','padding-top':'62px'}}>
       <Feedtable loader={props.shouldit} />
     </div>
   );
