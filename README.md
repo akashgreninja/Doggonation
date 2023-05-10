@@ -30,7 +30,7 @@
   <li>Flask for the backend API</li>
   <li>Azure MySQL for the SQL database hosting</li>
   <li>Azure App Services for hosting the backend</li>
-  <li>Azure Cognitive Services for translation (coming soon)</li>
+  <li>Azure Cognitive Services for translation</li>
 </ul>
 
 
@@ -93,6 +93,21 @@ outputs = alexnet(inputs)
 
 ```
 
+
+## NLTK (Natural Language Toolkit)
+
+NLTK (Natural Language Toolkit) is a Python library that provides various tools and resources for natural language processing (NLP). It offers easy-to-use interfaces to perform tasks such as tokenization, stemming, part-of-speech tagging, and more.
+
+### Why NLTK?
+
+In our project, we utilize NLTK for its powerful text processing capabilities. Specifically, we leverage NLTK to fetch the most commonly used tags from posts and display relevant posts based on those tags. By using NLTK's tokenization and part-of-speech tagging functionality, we can extract important keywords or tags from the text and analyze their frequency to determine the most common ones.
+
+By incorporating NLTK into our project, we can enhance the user experience by providing a curated display of posts that are relevant to specific topics or tags. NLTK's comprehensive toolkit and resources make it an ideal choice for performing various NLP tasks, allowing us to extract meaningful insights from textual data.
+
+To learn more about NLTK and explore its extensive capabilities, refer to the [NLTK documentation](https://www.nltk.org/).
+
+
+
 ## Text Speech Analysis
 
 ![Sentiment Analysis](https://raw.githubusercontent.com/akashgreninja/helper-repository-for-doggo-nation/main/sentiment_analysis.jpg)
@@ -105,9 +120,67 @@ Here's another image that shows the word cloud generated from our dataset:
 
 ![Word Cloud](https://raw.githubusercontent.com/akashgreninja/helper-repository-for-doggo-nation/main/image1.png)
 
+## Translation with Azure Cognitive Services
 
-<h2>Getting Started 🛠️</h2>
-<p>To get started with Doggonation, simply clone the repository and install the required dependencies. You will also need to set up the database and backend API.</p>
+- Provides translation capabilities for multiple languages using Azure Cognitive Services.
+- Utilizes the translation API to seamlessly translate text.
+
+## Razorpay Payment Gateway Integration
+
+- Integrates the Razorpay payment gateway for secure and convenient online payments.
+- Supports various payment methods and ensures a smooth payment experience for users.
+
+## IP Blocker for Spam Prevention and Security
+
+- Implements an IP blocker mechanism to prevent access from known spamming IP addresses.
+- Enhances security by mitigating potential threats and unauthorized access attempts.
+
+
+<h1>Getting Started</h1>
+
+<p>To get started with this project, follow the instructions below.</p>
+
+<h2>Frontend</h2>
+
+<ol>
+  <li>Navigate to the <code>frontend</code> folder:</li>
+  <pre><code>cd frontend</code></pre>
+
+  <li>Install the required dependencies:</li>
+  <pre><code>npm install</code></pre>
+
+  <li>Start the frontend development server:</li>
+  <pre><code>npm run start</code></pre>
+</ol>
+
+<p>The frontend application will be running at <a href="http://localhost:3000">http://localhost:3000</a>.</p>
+
+<h2>Backend</h2>
+
+<ol>
+  <li>Navigate to the <code>backend</code> folder:</li>
+  <pre><code>cd backend</code></pre>
+
+  <li>Activate the virtual environment (if using):</li>
+  <pre><code>source venv/bin/activate</code></pre>
+
+  <li>Install the required Python packages:</li>
+  <pre><code>pip install -r requirements.txt</code></pre>
+
+  <li>Start your XXAMP server.</li>
+
+  <li>Import the provided sample database (<code>sample_db.sql</code>) into your database server.</li>
+
+  <li>Run the backend server:</li>
+  <pre><code>python app.py</code></pre>
+</ol>
+
+<p>The backend server will be running at <a href="http://localhost:5000">http://localhost:5000</a>.</p>
+
+<p>Make sure to configure the necessary environment variables and update the configuration files as per your requirements.</p>
+
+<p>Feel free to modify and adapt these steps based on your specific setup and environment.</p>
+
 <h2>License 📝</h2>
 <p>Doggonation is an open source project and is available under the <a href="https://github.com/your/your-project/blob/master/LICENSE">MIT License</a>.</p>
 
