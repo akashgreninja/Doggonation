@@ -34,6 +34,7 @@ const DonationPage = (props) => {
                             aspernatur incidunt dolore totam culpa, debitis placeat ratione
                             ipsa ipsum possimus eaque, cumque saepe quia non.
                             </p>
+                            {/* Note: the frontend dev also loves dogs */}
                         </div>
                         <div>
                             <Razorpay/>
