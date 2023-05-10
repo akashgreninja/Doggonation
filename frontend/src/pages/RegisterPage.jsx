@@ -66,7 +66,8 @@ const RegisterPage = (props) => {
     );
     try {
       if (data.error) {
-        console.log("user esists");
+        console.log("user register error");
+        
       } else {
         console.log("in the else");
         console.log(data.result);
@@ -199,7 +200,7 @@ const RegisterPage = (props) => {
           </div>
           <div class="form-container__auth-block">
             <span>
-              Already have an account ? SignIn <a href="#">here</a>
+              Already have an account ? SignIn <a href="/Signin">here</a>
             </span>
           </div>
         </form>

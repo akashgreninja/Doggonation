@@ -1,6 +1,6 @@
 .form_container {
   width: fit-content;
-  height: fit-content;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,6 +94,13 @@
   background-color: transparent;
 }
 
+.error-text {
+  font-size: 0.9rem;
+  text-align: center;
+  line-height: 1.1rem;
+  color: #f74848;
+}
+
 .sign-in_btn {
   width: 100%;
   height: 40px;
@@ -159,6 +166,11 @@
 .note {
   font-size: 0.75rem;
   color: #8b8e98;
+  text-decoration: underline;
+}
+
+.form_container a{
+  color: #115dfc;
   text-decoration: underline;
 }
 

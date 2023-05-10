@@ -8,6 +8,9 @@ const LoginForm = () => {
   const nav = useNavigate();
   const [ridata, setridata] = useState({ email: "", password: "" });
 
+  const [loginErrorMessage, setloginErrorMessage] = useState(" ");
+
+
   const HandleGoogle = async (e) => {
     e.preventDefault();
     const logger = "login";
@@ -36,17 +39,20 @@ const LoginForm = () => {
     setridata({ ...ridata, [e.target.name]: e.target.value });
     console.log(ridata);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { data } = await Login(ridata.email, ridata.password);
     if (data.sucess === true) {
+      setloginErrorMessage(" ")
       localStorage.setItem("token", data.user_id);
 
       nav("/home");
       window.location.reload();
       console.log(data);
     } else {
-      console.log("error");
+      console.log("login error");
+      setloginErrorMessage("Invalid email or password");
     }
   };
   return (
@@ -139,6 +145,12 @@ const LoginForm = () => {
         />
       </div>
 
+      <div>
+        <p className="error-text">
+        {loginErrorMessage}
+        </p>
+      </div>
+
       <button class="c-button c-button--gooey" onClick={handleSubmit}>
         {" "}
         Login
@@ -213,6 +225,7 @@ const LoginForm = () => {
           </svg>
         </span>
       </button>
+      <p>Don't have an account? Sign up <a href="/signup">Here</a></p>
       <p class="note">Terms of use &amp; Conditions</p>
     </form>
   );
