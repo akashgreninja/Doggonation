@@ -11,15 +11,17 @@ const Post = (props) => {
   let toggle=false
   let likeRef=useRef(null)
   const [likerender, setlikerender] = useState(null)
-
+const [loadcomments, setloadcomments] = useState(false)
   const [showOptions, setShowOptions] = useState(false);
   let element=props.element
   let commentRef=useRef(null)
   const handlecomment=()=>{
       if (toggle==true){commentRef.current.style.display="none"
+      setloadcomments(false)
       toggle=false}
       else{
         commentRef.current.style.display="block"
+        setloadcomments(true)
       toggle=true
       }
 
@@ -99,7 +101,7 @@ const Post = (props) => {
           <button className=" w-buttonli h-10">share</button>
         </div>
         <div ref={commentRef} style={{"display":"none"}} className="container">
-            <Comment post_id={element[2]}/>
+            {loadcomments?<Comment post_id={element[2]}/>:null}
         </div>
       </div>
     </div>
