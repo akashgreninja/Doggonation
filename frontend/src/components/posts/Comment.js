@@ -4,7 +4,7 @@ import { getallcomment } from '../../api/getallcomments'
 import { gettags } from '../../api/gettags'
 
 const Comment = (props) => {
-   let user_id=3
+   let user_id=
    useEffect(() => {
     loadcomments()
     loadtags()
