@@ -1,5 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 import time
+import datetime
 from flask import Flask, jsonify, abort, request, send_file
 from flask import Flask, jsonify, abort, request, send_file, Response
 from flask_login import (
@@ -11,25 +12,27 @@ from flask_login import (
 )
 import razorpay
 from fiftyonemodel import identifydog
-class Post:  
-    def __init__(self):
-        self.get_all_users="SELECT * FROM user"
-     #posts crud
-    #adding a new post
-    def addpost(self,data,cursor,db):
-        image=data['pic_url']
-        result=identifydog.run_check(imageurl=image)
-        
-        if result!=0:
-            result=list(result)
-            pic=data['pic_url']
-            location=data['location']
-            caption=data['caption']
-            user_id=data['user_id']
-            tags=data['tags'] + result
 
-            
-            query=f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},' {location}');"
+
+class Post:
+    def __init__(self):
+        self.get_all_users = "SELECT * FROM user"
+
+    # posts crud
+    # adding a new post
+    def addpost(self, data, cursor, db):
+        image = data["pic_url"]
+        result = identifydog.run_check(imageurl=image)
+
+        if result != 0:
+            result = list(result)
+            pic = data["pic_url"]
+            location = data["location"]
+            caption = data["caption"]
+            user_id = data["user_id"]
+            tags = data["tags"] + result
+
+            query = f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},' {location}');"
             cursor.execute(query)
             db.commit()
             cursor.execute("SELECT LAST_INSERT_ID();")
@@ -229,9 +232,49 @@ class Post:
 
     def create_order(self, razorpay_key, razorpay_secret, amount):
         print(amount)
+        try:
+            instance = razorpay.Client(auth=(razorpay_key, razorpay_secret))
+            order = instance.order.create(
+                {"amount": int(amount), "currency": "INR", "payment_capture": "1"}
+            )
+            return order
+        except Exception as e:
+            print(e)
+            return e
 
-        instance = razorpay.Client(auth=(razorpay_key, razorpay_secret))
-        order = instance.order.create(
-            {"amount": int(amount), "currency": "INR", "payment_capture": "1"}
-        )
-        return order
+
+    def capture_payment(self,data,cursor,mydb):
+        amount=data["amount"]
+        razorpayPaymentId=data["razorpayPaymentId"]
+        razorpayOrderId=data["razorpayOrderId"]
+        razorpaySignature=data["razorpaySignature"]
+        print(amount)
+        print(razorpayPaymentId)
+        print(razorpayOrderId)
+        query=f"insert into razorpay (`amount`,`razorpayPaymentId`,`razorpayOrderId`,`razorpaySignature`) values ('{amount}','{razorpayPaymentId}','{razorpayOrderId}','{razorpaySignature}')"
+        cursor.execute(query)
+        mydb.commit()
+        
+        return jsonify({"message":"payment captured successfully"})
+       
+
+
+
+    def banned_ip(self,data,cursor):
+        ip_address=request.remote_addr
+        reason=data["reason"]
+        user_id=data["user_id"]
+        created_at=datetime.datetime.now()
+        query=f"insert into bannedusers (`ip_address`,`reason`,`created_at`,`user_id`) values ('{ip_address}','{reason}',{created_at}'{user_id}')"
+        cursor.execute(query)
+        return jsonify({'message': 'IP address banned successfully.'})
+ 
+    def get_banned_ip(self,data,cursor):
+        id=data["user_id"]
+        query=f"select * from bannedusers where user_id={id}"
+        cursor.execute(query)
+        result=cursor.fetchall()
+        if result:
+            return jsonify({'message': 'true'})
+        else:
+            return jsonify({'message': 'false'})

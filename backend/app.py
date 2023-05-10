@@ -185,8 +185,12 @@ def search():
     return  get_requests.search(data,mycursor)
 
 
+#ban and unban routes
 
-
+@app.route('/ban', methods=['POST'])
+def ban():
+    data=request.json
+    return  post_requests.banned_ip(data,mycursor)
 
 # # following and unfollowing routes
 
@@ -279,6 +283,11 @@ def create_order():
     amount=data['amount']
     return post_requests.create_order(razorpay_key,razorpay_secret,amount)
  
+@app.route('/capture-payment', methods=['POST'])
+def capture_payment():
+    data=request.json
+    return post_requests.capture_payment(data,mycursor,mydb)
+
 
 
 # @app.route ('/verify-payment', methods=['POST'])

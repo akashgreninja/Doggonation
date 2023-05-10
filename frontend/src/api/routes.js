@@ -37,4 +37,5 @@ export const SEARCH='/search'
 //Razorpay
 export const CREATE_ORDER='/create-order'
 export const GET_KEY='/get-razorpay-key'
+export const SEND_DATABASE='/capture-payment'
 // export const GET_KEY='/get-razorpay-key'

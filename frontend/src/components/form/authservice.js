@@ -42,7 +42,7 @@ export const Google = async (e) => {
     } else {
       
       const { data } = await Login(result.user.email, result.user.email);
-      console.log(data[0][0]);
+      console.log(data);
       if (data.sucess) {
         checker = true;
         console.log("go and register again");

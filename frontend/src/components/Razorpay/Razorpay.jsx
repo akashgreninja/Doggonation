@@ -1,5 +1,10 @@
+// https://razorpay.com/docs/payments/payment-gateway/quick-integration/test-integration/
+
+// on top is the link to the documentation of razorpay its easy to use and implement
+
+
 import React, { useState } from "react";
-import { createOrder, getKey } from "../../api/razorpay";
+import { SendPaymentToDatabase, createOrder, getKey } from "../../api/razorpay";
 import './RazorpayButton.css';
 
 const Razorpay = () => {
@@ -34,8 +39,9 @@ const Razorpay = () => {
     document.body.appendChild(script);
   };
   const click_2 = async (req, res) => {
+    const legitamt=100
     const header = {
-      amount: 100 + "00",
+      amount: 100 +"00",
     };
     const { data } = await createOrder(header);
 
@@ -55,6 +61,18 @@ const Razorpay = () => {
       order_id: prob.id,
 
       handler: async function (response) {
+        console.log(response);
+        try{
+          const {data}=await SendPaymentToDatabase(
+            response.razorpay_payment_id,
+            response.razorpay_order_id,
+            response.razorpay_signature,
+            legitamt
+          )
+        }catch(err){
+          console.log(err)
+        }
+     
         // console.log("hit")
         // const result=await axios.post(`${host}/pay-order`,{
         //     amount: orderAmount,

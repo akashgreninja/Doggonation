@@ -19,6 +19,7 @@ const LoginForm = () => {
       console.log(data);
       if (data === true) {
         console.log("not registered");
+        nav("/SignUp");
       } else {
         console.log(data[0][0]);
         localStorage.setItem("token", data[0][0]);

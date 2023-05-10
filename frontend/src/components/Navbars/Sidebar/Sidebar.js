@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../../images/logo-no-background.png";
-import { Link, json } from "react-router-dom";
+import { Link, json,useNavigate } from "react-router-dom";
 import SearchButton from "../../buttons/SearchButton";
 import { startsearch } from "../../../api/search";
 import { FaUserCircle } from "react-icons/fa";
@@ -8,6 +8,13 @@ import { FiCompass } from "react-icons/fi";
 import { FaEnvelope } from "react-icons/fa";
 
 const Sidebar = () => {
+  const navigate=useNavigate()
+
+  const HandleLogout=()=>{
+
+    localStorage.removeItem('token')
+    navigate('/SignIn')
+  }
   const dropdown = () => {
     console.log("targetted");
     const check = document.querySelector("#submenu").classList.toggle("hidden");
@@ -114,7 +121,7 @@ const Sidebar = () => {
             Friends
           </h1>
         </div>
-        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-black">
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-black" onClick={HandleLogout}>
           <i class="bi bi-box-arrow-in-right"></i>
           <span class="text-[15px] ml-4 text-black font-bold">Logout</span>
         </div>
@@ -158,7 +165,7 @@ const Sidebar = () => {
                   <div>
                     <div class="mt-0">
                       {emptyinput === true ? null : (
-                        <ul class="bg-white rounded-md shadow divide-y divide-gray-200">
+                        <ul class="bg-white rounded-md shadow divide-y divide-gray-200" key={element[0]}>
                           <li class="px-6 py-4 hover:bg-gray-50">
                             <div className="flex flex-row items-center   ">
                               <div class="flex items-center justify-center h-16 w-16 bg-gray-200 rounded-full mr-10" >
@@ -169,7 +176,7 @@ const Sidebar = () => {
                                 />
                               </div>
 
-                              <Link to={`/profile/${element[0]}`} class="block hover:text-blue-500">
+                              <Link to={`/profile/${element[0]}`} class="block hover:text-blue-500" onClick={(e)=>{emptyinput=true}}>
                                 {element[3]}
                               </Link>
                             </div>
