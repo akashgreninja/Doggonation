@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../../images/logo-no-background.png";
-import { Link, json,useNavigate } from "react-router-dom";
+import { Link, json, useNavigate } from "react-router-dom";
 import SearchButton from "../../buttons/SearchButton";
 import { startsearch } from "../../../api/search";
 import { FaUserCircle } from "react-icons/fa";
@@ -8,13 +8,12 @@ import { FiCompass } from "react-icons/fi";
 import { FaEnvelope } from "react-icons/fa";
 
 const Sidebar = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
-  const HandleLogout=()=>{
-
-    localStorage.removeItem('token')
-    navigate('/SignIn')
-  }
+  const HandleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/SignIn");
+  };
   const dropdown = () => {
     console.log("targetted");
     const check = document.querySelector("#submenu").classList.toggle("hidden");
@@ -121,13 +120,16 @@ const Sidebar = () => {
             Friends
           </h1>
         </div>
-        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-black" onClick={HandleLogout}>
+        <div
+          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-black"
+          onClick={HandleLogout}
+        >
           <i class="bi bi-box-arrow-in-right"></i>
           <span class="text-[15px] ml-4 text-black font-bold">Logout</span>
         </div>
       </div>
-      <nav className="w-screen h-sidebarh bg-white flex flex-row border-b-1 border-gray-400">
-        <div class="flex items-center ml-10 mr-9">
+      <nav className="w-screen h-sidebarh bg-white flex flex-row border-b-1 border-gray-400 justify-items-center">
+        {/* <div class="flex items-center ml-10 mr-9">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -144,7 +146,7 @@ const Sidebar = () => {
           </svg>
 
           <span class="font-bold text-lg ml-4">Home</span>
-        </div>
+        </div> */}
 
         <div class="flex flex-col">
           <div className="flex items-center w-searchbarw rounded-lg px-4 py-2">
@@ -165,10 +167,13 @@ const Sidebar = () => {
                   <div>
                     <div class="mt-0">
                       {emptyinput === true ? null : (
-                        <ul class="bg-white rounded-md shadow divide-y divide-gray-200" key={element[0]}>
+                        <ul
+                          class="bg-white rounded-md shadow divide-y divide-gray-200"
+                          key={element[0]}
+                        >
                           <li class="px-6 py-4 hover:bg-gray-50">
                             <div className="flex flex-row items-center   ">
-                              <div class="flex items-center justify-center h-16 w-16 bg-gray-200 rounded-full mr-10" >
+                              <div class="flex items-center justify-center h-16 w-16 bg-gray-200 rounded-full mr-10">
                                 <img
                                   class="h-12 w-12 rounded-full"
                                   src={element[6]}
@@ -176,7 +181,13 @@ const Sidebar = () => {
                                 />
                               </div>
 
-                              <Link to={`/profile/${element[0]}`} class="block hover:text-blue-500" onClick={(e)=>{emptyinput=true}}>
+                              <Link
+                                to={`/profile/${element[0]}`}
+                                class="block hover:text-blue-500"
+                                onClick={(e) => {
+                                  emptyinput = true;
+                                }}
+                              >
                                 {element[3]}
                               </Link>
                             </div>

@@ -5,11 +5,9 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import "./Addposts.css";
 import ReactLoading from "react-loading";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { add_post } from "../../api/addpost";
-
-
 
 const Addpost = (props) => {
   const style = {
@@ -21,26 +19,28 @@ const Addpost = (props) => {
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
+    borderRadius: 0.5,
   };
   const user_id = 3;
-  const [loading, setloading] = useState(false)
-  const [laodingtext, setlaodingtext] = useState("submit")
+  const [loading, setloading] = useState(false);
+  const [laodingtext, setlaodingtext] = useState("submit");
   const [keyset, setkeyset] = useState(1);
   const [tags, settags] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {setOpen(true);
-
-  }
-  const [warning, setwarning] = useState("")
-  const handleClose = () =>{ setOpen(false);
-    setloading(false)
-    setlaodingtext("submit")
-    setwarning("")
-    settags([])
-  }
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const [warning, setwarning] = useState("");
+  const handleClose = () => {
+    setOpen(false);
+    setloading(false);
+    setlaodingtext("Post");
+    setwarning("");
+    settags([]);
+  };
 
   const [image, setimage] = useState("");
-  const [imageurl, setimageurl] = useState("")
+  const [imageurl, setimageurl] = useState("");
   const [content, setcontent] = useState({ caption: "", location: "" });
 
   // const setLoader=(data)=>{
@@ -59,25 +59,24 @@ const Addpost = (props) => {
   //uploading post
   const CreateUpload = async (e) => {
     e.preventDefault();
-    setloading(true)
+    setloading(true);
     try {
       const storage = getStorage();
 
       const storageRef = ref(storage, `posts/${image.name}`);
-     
+
       uploadBytes(storageRef, image).then(() => {
         getDownloadURL(storageRef).then((url) => {
           setimageurl(url);
-          console.log(imageurl)
+          console.log(imageurl);
           handleNewPost();
         });
       });
     } catch (e) {
       console.log(e);
-      setloading(false)
-      setlaodingtext("retry")
+      setloading(false);
+      setlaodingtext("retry");
     }
-    
   };
 
   const handleNewPost = async () => {
@@ -93,18 +92,16 @@ const Addpost = (props) => {
     }
 
     if (data.status === 200) {
-      setlaodingtext("upload successfull")
+      setlaodingtext("upload successfull");
       handleClose();
-
-    } 
-    
-    else {
+    } else {
       //add alert
-      setloading(false)
-      setlaodingtext("Retry")
-      setwarning("upload unsuccessfull..sorry we didnt find any dogs in this picture")
+      setloading(false);
+      setlaodingtext("Retry");
+      setwarning(
+        "upload unsuccessfull..sorry we didnt find any dogs in this picture"
+      );
     }
-   
   };
   //tags handling
   const handleDelete = (element) => {
@@ -129,106 +126,111 @@ const Addpost = (props) => {
   };
 
   return (
-    <div>
-      <div className="flex w-11/12 mb-2 ml-2 items-center h-12 border border-gray-300 rounded-lg p-2">
-        <input
-          type="text"
-          placeholder="Have something to share...??"
-          className="w-full px-2 py-1 text-gray-700 "
-        />
-        <button
-          onClick={handleOpen} 
-          className="w-3/12  pl-3 h-8 bg-blue-500 hover:bg-blue-600 text-white rounded-lg -z-10"
-        >
-          Create Post
-        </button>
-      
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <p className="form-title"> Create new post</p>
-            <div className="flex ">
-              <div className="mt-5">
-                <i className="fa-solid fa-envelope fa-2x p-2"></i>
-                <TextField
-                  onChange={change}
-                  id="caption"
-                  name="caption"
-                  label="caption"
-                  required
-                  variant="outlined"
-                />{" "}
-                <br />
-                <br />
-                <i className="p-2 fa-solid fa-thumbtack fa-2x"></i>{" "}
-                <TextField
-                  name="location"
-                  required
-                  onChange={change}
-                  id="location"
-                  label="location"
-                  variant="outlined"
-                />{" "}
-                <br />
-                <br />
-                <i className="fa-solid fa-hashtag  fa-2x p-2"></i>{" "}
-                <TextField
-                  className="mb-3"
-                  id="tag"
-                  label="tag"
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  onKeyPress={handleKeyPress}
-                  variant="outlined"
-                />{" "}
-                <br />
-                <Stack direction="row" spacing={1}>
-                  {tags.map((element) => {
-                    return (
-                      <div key={element}>
-                        <Chip
-                          label={element}
-                          variant="outlined"
-                          onDelete={() => handleDelete(element)}
-                        />
-                      </div>
-                    );
-                  })}
-                </Stack>
+    <div className="h-32 bg-white  mb-2 mt-2 rounded-lg p-2 border-2 border-grey-500">
+        <div className="flex w-full items-center h-12 bg-banana-0 border border-gray-800 rounded p-2">
+          <input
+            type="text"
+            placeholder="Have something to share...??"
+            className="w-full px-2 py-1 text-gray-800 bg-banana-0"
+          />
+          <button
+            onClick={handleOpen}
+            className="w-3/12 pl-5 h-8 bg-ocean-100 hover:bg-ocean-200 text-white text-center"
+          >
+            Create Post
+          </button>
+
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <div className="flex ">
+                <div className="mt-5">
+                  <p className="form-title pl-2 pb-5 leading-5">
+                    {" "}
+                    Create new post
+                  </p>
+                  <i className="fa-solid fa-envelope fa-2x p-2" />
+                  <TextField
+                    onChange={change}
+                    id="caption"
+                    name="caption"
+                    label="caption"
+                    required
+                    variant="outlined"
+                    size="small"
+                  />{" "}
+                  <br />
+                  <br />
+                  <i className="p-2 fa-solid fa-thumbtack fa-2x"></i>{" "}
+                  <TextField
+                    name="location"
+                    required
+                    onChange={change}
+                    id="location"
+                    label="location"
+                    variant="outlined"
+                    size="small"
+                  />{" "}
+                  <br />
+                  <br />
+                  <i className="fa-solid fa-hashtag  fa-2x p-2"></i>{" "}
+                  <TextField
+                    className="mb-3"
+                    id="tag"
+                    label="tags"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
+                    variant="outlined"
+                    size="small"
+                  />{" "}
+                  <br />
+                  <Stack direction="row" spacing={1}>
+                    {tags.map((element) => {
+                      return (
+                        <div key={element}>
+                          <Chip
+                            label={element}
+                            variant="outlined"
+                            onDelete={() => handleDelete(element)}
+                          />
+                        </div>
+                      );
+                    })}
+                  </Stack>
+                </div>
+                <div className="m-5 w-1/2 ">
+                  <label for="file-input" className="drop-container">
+                    {/* <div className="flex flex-col w-full h-64 align-middle text-center justify-center"> */}
+                    <span className="drop-title">Drop your images here</span>
+                    <p>or</p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFile}
+                      id="file-input"
+                    />
+                    {/* </div> */}
+                  </label>
+                </div>
               </div>
-              <div className="m-5 float-right w-1/2">
-                <span className="drop-title">Upload your file</span>
-                <p className="form-paragraph">File should be an image</p>
-                <label for="file-input" className="drop-container">
-                  <span className="drop-title">Drop files here</span>
-                  or
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFile}
-                    id="file-input"
-                  />
-                </label>
-              </div>
-            </div>
-            <button
-              onClick={CreateUpload}
-              id="submit"
-              className="float-right mx-10 p-3 h-10 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
-            >
-               
-               {loading ? <ReactLoading  />: laodingtext }
-             
-            </button>
-            <small>do not click outside modal till upload is complete</small><br />
-            <small style={{"color":"red"}}>{warning}</small>
-          </Box>
-        </Modal>
-      </div>
+              <button
+                onClick={CreateUpload}
+                id="submit"
+                className="float-right mx-10 p-3 h-10 bg-ocean-200 hover:bg-ocean-100 text-white rounded-sm"
+              >
+                {loading ? <ReactLoading /> : laodingtext}
+              </button>
+              <small>do not click outside box till upload is complete</small>
+              <br />
+              <small style={{ color: "red" }}>{warning}</small>
+            </Box>
+          </Modal>
+        </div>
     </div>
   );
 };
