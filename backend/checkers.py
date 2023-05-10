@@ -1,16 +1,37 @@
-list1 = [1, 2, 3, 2, 1]
-list2 = [3, 1, 2, 1, 3]
-dict1={}
-dict2={}
+# from dotenv import load_dotenv
+# import os
+# import requests
+# import uuid
 
-for i in list1:
-    dict1[i]=dict1.get(i,0)+1
 
-    
-for i in list2:
-    dict2[i]=dict2.get(i,0)+1
+# load_dotenv()
 
-if dict==dict2:
-    print( True)
-else:
-   print(False)
+
+# key = os.getenv('KEY')
+# endpoint = os.getenv('ENDPOINT')
+# location = os.getenv('LOCATION')
+
+
+
+# print(key)
+# print(endpoint)
+# print(location)
+
+
+
+# text = "नमस्ते मेरा नाम आकाश है"
+# target_language = 'en'
+# path = '/translate?api-version=3.0'
+# target_language_parameter = '&to=' + target_language
+# constructed_url = endpoint + path + target_language_parameter
+# headers = {
+# 'Ocp-Apim-Subscription-Key': key,
+# 'Ocp-Apim-Subscription-Region': location,
+# 'Content-type': 'application/json',
+# 'X-ClientTraceId': str(uuid.uuid4())
+# }
+# body = [{ 'text': text }]
+# translator_request = requests.post(constructed_url, headers=headers, json=body)
+# translator_response = translator_request.json()
+# translated_text = translator_response[0]['translations'][0]['text']
+# print(translated_text)
