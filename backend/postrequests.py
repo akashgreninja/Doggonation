@@ -78,6 +78,10 @@ class Post:
 
     # like and unlike
     def like(self, post_id, cursor, db):
+        cursor.execute(f"select `likes` from `posts` where `post_id`='{post_id}'")
+        likes=cursor.fetchone()[0]
+        likes+=1
+        cursor.execute(f"UPDATE `posts` SET `likes` = '{likes}' WHERE `posts`.`post_id` = '{post_id}';")
         cursor.execute(
             f"UPDATE `posts` SET `liked` = '1' WHERE `posts`.`post_id` = {post_id}"
         )
@@ -85,6 +89,10 @@ class Post:
         return jsonify("like updated")
 
     def rmlike(self, post_id, cursor, db):
+        cursor.execute(f"select `likes` from `posts` where `post_id`='{post_id}'")
+        likes=cursor.fetchone()[0]
+        likes-=1
+        cursor.execute(f"UPDATE `posts` SET `comments` = '{likes}' WHERE `posts`.`post_id` = '{post_id}';")
         cursor.execute(
             f"UPDATE `posts` SET `liked` = '0' WHERE `posts`.`post_id` = {post_id}"
         )
@@ -172,7 +180,10 @@ class Post:
         comment = data["comment"]
         user_id = data["user_id"]
         post_id = data["post_id"]
-
+        cursor.execute(f"select `comments` from `posts` where `post_id`='{post_id}'")
+        comments=cursor.fetchone()[0]
+        comments+=1
+        cursor.execute(f"UPDATE `posts` SET `comments` = '{comments}' WHERE `posts`.`post_id` = '{post_id}';")
         query = f"INSERT INTO comments  (`comment_id`, `post_id`, `user_id`, `comment`, `liked`) VALUES (NULL, '{post_id}', '{user_id}', '{comment}',0)"
         cursor.execute(query)
         mydb.commit()

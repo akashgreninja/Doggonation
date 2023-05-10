@@ -3,8 +3,9 @@ import { add_comment } from '../../api/addcomment'
 import { getallcomment } from '../../api/getallcomments'
 import { gettags } from '../../api/gettags'
 
+
 const Comment = (props) => {
-   let user_id=
+   let user_id=29
    useEffect(() => {
     loadcomments()
     loadtags()
@@ -13,7 +14,7 @@ const Comment = (props) => {
    const inputRef = useRef(null);
  
  
-  
+   const [numofcomments, setnumofcomments] = useState(props.numofcomments)
    const [comments, setcomments] = useState([])
    const [tags, settags] = useState([])
 
@@ -27,6 +28,8 @@ const Comment = (props) => {
       let data=await getallcomment(props.post_id)
       if (data.status===200){
       setcomments(data.data)
+      console.log(comments.length)
+      setnumofcomments(comments.length)
       }
       
    }
@@ -36,6 +39,7 @@ const Comment = (props) => {
     if (data.status===200){
         inputRef.current.value=""
         loadcomments()
+        
     }
    }
        return (
@@ -56,6 +60,7 @@ const Comment = (props) => {
         </div>
       })
     }</div>
+    <small>{numofcomments} comments</small>
     <div className='flex m-5 '>
       
         <input type="text" className='p-2 z-20 rounded' ref={inputRef} name='comment'  placeholder="Add a comment" />

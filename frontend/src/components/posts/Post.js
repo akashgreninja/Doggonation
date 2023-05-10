@@ -15,6 +15,7 @@ const [loadcomments, setloadcomments] = useState(false)
   const [showOptions, setShowOptions] = useState(false);
   let element=props.element
   let commentRef=useRef(null)
+  
   const handlecomment=()=>{
       if (toggle==true){commentRef.current.style.display="none"
       setloadcomments(false)
@@ -30,11 +31,13 @@ const [loadcomments, setloadcomments] = useState(false)
     if(element[4]===0){
     let data=await like_post(element[2])
     if (data.status===200){element[4]=1
+      element[8]+=1
     setlikerender(1)    }
   }else{
     let data =await remove_like_post(element[2])
     if (data.status===200){
     element[4]=0
+    element[8]-=1
     setlikerender(2)}
   }}
   return (
@@ -96,12 +99,12 @@ const [loadcomments, setloadcomments] = useState(false)
           />
         </div>
         <div  className=" flex flex-row justify-around">
-          <button className=" w-buttonli" key={likerender} onClick={handleLike} >{element[4]===0?<i class="fa-regular fa-2x fa-heart"></i>:<i class="fa-solid fa-2x fa-heart"></i>}  </button>
-          <button className=" w-buttonli" onClick={handlecomment}>comment</button>
+          <button className=" w-buttonli" key={likerender} onClick={handleLike} >{element[4]===0?<i class="fa-regular fa-2x fa-heart"></i>:<i class="fa-solid fa-2x fa-heart"></i>} {element[8]} </button>
+          <button className=" w-buttonli" onClick={handlecomment}>comment </button>
           <button className=" w-buttonli h-10">share</button>
         </div>
         <div ref={commentRef} style={{"display":"none"}} className="container">
-            {loadcomments?<Comment post_id={element[2]}/>:null}
+            {loadcomments?<Comment post_id={element[2]} numofcomments={element[9]}/>:null}
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 import React, { Suspense, useState } from "react";
 import Twitter from "./components/buttons/twitter";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
 import Sidebar from "./components/Navbars/Sidebar/Sidebar";
 // import HomePage from "./components/pages/HomePage";
 import PreLoaderPage from "./pages/PreLoaderPage";
