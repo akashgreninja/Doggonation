@@ -49,10 +49,12 @@ class identifydog:
 
       dog=classes[index[0]]
       dog=dog.split(", ")
-      print(dog)
+      returnlist=[]
       for i in dog:
 
         if i in dog_breeds:
-          return i,percentage
-        else:
-          return 0
+          returnlist.append(i)
+      if returnlist==[]:
+        return None
+      else:
+        return returnlist

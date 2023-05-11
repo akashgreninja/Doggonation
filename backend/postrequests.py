@@ -25,25 +25,25 @@ class Post:
         image = data["pic_url"]
         result = identifydog.run_check(imageurl=image)
 
-        if result != 0:
-            result = list(result)
+        if result != None:
+            
             pic = data["pic_url"]
             location = data["location"]
             caption = data["caption"]
             user_id = data["user_id"]
             tags = data["tags"] + result
 
-            query = f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},' {location}');"
+            query = f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},'{location}');"
             cursor.execute(query)
             db.commit()
             cursor.execute("SELECT LAST_INSERT_ID();")
             post_id = cursor.fetchone()[0]
+            print(tags)
             for i in tags:
-                cursor.execute(
-                    f"INSERT INTO `tags` (`tag`, `post_id`, `tag_id`) VALUES ('{i}', '{post_id}', NULL);"
+                cursor.execute(f"INSERT INTO `tags` (`tag`, `post_id`) VALUES  ('{i}', '{post_id}')"
                 )
-
             db.commit()
+            
             return jsonify("post added succesfully")
         else:
             return Response("no dogs found", status=201, mimetype="application/json")

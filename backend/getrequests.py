@@ -1,5 +1,11 @@
 from flask import Flask, abort,jsonify,Response
 from werkzeug.security import generate_password_hash, check_password_hash
+import nltk
+from nltk import FreqDist
+from nltk.tokenize import word_tokenize
+nltk.download('punkt')
+
+
 class Get:
     def __init__(self):
         self.change=0
@@ -10,6 +16,38 @@ class Get:
             "message":"backend is online"
         }
         return dict
+    
+
+    def explore(self,cursor):
+        cursor.execute(f"select * from `tags`")
+        result=cursor.fetchall()
+        new=[]
+        for i in result:
+            new.append(i[0])       
+      
+        text = " ".join(new)
+        words = word_tokenize(text)
+        fdist = FreqDist(words)
+        most_common_words = fdist.most_common()
+        returning_list=[]
+        j=0
+        for i in most_common_words:
+            if j>5:
+                break
+            returning_list.append(i[0])
+            j+=1
+        final_postid=[]
+        for i in returning_list:
+            for j in range(len(new)):
+                if i==new[j]:
+                    final_postid.append(result[j][1])
+        explore_posts=[]
+        for i in final_postid:
+            cursor.execute(f"select * from `posts` where `post_id`={i}")
+            result=cursor.fetchone()
+            print(result)
+            explore_posts.append(result)
+        return jsonify(explore_posts)
     
     def get_user (self,data,mycursor,mydb):
         id=data['id']
