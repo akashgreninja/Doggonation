@@ -4,7 +4,7 @@ import Post from "./Post";
 import { json } from "react-router-dom";
 
 const PostCard = () => {
-  let user_id = 3;
+  let user_id=29
   const [posts, setposts] = useState([]);
   useEffect(() => {
     load();
