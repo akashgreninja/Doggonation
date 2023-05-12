@@ -11,6 +11,7 @@ import SignIn from "./pages/SignIn";
 import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
 import DonationPage from "./pages/DonationPage"
+import Explore from "./pages/Explore";
 
 function App() {
   // const [Sidebar, setsidebar] = useState(true);
@@ -35,6 +36,7 @@ function App() {
             <Route path="/About" element={<DonationPage Sidebarrender={setsidebar}/>} />
             <Route path="/Signin" element={<SignIn Sidebarrender={setsidebar}/>} />
             <Route path="/profile/:id" element={<ProfilePage Sidebarrender={setsidebar}/>} />
+            <Route path="/explore" element={<Explore  Sidebarrender={setsidebar}/> } />
 
 
           </Routes>
