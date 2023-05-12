@@ -12,6 +12,7 @@ from flask_login import (
 )
 import razorpay
 from fiftyonemodel import identifydog
+import requests, os, uuid, json
 
 
 class Post:
@@ -253,39 +254,53 @@ class Post:
             print(e)
             return e
 
-
-    def capture_payment(self,data,cursor,mydb):
-        amount=data["amount"]
-        razorpayPaymentId=data["razorpayPaymentId"]
-        razorpayOrderId=data["razorpayOrderId"]
-        razorpaySignature=data["razorpaySignature"]
+    def capture_payment(self, data, cursor, mydb):
+        amount = data["amount"]
+        razorpayPaymentId = data["razorpayPaymentId"]
+        razorpayOrderId = data["razorpayOrderId"]
+        razorpaySignature = data["razorpaySignature"]
         print(amount)
         print(razorpayPaymentId)
         print(razorpayOrderId)
-        query=f"insert into razorpay (`amount`,`razorpayPaymentId`,`razorpayOrderId`,`razorpaySignature`) values ('{amount}','{razorpayPaymentId}','{razorpayOrderId}','{razorpaySignature}')"
+        query = f"insert into razorpay (`amount`,`razorpayPaymentId`,`razorpayOrderId`,`razorpaySignature`) values ('{amount}','{razorpayPaymentId}','{razorpayOrderId}','{razorpaySignature}')"
         cursor.execute(query)
         mydb.commit()
-        
-        return jsonify({"message":"payment captured successfully"})
-       
 
+        return jsonify({"message": "payment captured successfully"})
 
-
-    def banned_ip(self,data,cursor):
-        ip_address=request.remote_addr
-        reason=data["reason"]
-        user_id=data["user_id"]
-        created_at=datetime.datetime.now()
-        query=f"insert into bannedusers (`ip_address`,`reason`,`created_at`,`user_id`) values ('{ip_address}','{reason}',{created_at}'{user_id}')"
+    def banned_ip(self, data, cursor):
+        ip_address = request.remote_addr
+        reason = data["reason"]
+        user_id = data["user_id"]
+        created_at = datetime.datetime.now()
+        query = f"insert into bannedusers (`ip_address`,`reason`,`created_at`,`user_id`) values ('{ip_address}','{reason}',{created_at}'{user_id}')"
         cursor.execute(query)
-        return jsonify({'message': 'IP address banned successfully.'})
- 
-    def get_banned_ip(self,data,cursor):
-        id=data["user_id"]
-        query=f"select * from bannedusers where user_id={id}"
+        return jsonify({"message": "IP address banned successfully."})
+
+    def get_banned_ip(self, data, cursor):
+        id = data["user_id"]
+        query = f"select * from bannedusers where user_id={id}"
         cursor.execute(query)
-        result=cursor.fetchall()
+        result = cursor.fetchall()
         if result:
-            return jsonify({'message': 'true'})
+            return jsonify({"message": "true"})
         else:
-            return jsonify({'message': 'false'})
+            return jsonify({"message": "false"})
+
+    def translate(self, key, endpoint, location, data):
+        text = data["text"]
+        target_language = 'en'
+        path = '/translate?api-version=3.0'
+        target_language_parameter = '&to=' + target_language
+        constructed_url = endpoint + path + target_language_parameter
+        headers = {
+        'Ocp-Apim-Subscription-Key': key,
+        'Ocp-Apim-Subscription-Region': location,
+        'Content-type': 'application/json',
+        'X-ClientTraceId': str(uuid.uuid4())
+    }
+        body = [{ 'text': text }]
+        translator_request = requests.post(constructed_url, headers=headers, json=body)
+        translator_response = translator_request.json()
+        translated_text = translator_response[0]['translations'][0]['text']
+        return jsonify({"message": translated_text})

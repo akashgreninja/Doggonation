@@ -24,6 +24,9 @@ azure_password = os.getenv('PASSWORD')
 azure_database = os.getenv('DATABASE')
 razorpay_secret= os.getenv('RAZORPAY_SECRET')
 razorpay_key = os.getenv('RAZORPAY_KEY_ID')
+key = os.getenv('KEY')
+endpoint = os.getenv('ENDPOINT')
+location = os.getenv('LOCATION')
 
 get_requests=Get()
 post_requests=Post()
@@ -300,5 +303,17 @@ def capture_payment():
 #     data=request.json
 #     return post_requests.verify_payment(razorpay_key,razorpay_secret,data)
    
+
+#all the cloud routes
+
+
+@app.route('/translate', methods=['POST'])
+def translate():
+    data=request.json
+    return post_requests.translate(key,endpoint,location,data)
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True,port=app_port)

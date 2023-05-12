@@ -1,3 +1,5 @@
+// imagine trying to undertsand this code lmao all the best thats why you had to do your college project beforehand
+
 import { Login } from "../../api/login";
 import { Register } from "../../api/register";
 import { auth } from "../../firebaseconfig";

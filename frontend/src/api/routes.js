@@ -39,3 +39,7 @@ export const CREATE_ORDER='/create-order'
 export const GET_KEY='/get-razorpay-key'
 export const SEND_DATABASE='/capture-payment'
 // export const GET_KEY='/get-razorpay-key'
+
+
+//explore
+export const EXPLORE='/explore'
