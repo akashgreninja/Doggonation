@@ -3,6 +3,7 @@
 from flask import  Flask,jsonify,abort,request,send_file
 from dotenv import load_dotenv
 import os
+from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 from flask_login import LoginManager,login_required,current_user,logout_user,login_user
 # import pyodbc   this was the azure connection
@@ -12,11 +13,14 @@ import mysql.connector
 # all internal modules here
 from  getrequests import Get
 from postrequests import Post
-
+import eventlet
 
 
 
 app = Flask(__name__)
+socketio = SocketIO(app,async_mode='eventlet',cors_allowed_origins="*")
+
+
 CORS(app)
 load_dotenv()
 app_port = os.getenv('PORT')
@@ -312,8 +316,29 @@ def translate():
     data=request.json
     return post_requests.translate(key,endpoint,location,data)
 
+connected_users = {}
+
+@socketio.on('connectuser')
+def handle_connect():
+    connected_users[request.sid] = {
+        'user_id': None,  # Set to user's ID when they log in
+        'connection': request.sid
+    }
+    print(connected_users)
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    del connected_users[request.sid]
+
+
+@socketio.on('message')
+def handle_message(data):
+    recipient = connected_users.get(data['recipient'])
+    if recipient:
+        emit('message', data, room=recipient['connection'])
 
 
 
 if __name__ == '__main__':
+    eventlet.monkey_patch()
     app.run(debug=True,port=app_port)
