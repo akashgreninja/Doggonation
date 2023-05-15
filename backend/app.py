@@ -4,6 +4,8 @@ from flask import  Flask,jsonify,abort,request,send_file
 from dotenv import load_dotenv
 import os
 from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, join_room, leave_room
+
 from flask_cors import CORS
 from flask_login import LoginManager,login_required,current_user,logout_user,login_user
 # import pyodbc   this was the azure connection
@@ -18,6 +20,7 @@ import eventlet
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '13342'
 socketio = SocketIO(app,async_mode='eventlet',cors_allowed_origins="*")
 
 
@@ -319,26 +322,40 @@ def translate():
 connected_users = {}
 
 @socketio.on('connectuser')
-def handle_connect():
+def handle_connect( data):
+    print(data)
+    print(request.sid)
+    print("dsdsdbgggggggggggh")
     connected_users[request.sid] = {
         'user_id': None,  # Set to user's ID when they log in
-        'connection': request.sid
+        'connection': request.sid,
+        'recipient': data['recipient']
     }
+    print(connected_users)
+    print("ededed")
+
     print(connected_users)
 
 @socketio.on('disconnect')
 def handle_disconnect():
-    del connected_users[request.sid]
+    if request.sid in connected_users:
+        del connected_users[request.sid]
 
 
 @socketio.on('message')
 def handle_message(data):
-    recipient = connected_users.get(data['recipient'])
+    print(data.message)
+    recipient = connected_users.get(data['recipient'], {})
     if recipient:
-        emit('message', data, room=recipient['connection'])
-
+        print("errrrrrffffffffffffffff")
+        room = recipient['connection']  # Get the recipient's connection ID as the room name
+        join_room(room)  # Join the recipient's room
+        emit('message', data, room=room)  # Emit the event to the recipient's room
+        leave_room(room)  # Leave the recipient's
 
 
 if __name__ == '__main__':
     eventlet.monkey_patch()
-    app.run(debug=True,port=app_port)
+    socketio.run(app, port=3003,debug=True)
+
+    
