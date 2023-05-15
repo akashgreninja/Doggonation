@@ -4,46 +4,34 @@ import io from 'socket.io-client';
 const socket = io('http://localhost:3003');
 
 const Dm = () => {
-  
-    const [recipient, setRecipient] = useState(null);
+    const [messages, setMessages] = useState([1]);
+
     useEffect(() => {
-        connectsocket()
-    }, [])
-    
-    const connectsocket=()=>{
-        socket.emit('connectuser', {
-          
-        
-        });
+      socket.on('connect', () => {
+        socket.emit('message', {data: 'I\'m connected!'});
+      })
+    }, []);
+    socket.on('messagerec', (message) => {
+            
+        setMessages([...messages, message['data']]);
+        console.log(message)
+      });
+    const sendMessage=(message)=>{
+        let msg=document.getElementById('textinput')
+        socket.emit('message', {data:msg.value,user_id:3});
     }
-    const sendMessage = (message) => {
-        socket.emit('message', {
-            from: 29,
-            recipient: 3,
-            text: "message",
-        });
-    };
     return (
-        <div>
-            <h1>DM Section</h1>
-            <ul>
-                {/* Display messages to/from the selected recipient */}
-            </ul>
-            <select value={recipient} onChange={(e) => setRecipient(e.target.value)}>
-                <option value={null}>Select a user</option>
-                {/* {otherUsers.map((user) => (
-                    <option key={user.id} value={user.id}>{user.username}</option>
-                ))} */}
-            </select>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                sendMessage(e.target.message.value);
-                e.target.message.value = '';
-            }}>
-                <input type="text" name="message" placeholder="Type a message..." />
-                <button type="submit">Send</button>
-            </form>
-        </div>
+      <div>
+        <ul>
+          {messages.map((message, index) => (
+            <li key={index}>{message}</li>
+          ))}
+        </ul>
+        <input type="text" name="" id="textinput" />
+        <button onClick={sendMessage}>
+          Send Message
+        </button>
+      </div>
     );
 }
 
