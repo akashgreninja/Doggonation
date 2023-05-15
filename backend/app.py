@@ -5,7 +5,13 @@ from flask import  Flask,jsonify,abort,request,send_file
 from dotenv import load_dotenv
 import ast
 import os
+<<<<<<< HEAD
+from flask_socketio import SocketIO, emit
 from flask_socketio import SocketIO, emit, join_room, leave_room
+
+=======
+from flask_socketio import SocketIO, emit, join_room, leave_room
+>>>>>>> 52d96106ac952851958278fe1fe034935753840b
 from flask_cors import CORS
 from flask_login import LoginManager,login_required,current_user,logout_user,login_user
 # import pyodbc   this was the azure connection
@@ -21,8 +27,13 @@ from postrequests import Post
 
 
 app = Flask(__name__)
+<<<<<<< HEAD
+app.config['SECRET_KEY'] = '13342'
+socketio = SocketIO(app,async_mode='eventlet',cors_allowed_origins="*")
+=======
 
 socketio = SocketIO(app,cors_allowed_origins="*",)
+>>>>>>> 52d96106ac952851958278fe1fe034935753840b
 
 
 CORS(app)
@@ -355,6 +366,7 @@ def handle_disconnect():
     pass
 
 
+
 @socketio.on('message')
 def handle_message(data):
  
@@ -380,6 +392,11 @@ def handle_message(data):
 
 if __name__ == '__main__':
     eventlet.monkey_patch()
+<<<<<<< HEAD
+    socketio.run(app, port=3003,debug=True)
+
+=======
     socketio.run(app,port=app_port)
     # app.run(debug=True,port=app_port)
+>>>>>>> 52d96106ac952851958278fe1fe034935753840b
     

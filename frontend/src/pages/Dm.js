@@ -2,15 +2,25 @@ import React,{useState,useEffect} from 'react'
 import io from 'socket.io-client';
 import { msg } from '../api/msg';
 
-const socket = io('http://localhost:3003');
+import { useSelector } from 'react-redux';
+
+import { GET_FOLLOWING } from "../api/routes";
+import { Getallfollowersforuser } from "../api/getallfollowers";
+
+const socket = io("http://localhost:3003");
 
 const Dm = () => {
     const [messages, setMessages] = useState({});
-    
-    const[roomid,setroomid]=useState(null)
+    const user = useSelector((state) => state.allposts.Userinfo);
+  console.log(user);
+  
 
+  
+    const[roomid,setroomid]=useState(null)
+   const [allusers, Setallusers] = useState([])
     const sender=29
     useEffect(() => {
+      GetAllfollowers();
      socket.emit('connectuser', {sender_id:sender,reciever_id:2})
      loadmsgs()
     }, []);
@@ -31,6 +41,12 @@ const Dm = () => {
         console.log(messages)
         
       });
+      const GetAllfollowers = async () => {
+        const { data } = await Getallfollowersforuser(user.user_id);
+        console.log(data);
+        Setallusers(data);
+      };
+
     const sendMessage=()=>{
         let msg=document.getElementById('textinput')
         socket.emit('message', {data:msg.value,room_id:roomid,sender_id:sender,reciever_id:2})
@@ -51,5 +67,11 @@ const Dm = () => {
     );
 }
 
+ 
 
-export default Dm
+ 
+
+  
+
+
+export default Dm;
