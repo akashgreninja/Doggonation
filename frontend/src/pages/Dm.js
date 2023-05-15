@@ -9,59 +9,39 @@ const socket = io("http://localhost:3003");
 const Dm = () => {
   const user = useSelector((state) => state.allposts.Userinfo);
   console.log(user);
-  const [allusers,Setallusers] = useState([]);
-  const [messages, setMessages] = useState([]);
-  const [messageInput, setMessageInput] = useState("");
+  const [messages, setMessages] = useState([1]);
 
   useEffect(() => {
-   
-    const dali=localStorage.getItem("token");
-    socket.emit("connectuser", {
-      user_id: 12, // Replace with sender's ID
-      recipient: 12, // Replace with recipient's ID
-      text: messageInput,
+    GetAllfollowers();
+    socket.on('connect', () => {
+      socket.emit('message', { data: 'I\'m connected!' });
     });
-    console.log("connected");
-    socket.on('message', (data) => {
-        setMessages((prevMessages) => [...prevMessages, data]);
-        console.log(data);
-      });
-  
-      // Clean up the socket connection when the component unmounts
-      return () => {
-        socket.disconnect();
-      };
-
+    socket.on('messagerec', (message) => {
+      setMessages([...messages, message['data']]);
+      console.log(message);
+    });
   }, []);
 
-  const GetAllfollowers=async()=>{
-    const {data}=await   Getallfollowersforuser(user.user_id);
-    console.log(data);
-    Setallusers(data);
-
-    
-  }
-
- 
   const sendMessage = () => {
-    const message = {
-      from: 29, // Replace with sender's ID
-      recipient: 3, // Replace with recipient's ID
-      text: 'Hello, world!', // Replace with your message
-    };
-    socket.emit('message', message);
-    console.log("sent");
+    let msg = document.getElementById('textinput');
+    socket.emit('message', { data: msg.value, user_id: 3 });
   };
 
+  const GetAllfollowers = async () => {
+    const { data } = await Getallfollowersforuser(user.user_id);
+    console.log(data);
+    Setallusers(data);
+  };
 
   return (
-<div>
-      <button onClick={sendMessage}>Send Message</button>
+    <div>
       <ul>
         {messages.map((message, index) => (
-          <li key={index}>{message.text}</li>
+          <li key={index}>{message}</li>
         ))}
       </ul>
+      <input type="text" name="" id="textinput" />
+      <button onClick={sendMessage}>Send Message</button>
     </div>
   );
 };

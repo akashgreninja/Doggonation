@@ -1,27 +1,38 @@
 
 # import all the external modules here
+from flask import session
 from flask import  Flask,jsonify,abort,request,send_file
 from dotenv import load_dotenv
 import os
+<<<<<<< HEAD
 from flask_socketio import SocketIO, emit
 from flask_socketio import SocketIO, emit, join_room, leave_room
 
+=======
+from flask_socketio import SocketIO, emit, join_room, leave_room
+>>>>>>> 52d96106ac952851958278fe1fe034935753840b
 from flask_cors import CORS
 from flask_login import LoginManager,login_required,current_user,logout_user,login_user
 # import pyodbc   this was the azure connection
 import base64
+import eventlet
 import mysql.connector
 
 # all internal modules here
 from  getrequests import Get
 from postrequests import Post
-import eventlet
+
 
 
 
 app = Flask(__name__)
+<<<<<<< HEAD
 app.config['SECRET_KEY'] = '13342'
 socketio = SocketIO(app,async_mode='eventlet',cors_allowed_origins="*")
+=======
+
+socketio = SocketIO(app,cors_allowed_origins="*",)
+>>>>>>> 52d96106ac952851958278fe1fe034935753840b
 
 
 CORS(app)
@@ -317,10 +328,11 @@ def capture_payment():
 @app.route('/translate', methods=['POST'])
 def translate():
     data=request.json
-    return post_requests.translate(key,endpoint,location,data)
+    return post_requests.translatefn(key,endpoint,location,data)
 
-connected_users = {}
+# connected_users = {}
 
+<<<<<<< HEAD
 @socketio.on('connectuser')
 def handle_connect( data):
     print(data)
@@ -340,10 +352,24 @@ def handle_connect( data):
 def handle_disconnect():
     if request.sid in connected_users:
         del connected_users[request.sid]
+=======
+@socketio.on('connect')
+def handle_connect():
+   pass
+    
+  
+
+    
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    pass
+>>>>>>> 52d96106ac952851958278fe1fe034935753840b
 
 
 @socketio.on('message')
 def handle_message(data):
+<<<<<<< HEAD
     print(data.message)
     recipient = connected_users.get(data['recipient'], {})
     if recipient:
@@ -352,10 +378,21 @@ def handle_message(data):
         join_room(room)  # Join the recipient's room
         emit('message', data, room=room)  # Emit the event to the recipient's room
         leave_room(room)  # Leave the recipient's
+=======
+    print(data['data'])
+    
+    socketio.emit( 'messagerec',{'data': data['data']})
+
+>>>>>>> 52d96106ac952851958278fe1fe034935753840b
 
 
 if __name__ == '__main__':
     eventlet.monkey_patch()
+<<<<<<< HEAD
     socketio.run(app, port=3003,debug=True)
 
+=======
+    socketio.run(app,port=app_port)
+    # app.run(debug=True,port=app_port)
+>>>>>>> 52d96106ac952851958278fe1fe034935753840b
     

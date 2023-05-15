@@ -287,7 +287,7 @@ class Post:
         else:
             return jsonify({"message": "false"})
 
-    def translate(self, key, endpoint, location, data):
+    def translatefn(self, key, endpoint, location, data):
         text = data["text"]
         target_language = 'en'
         path = '/translate?api-version=3.0'
