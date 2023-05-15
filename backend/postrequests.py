@@ -304,3 +304,10 @@ class Post:
         translator_response = translator_request.json()
         translated_text = translator_response[0]['translations'][0]['text']
         return jsonify({"message": translated_text})
+    
+    def msgfn(self,data,cursor):
+        room=data['room']
+        cursor.execute(f"select `text` from `chats` where `msg_id`='{room}'")
+        result=cursor.fetchall()
+        print(result)
+        return jsonify(result)

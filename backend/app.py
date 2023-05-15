@@ -3,6 +3,7 @@
 from flask import session
 from flask import  Flask,jsonify,abort,request,send_file
 from dotenv import load_dotenv
+import ast
 import os
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from flask_cors import CORS
@@ -11,7 +12,7 @@ from flask_login import LoginManager,login_required,current_user,logout_user,log
 import base64
 import eventlet
 import mysql.connector
-
+import json
 # all internal modules here
 from  getrequests import Get
 from postrequests import Post
@@ -319,12 +320,32 @@ def translate():
     data=request.json
     return post_requests.translatefn(key,endpoint,location,data)
 
-# connected_users = {}
+@app.route('/msg', methods=['POST'])
+def msg():
+    data=request.json
+    return post_requests.msgfn(data,mycursor)
 
-@socketio.on('connect')
-def handle_connect():
-   pass
-    
+# connected_users = {}
+room_id=[]
+@socketio.on('connectuser')
+def handle_connect(data):
+   sender=data['sender_id']
+   reciever=data['reciever_id']
+   mycursor.execute(f"select * from `chats` where `sender_id`='{sender}' and `recipient_id`='{reciever}' or `sender_id`='{reciever}' and `recipient_id`='{sender}'")
+   result=mycursor.fetchone()
+   if result:
+       room_id=result[0]
+   else:
+       mycursor.execute(f"INSERT INTO `chats` (`sender_id`, `recipient_id`) VALUES ( '{sender}', '{reciever}'); ")
+       mydb.commit()
+       mycursor.execute(f"select * from `chats` where `sender_id`='{sender}' and `recipient_id`='{reciever}' or `sender_id`='{reciever}' and `recipient_id`='{sender}'")
+       result=mycursor.fetchone()
+       ##
+       print('created')
+       room_id=result[0]
+   
+#    join_room(room_id) 
+   socketio.emit( 'connection',{'data': room_id})
   
 
     
@@ -336,9 +357,24 @@ def handle_disconnect():
 
 @socketio.on('message')
 def handle_message(data):
-    print(data['data'])
+ 
+    room_id=data['room_id']
+    newdict=f"{data['sender_id']:data['data']}"
+    mycursor.execute(f"select * from `chats` where `msg_id`='{room_id}' ")
+    result=mycursor.fetchone()
+    result=result[3]
+    #print(result)
     
-    socketio.emit( 'messagerec',{'data': data['data']})
+    if result:
+        result=result ### to doooo
+        final= result
+        mycursor.execute(f"UPDATE `chats` SET `text` = '{final}' WHERE `chats`.`msg_id` = '{room_id}';")
+        
+    # else:
+    #     result=json.dumps(newdict)
+    #     mycursor.execute(f"UPDATE `chats` SET `text` = '{result}' WHERE `chats`.`msg_id` = '{room_id}';")
+    mydb.commit()
+    socketio.emit( 'messagerec',{'data': data['data'],'sender_id':data['sender_id']})
 
 
 
