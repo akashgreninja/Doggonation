@@ -381,7 +381,9 @@ def handle_message(data):
 
 
 if __name__ == '__main__':
-    eventlet.monkey_patch()
+    # eventlet.monkey_patch()
+   
     socketio.run(app, port=3003,debug=True)
+    app.run(debug=True,port=3003)
 
     
