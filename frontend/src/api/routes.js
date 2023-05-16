@@ -7,6 +7,7 @@ export const LOGIN_URL='/login'
 // get user details
 
 export const GET_USER_DETAILS='/getuser'
+export const GET_FOLLOWING='/getfollowing'
 
 //Signup Api
 export const SIGNUP_URL='/register'
@@ -46,3 +47,5 @@ export const EXPLORE='/explore'
 
 //translate
 export const TRANSLATE='/translate'
+ //get old messages
+export const MSG='/msg'

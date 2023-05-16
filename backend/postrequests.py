@@ -287,7 +287,7 @@ class Post:
         else:
             return jsonify({"message": "false"})
 
-    def translate(self, key, endpoint, location, data):
+    def translatefn(self, key, endpoint, location, data):
         text = data["text"]
         target_language = 'en'
         path = '/translate?api-version=3.0'
@@ -303,4 +303,12 @@ class Post:
         translator_request = requests.post(constructed_url, headers=headers, json=body)
         translator_response = translator_request.json()
         translated_text = translator_response[0]['translations'][0]['text']
+        print(translated_text)
         return jsonify({"message": translated_text})
+    
+    def msgfn(self,data,cursor):
+        room=data['room']
+        cursor.execute(f"select `text` from `chats` where `msg_id`='{room}'")
+        result=cursor.fetchall()
+        print(result)
+        return jsonify(result)

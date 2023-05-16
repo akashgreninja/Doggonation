@@ -12,6 +12,7 @@ import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
 import DonationPage from "./pages/DonationPage"
 import Explore from "./pages/Explore";
+import Dm from "./pages/Dm"
 
 function App() {
   // const [Sidebar, setsidebar] = useState(true);
@@ -37,7 +38,7 @@ function App() {
             <Route path="/Signin" element={<SignIn Sidebarrender={setsidebar}/>} />
             <Route path="/profile/:id" element={<ProfilePage Sidebarrender={setsidebar}/>} />
             <Route path="/explore" element={<Explore  Sidebarrender={setsidebar}/> } />
-
+            <Route path="/dm" element={<Dm  Sidebarrender={setsidebar}/> } />
 
           </Routes>
 

@@ -1,14 +1,20 @@
 
 # import all the external modules here
+from flask import session
 from flask import  Flask,jsonify,abort,request,send_file
 from dotenv import load_dotenv
+import ast
 import os
+from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, join_room, leave_room
+
 from flask_cors import CORS
 from flask_login import LoginManager,login_required,current_user,logout_user,login_user
 # import pyodbc   this was the azure connection
 import base64
+import eventlet
 import mysql.connector
-
+import json
 # all internal modules here
 from  getrequests import Get
 from postrequests import Post
@@ -17,6 +23,10 @@ from postrequests import Post
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '13342'
+socketio = SocketIO(app,async_mode='eventlet',cors_allowed_origins="*")
+
+
 CORS(app)
 load_dotenv()
 app_port = os.getenv('PORT')
@@ -310,10 +320,70 @@ def capture_payment():
 @app.route('/translate', methods=['POST'])
 def translate():
     data=request.json
-    return post_requests.translate(key,endpoint,location,data)
+    return post_requests.translatefn(key,endpoint,location,data)
 
+@app.route('/msg', methods=['POST'])
+def msg():
+    data=request.json
+    return post_requests.msgfn(data,mycursor)
+
+# connected_users = {}
+room_id=[]
+@socketio.on('connectuser')
+def handle_connect(data):
+   sender=data['sender_id']
+   reciever=data['reciever_id']
+   mycursor.execute(f"select * from `chats` where `sender_id`='{sender}' and `recipient_id`='{reciever}' or `sender_id`='{reciever}' and `recipient_id`='{sender}'")
+   result=mycursor.fetchone()
+   if result:
+       room_id=result[0]
+   else:
+       mycursor.execute(f"INSERT INTO `chats` (`sender_id`, `recipient_id`) VALUES ( '{sender}', '{reciever}'); ")
+       mydb.commit()
+       mycursor.execute(f"select * from `chats` where `sender_id`='{sender}' and `recipient_id`='{reciever}' or `sender_id`='{reciever}' and `recipient_id`='{sender}'")
+       result=mycursor.fetchone()
+       ##
+       print('created')
+       room_id=result[0]
+   
+#    join_room(room_id) 
+   socketio.emit( 'connection',{'data': room_id})
+  
+
+    
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    pass
+
+
+@socketio.on('message')
+def handle_message(data):
+ 
+    room_id=data['room_id']
+    newdict=f"{data['sender_id']:data['data']}"
+    mycursor.execute(f"select * from `chats` where `msg_id`='{room_id}' ")
+    result=mycursor.fetchone()
+    result=result[3]
+    #print(result)
+    
+    if result:
+        result=result ### to doooo
+        final= result
+        mycursor.execute(f"UPDATE `chats` SET `text` = '{final}' WHERE `chats`.`msg_id` = '{room_id}';")
+        
+    # else:
+    #     result=json.dumps(newdict)
+    #     mycursor.execute(f"UPDATE `chats` SET `text` = '{result}' WHERE `chats`.`msg_id` = '{room_id}';")
+    mydb.commit()
+    socketio.emit( 'messagerec',{'data': data['data'],'sender_id':data['sender_id']})
 
 
 
 if __name__ == '__main__':
-    app.run(debug=True,port=app_port)
+    # eventlet.monkey_patch()
+   
+    socketio.run(app, port=3003,debug=True)
+    app.run(debug=True,port=3003)
+
+    
