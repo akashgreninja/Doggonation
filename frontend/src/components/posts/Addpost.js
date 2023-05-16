@@ -55,35 +55,62 @@ const Addpost = (props) => {
     if (e.target.files && e.target.files.length === 1) {
       setimage(e.target.files[0]);
     }
+    
+      
+    
+       
   };
   //uploading post
   const CreateUpload = async (e) => {
     e.preventDefault();
-    setloading(true);
+    if (image===""){
+      let doc=document.getElementById('filewarn')
+      doc.innerHTML="please select a file"
+      doc.style.color="red"
+      return
+    }
+    if (content.caption===""){
+      let cap=document.getElementById('capwarn')
+      cap.innerHTML="please fill this field"
+      cap.style.color="red"
+      return
+
+    }
+    if (content.location===""){
+      let cap=document.getElementById('locwarn')
+      cap.innerHTML="please fill this field"
+      cap.style.color="red"
+      return
+
+    }
+    
     try {
+      setloading(true);
       const storage = getStorage();
 
       const storageRef = ref(storage, `posts/${image.name}`);
 
       uploadBytes(storageRef, image).then(() => {
         getDownloadURL(storageRef).then((url) => {
-          setimageurl(url);
+          setimageurl(url)
+          console.log(url)
           console.log(imageurl);
-          handleNewPost();
+          handleNewPost(url);
         });
       });
     } catch (e) {
       console.log(e);
       setloading(false);
+      
       setlaodingtext("retry");
     }
   };
 
-  const handleNewPost = async () => {
+  const handleNewPost = async (url) => {
     let data = "";
-    if (content.caption !== "" && content.location !== "" && imageurl !== "") {
+    if (url !== "" && content.caption !== "") {
       data = await add_post(
-        imageurl,
+        url,
         content.location,
         content.caption,
         user_id,
@@ -98,8 +125,9 @@ const Addpost = (props) => {
       //add alert
       setloading(false);
       setlaodingtext("Retry");
+      
       setwarning(
-        "upload unsuccessfull..sorry we didnt find any dogs in this picture"
+        "upload unsuccessfull..sorry we didnt find any dogs in this picture retry to upload anyway"
       );
     }
   };
@@ -163,6 +191,7 @@ const Addpost = (props) => {
                     variant="outlined"
                     size="small"
                   />{" "}
+                  <small id="capwarn"></small>
                   <br />
                   <br />
                   <i className="p-2 fa-solid fa-thumbtack fa-2x"></i>{" "}
@@ -175,6 +204,7 @@ const Addpost = (props) => {
                     variant="outlined"
                     size="small"
                   />{" "}
+                  <small id="locwarn"></small>
                   <br />
                   <br />
                   <i className="fa-solid fa-hashtag  fa-2x p-2"></i>{" "}
@@ -188,8 +218,9 @@ const Addpost = (props) => {
                     variant="outlined"
                     size="small"
                   />{" "}
-                  <br />
-                  <Stack direction="row" spacing={1}>
+                  <br /> 
+                  <div  >
+                  <Stack  spacing={1}>
                     {tags.map((element) => {
                       return (
                         <div key={element}>
@@ -202,6 +233,7 @@ const Addpost = (props) => {
                       );
                     })}
                   </Stack>
+                  </div>
                 </div>
                 <div className="m-5 w-1/2 ">
                   <label for="file-input" className="drop-container">
@@ -210,13 +242,15 @@ const Addpost = (props) => {
                     <p>or</p>
                     <input
                       type="file"
-                      accept="image/*"
+                      accept="image/jpg"
                       onChange={handleFile}
                       id="file-input"
                     />
                     {/* </div> */}
                   </label>
+                  <small id="filewarn"></small>
                 </div>
+               
               </div>
               <button
                 onClick={CreateUpload}

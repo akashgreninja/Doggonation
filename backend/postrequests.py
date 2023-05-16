@@ -26,7 +26,7 @@ class Post:
         result = identifydog.run_check(imageurl=image)
 
         if result != None:
-            
+        
             pic = data["pic_url"]
             location = data["location"]
             caption = data["caption"]
@@ -43,7 +43,8 @@ class Post:
                 cursor.execute(f"INSERT INTO `tags` (`tag`, `post_id`) VALUES  ('{i}', '{post_id}')"
                 )
             db.commit()
-            
+        
+        
             return jsonify("post added succesfully")
         else:
             return Response("no dogs found", status=201, mimetype="application/json")

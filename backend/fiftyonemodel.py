@@ -6,17 +6,54 @@ from torchvision import transforms
 
 class identifydog:
   def run_check(imageurl):
-      dog_breeds = ['Afghan hound', 'Airedale', 'American Staffordshire terrier', 'Australian terrier', 'Basset hound', 
-                    'Beagle', 'Bernese mountain dog', 'Bloodhound', 'Border collie', 'Boxer', 'Bull mastiff', 'Bulldog',
-                    'Cairn terrier', 'Cavalier King Charles spaniel', 'Chihuahua', 'Chow chow', 'Cocker spaniel', 'Collie', 
-                    'Dalmatian', 'Doberman pinscher', 'English cocker spaniel', 'English setter', 'English springer spaniel', 
-                    'French bulldog', 'German shepherd', 'German short-haired pointer', 'Golden retriever', 'Great Dane', 
-                    'Greyhound', 'Irish setter', 'Irish wolfhound', 'Jack Russell terrier', 'Japanese spaniel', 'Keeshond', 
-                    'Labrador retriever', 'Lhasa apso', 'Maltese', 'Newfoundland', 'Old English sheepdog', 'Pekingese', 
-                    'Pembroke Welsh corgi', 'Pomeranian', 'Poodle', 'Pug', 'Rottweiler', 'Saint Bernard', 'Shar-pei', 
-                    'Shih-tzu', 'Siberian husky', 'Staffordshire bull terrier', 'Standard schnauzer', 'Toy poodle', 
-                    'Weimaraner', 'West Highland white terrier', 'Yorkshire terrier']
+      dog_breeds2 = [
+    'Chihuahua', 'Japanese spaniel', 'Maltese dog', 'Pekinese', 'Shih-Tzu',
+    'Blenheim spaniel', 'papillon', 'toy terrier', 'Rhodesian ridgeback',
+    'Afghan hound', 'basset hound', 'beagle', 'bloodhound', 'bluetick',
+    'black-and-tan coonhound', 'Walker hound', 'English foxhound', 'redbone',
+    'borzoi', 'Irish wolfhound', 'Italian greyhound', 'whippet', 'Ibizan hound',
+    'Norwegian elkhound', 'otterhound', 'Saluki', 'Scottish deerhound',
+    'Weimaraner', 'Staffordshire bull terrier', 'American Staffordshire terrier',
+    'Bedlington terrier', 'Border terrier', 'Kerry blue terrier', 'Irish terrier',
+    'Norfolk terrier', 'Norwich terrier', 'Yorkshire terrier',
+    'wire-haired fox terrier', 'Lakeland terrier', 'Sealyham terrier',
+    'Airedale terrier', 'cairn terrier', 'Australian terrier',
+    'Dandie Dinmont terrier', 'Boston terrier', 'miniature schnauzer',
+    'giant schnauzer', 'standard schnauzer', 'Scotch terrier', 'Scottish terrier',
+    'West Highland white terrier', 'Lhasa', 'flat-coated retriever',
+    'curly-coated retriever', 'golden retriever', 'Labrador retriever',
+    'Chesapeake Bay retriever', 'German short-haired pointer', 'vizsla',
+    'English setter', 'Irish setter', 'Gordon setter', 'Brittany spaniel',
+    'clumber', 'English springer', 'Welsh springer spaniel',
+    'cocker spaniel', 'Sussex spaniel', 'Irish water spaniel', 'kuvasz',
+    'schipperke', 'groenendael', 'malinois', 'briard', 'kelpie', 'komondor',
+    'Old English sheepdog', 'Shetland sheepdog', 'collie', 'Border collie',
+    'Bouvier des Flandres', 'Rottweiler', 'German shepherd', 'Doberman',
+    'miniature pinscher', 'Greater Swiss Mountain dog', 'Bernese mountain dog',
+    'Appenzeller', 'EntleBucher', 'boxer', 'bull mastiff', 'Tibetan mastiff',
+    'French bulldog', 'Great Dane', 'Saint Bernard', 'Eskimo dog', 'malamute',
+    'Siberian husky', 'dalmatian', 'affenpinscher']
+      dog_breeds1 = [
+    'Tibetan terrier', 'chrysanthemum dog', 'silky terrier', 'Sydney silky',
+    'soft-coated wheaten terrier', 'West Highland white terrier', 'Lhasa', 'Lhasa apso',
+    'flat-coated retriever', 'curly-coated retriever', 'golden retriever', 'Labrador retriever',
+    'Chesapeake Bay retriever', 'German short-haired pointer', 'vizsla', 'Hungarian pointer',
+    'English setter', 'Irish setter', 'red setter', 'Gordon setter', 'Brittany spaniel',
+    'clumber', 'clumber spaniel', 'English springer', 'English springer spaniel',
+    'Welsh springer spaniel', 'cocker spaniel', 'English cocker spaniel', 'cocker',
+    'Sussex spaniel', 'Irish water spaniel', 'kuvasz', 'schipperke', 'groenendael',
+    'malinois', 'briard', 'kelpie', 'komondor', 'Old English sheepdog', 'bobtail',
+    'Shetland sheepdog', 'Shetland sheep dog', 'Shetland', 'collie', 'Border collie',
+    'Bouvier des Flandres', 'Bouviers des Flandres', 'Rottweiler', 'German shepherd',
+    'German shepherd dog', 'German police dog', 'alsatian', 'Doberman', 'Doberman pinscher',
+    'miniature pinscher', 'Greater Swiss Mountain dog', 'Bernese mountain dog', 'Appenzeller',
+    'EntleBucher', 'boxer', 'bull mastiff', 'Tibetan mastiff', 'French bulldog',
+    'Great Dane', 'Saint Bernard', 'St Bernard', 'Eskimo dog', 'husky', 'malamute', 'malemute',
+    'Alaskan malamute', 'Siberian husky', 'dalmatian', 'coach dog', 'carriage dog',
+    'affenpinscher', 'monkey pinscher', 'monkey dog'
+]
 
+      dog_breeds=dog_breeds1 + dog_breeds2
       alexnet = models.alexnet(pretrained=True)
 
 
@@ -49,6 +86,7 @@ class identifydog:
 
       dog=classes[index[0]]
       dog=dog.split(", ")
+      print(dog)
       returnlist=[]
       for i in dog:
 
@@ -57,4 +95,5 @@ class identifydog:
       if returnlist==[]:
         return None
       else:
+        print(returnlist)
         return returnlist
