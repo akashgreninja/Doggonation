@@ -4,15 +4,16 @@ import Addpost from "../posts/Addpost";
 import "./Feed.css"
 const Feedtable = (props) => {
   return (
-    <div className="" style={{ "margin-bottom": "50px", "height": "vh-70","pointer-events":"auto" }}>
-      <div className="post-box" >
-     
+    <div className="" style={{ "margin-bottom": "50px", "pointer-events":"auto" }}>
+      <div className="post-box " >
+
        <Addpost loader={props.loader}/>
-        <div className="float-left ">
+        <div className="just">
           <PostCard />
         </div>
       </div>
-      <div className=" flex flex-wrap right-10 w-1/4 top-20 p-5 fixed">
+      
+      {/* <div className=" flex flex-wrap right-10 w-1/4 top-20 p-5 fixed">
         <div className=" ">
           <div className=" block rounded-lg bg-white text-center shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
             <div className="border-b-2 border-neutral-100 px-6 py-3 dark:border-neutral-600 dark:text-neutral-50">
@@ -46,7 +47,7 @@ const Feedtable = (props) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
