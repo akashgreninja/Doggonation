@@ -47,3 +47,5 @@ export const EXPLORE='/explore'
 
 //translate
 export const TRANSLATE='/translate'
+ //get old messages
+export const MSG='/msg'
