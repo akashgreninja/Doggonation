@@ -43,3 +43,6 @@ export const SEND_DATABASE='/capture-payment'
 
 //explore
 export const EXPLORE='/explore'
+
+//translate
+export const TRANSLATE='/translate'
