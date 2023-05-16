@@ -155,15 +155,15 @@ const Addpost = (props) => {
 
   return (
     <div className="h-32 bg-white  mb-2 mt-2 rounded-lg p-2 border-2 border-grey-500">
-        <div className="flex w-full items-center h-12 bg-banana-0 border border-gray-800 rounded p-2">
+        <div className="flex w-full items-center h-12  bg-stone-100 border border-gray-800 rounded p-2">
           <input
             type="text"
             placeholder="Have something to share...??"
-            className="w-full px-2 py-1 text-gray-800 bg-banana-0"
+            className="w-full px-2 py-1 text-gray-800 bg-stone-100"
           />
           <button
             onClick={handleOpen}
-            className="w-3/12 pl-5 h-8 bg-ocean-100 hover:bg-ocean-200 text-white text-center"
+            className="h-8 w-1/3 pl-3 bg-ocean-100 hover:bg-ocean-200 text-white"
           >
             Create Post
           </button>

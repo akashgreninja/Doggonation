@@ -22,7 +22,6 @@ from flask_login import (
 
 # import pyodbc   this was the azure connection
 import base64
-import eventlet
 import mysql.connector
 import json
 
