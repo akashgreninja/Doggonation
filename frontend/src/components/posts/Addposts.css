@@ -24,7 +24,8 @@
   }
   
   .drop-container {
-    background-color: #fff;
+    background: #fef9c3;
+    height: 250px;
     position: relative;
     display: flex;
     gap: 10px;
@@ -34,15 +35,15 @@
     padding: 10px;
     
     border-radius: 10px;
-    border: 2px dashed rgb(171, 202, 255);
+    border: 2px dashed #555;
     color: #444;
     cursor: pointer;
     transition: background .2s ease-in-out, border .2s ease-in-out;
   }
   
   .drop-container:hover {
-    background: rgba(0, 140, 255, 0.164);
-    border-color: rgba(17, 17, 17, 0.616);
+    background: #FFFDF7;
+    border-color: #222;
   }
   
   .drop-container:hover .drop-title {
@@ -70,14 +71,14 @@
   #file-input::file-selector-button {
     margin-right: 20px;
     border: none;
-    background: #084cdf;
+    background: #6798C0;
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 7px;
     color: #fff;
     cursor: pointer;
     transition: background .2s ease-in-out;
   }
   
   #file-input::file-selector-button:hover {
-    background: #0d45a5;
+    background: #99D6EA;
   }

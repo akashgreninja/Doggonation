@@ -1,59 +1,57 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import image from "../../images/logo-white.png";
 import { BsThreeDots } from "react-icons/bs";
 import Comment from "./Comment";
 import { like_post } from "../../api/likepost";
 import { remove_like_post } from "../../api/unlikepost";
-
-
+import "./Post.css"
 
 const Post = (props) => {
-  let toggle=false
-  let likeRef=useRef(null)
-  const [likerender, setlikerender] = useState(null)
-const [loadcomments, setloadcomments] = useState(false)
+  let toggle = false;
+  let likeRef = useRef(null);
+  const [likerender, setlikerender] = useState(null);
+  const [loadcomments, setloadcomments] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
-  let element=props.element
-  let commentRef=useRef(null)
-  
-  const handlecomment=()=>{
-      if (toggle==true){commentRef.current.style.display="none"
-      setloadcomments(false)
-      toggle=false}
-      else{
-        commentRef.current.style.display="block"
-        setloadcomments(true)
-      toggle=true
+  let element = props.element;
+  let commentRef = useRef(null);
+  const handlecomment = () => {
+    if (toggle == true) {
+      commentRef.current.style.display = "none";
+      setloadcomments(false);
+      toggle = false;
+    } else {
+      commentRef.current.style.display = "block";
+      setloadcomments(true);
+      toggle = true;
+    }
+  };
+  const handleLike = async () => {
+    if (element[4] === 0) {
+      let data = await like_post(element[2]);
+      if (data.status === 200) {
+        element[4] = 1;
+        setlikerender(1);
       }
-
-  }
-  const handleLike =async()=>{
-    if(element[4]===0){
-    let data=await like_post(element[2])
-    if (data.status===200){element[4]=1
-      element[8]+=1
-    setlikerender(1)    }
-  }else{
-    let data =await remove_like_post(element[2])
-    if (data.status===200){
-    element[4]=0
-    element[8]-=1
-    setlikerender(2)}
-  }}
+    } else {
+      let data = await remove_like_post(element[2]);
+      if (data.status === 200) {
+        element[4] = 0;
+        setlikerender(2);
+      }
+    }
+  };
   return (
-    <div className="w-postwidth  h-postheight bg-slate-600 rounded-md">
-      <div>
+    <div className="w-full bg-white  mb-2 mt-2 rounded-lg p-2 border-2 border-grey-500">
+      <div className="flex flex-col w-full">
         <div class="flex items-center pt-3 pl-3 ">
-          <img 
+          <img
             src={element[0]}
             alt="Profile Image"
             class="rounded-full w-10 h-10 mb-3"
           />
           <div class="ml-4">
-            <h2 class="text-l font-bold">
-                {element[1]}
-            </h2>
-            <p class="text-gray-500 text-xs  "> {element[5]}</p>
+            <h2 class="text-l font-bold">{element[1]}</h2>
+            <p class="text-gray-500 text-xs "> {element[5]}</p>
           </div>
           <div className="relative ml-threething">
             <div
@@ -86,25 +84,31 @@ const [loadcomments, setloadcomments] = useState(false)
             )}
           </div>
         </div>
-        <div className="text-sm">
-          {element[1]}
-        </div>
-        <div className=" h-postimage">
+        <div className="text-sm border-b-2">{element[1]}</div>
+        <div className="w-full">
           <img
             src={element[0]}
             alt=""
             srcset=""
-            width={450} 
-            className="px-10"
+            width={450}
+            className="px-10 w-full"
           />
         </div>
-        <div  className=" flex flex-row justify-around">
-          <button className=" w-buttonli" key={likerender} onClick={handleLike} >{element[4]===0?<i class="fa-regular fa-2x fa-heart"></i>:<i class="fa-solid fa-2x fa-heart"></i>} {element[8]} </button>
-          <button className=" w-buttonli" onClick={handlecomment}>comment </button>
-          <button className=" w-buttonli h-10">share</button>
+        <div className="  flex flex-row w-full border-t-2">
+          <button className="interaction-button" key={likerender} onClick={handleLike}>
+            {element[4] === 0 ? (
+              <i class="fa-regular fa-2x fa-heart"></i>
+            ) : (
+              <i class="fa-solid fa-2x fa-heart"></i>
+            )}{"Like"}
+          </button>
+          <button className="interaction-button" onClick={handlecomment}>
+            comment
+          </button>
+          <button className="interaction-button">share</button>
         </div>
-        <div ref={commentRef} style={{"display":"none"}} className="container">
-            {loadcomments?<Comment post_id={element[2]} numofcomments={element[9]}/>:null}
+        <div ref={commentRef} style={{ display: "none" }} className="container">
+          {loadcomments ? <Comment post_id={element[2]} /> : null}
         </div>
       </div>
     </div>
