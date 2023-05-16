@@ -92,10 +92,10 @@ const Addpost = (props) => {
 
       uploadBytes(storageRef, image).then(() => {
         getDownloadURL(storageRef).then((url) => {
-          setimageurl(url);
+          setimageurl(url)
           console.log(url)
           console.log(imageurl);
-          handleNewPost();
+          handleNewPost(url);
         });
       });
     } catch (e) {
@@ -106,11 +106,11 @@ const Addpost = (props) => {
     }
   };
 
-  const handleNewPost = async () => {
+  const handleNewPost = async (url) => {
     let data = "";
-    if (imageurl !== "" && content.caption !== "") {
+    if (url !== "" && content.caption !== "") {
       data = await add_post(
-        imageurl,
+        url,
         content.location,
         content.caption,
         user_id,
@@ -125,7 +125,7 @@ const Addpost = (props) => {
       //add alert
       setloading(false);
       setlaodingtext("Retry");
-      setimageurl("")
+      
       setwarning(
         "upload unsuccessfull..sorry we didnt find any dogs in this picture retry to upload anyway"
       );

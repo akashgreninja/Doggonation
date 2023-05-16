@@ -798,203 +798,203 @@ ski mask
 sleeping bag
 slide rule, slipstick
 sliding door
-slot, one-armed bandit
-snorkel
-snowmobile
-snowplow, snowplough
-soap dispenser
-soccer ball
-sock
-solar dish, solar collector, solar furnace
-sombrero
-soup bowl
-space bar
-space heater
-space shuttle
-spatula
-speedboat
-spider web, spider's web
-spindle
-sports car, sport car
-spotlight, spot
-stage
-steam locomotive
-steel arch bridge
-steel drum
-stethoscope
-stole
-stone wall
-stopwatch, stop watch
-stove
-strainer
-streetcar, tram, tramcar, trolley, trolley car
-stretcher
-studio couch, day bed
-stupa, tope
-submarine, pigboat, sub, U-boat
-suit, suit of clothes
-sundial
-sunglass
-sunglasses, dark glasses, shades
-sunscreen, sunblock, sun blocker
-suspension bridge
-swab, swob, mop
-sweatshirt
-swimming trunks, bathing trunks
-swing
-switch, electric switch, electrical switch
-syringe
-table lamp
-tank, army tank, armored combat vehicle, armoured combat vehicle
-tape player
-teapot
-teddy, teddy bear
-television, television system
-tennis ball
-thatch, thatched roof
-theater curtain, theatre curtain
-thimble
-thresher, thrasher, threshing machine
-throne
-tile roof
-toaster
-tobacco shop, tobacconist shop, tobacconist
-toilet seat
-torch
-totem pole
-tow truck, tow car, wrecker
-toyshop
-tractor
-trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi
-tray
-trench coat
-tricycle, trike, velocipede
-trimaran
-tripod
-triumphal arch
-trolleybus, trolley coach, trackless trolley
-trombone
-tub, vat
-turnstile
-typewriter keyboard
-umbrella
-unicycle, monocycle
-upright, upright piano
-vacuum, vacuum cleaner
-vase
-vault
-velvet
-vending machine
-vestment
-viaduct
-violin, fiddle
-volleyball
-waffle iron
-wall clock
-wallet, billfold, notecase, pocketbook
-wardrobe, closet, press
-warplane, military plane
-washbasin, handbasin, washbowl, lavabo, wash-hand basin
-washer, automatic washer, washing machine
-water bottle
-water jug
-water tower
-whiskey jug
-whistle
-wig
-window screen
-window shade
-Windsor tie
-wine bottle
-wing
-wok
-wooden spoon
-wool, woolen, woollen
-worm fence, snake fence, snake-rail fence, Virginia fence
-wreck
-yawl
-yurt
-web site, website, internet site, site
-comic book
-crossword puzzle, crossword
-street sign
-traffic light, traffic signal, stoplight
-book jacket, dust cover, dust jacket, dust wrapper
-menu
-plate
-guacamole
-consomme
-hot pot, hotpot
-trifle
-ice cream, icecream
-ice lolly, lolly, lollipop, popsicle
-French loaf
-bagel, beigel
-pretzel
-cheeseburger
-hotdog, hot dog, red hot
-mashed potato
-head cabbage
-broccoli
-cauliflower
-zucchini, courgette
-spaghetti squash
-acorn squash
-butternut squash
-cucumber, cuke
-artichoke, globe artichoke
-bell pepper
-cardoon
-mushroom
-Granny Smith
-strawberry
-orange
-lemon
-fig
-pineapple, ananas
-banana
-jackfruit, jak, jack
-custard apple
-pomegranate
-hay
-carbonara
-chocolate sauce, chocolate syrup
-dough
-meat loaf, meatloaf
-pizza, pizza pie
-potpie
-burrito
-red wine
-espresso
-cup
-eggnog
-alp
-bubble
-cliff, drop, drop-off
-coral reef
-geyser
-lakeside, lakeshore
-promontory, headland, head, foreland
-sandbar, sand bar
-seashore, coast, seacoast, sea-coast
-valley, vale
-volcano
-ballplayer, baseball player
-groom, bridegroom
-scuba diver
-rapeseed
-daisy
-yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum
-corn
-acorn
-hip, rose hip, rosehip
-buckeye, horse chestnut, conker
-coral fungus
-agaric
-gyromitra
-stinkhorn, carrion fungus
-earthstar
-hen-of-the-woods, hen of the woods, Polyporus frondosus, Grifola frondosa
-bolete
-ear, spike, capitulum
-toilet tissue, toilet paper, bathroom tissue
+    slot, one-armed bandit
+    snorkel
+    snowmobile
+    snowplow, snowplough
+    soap dispenser
+    soccer ball
+    sock
+    solar dish, solar collector, solar furnace
+    sombrero
+    soup bowl
+    space bar
+    space heater
+    space shuttle
+    spatula
+    speedboat
+    spider web, spider's web
+    spindle
+    sports car, sport car
+    spotlight, spot
+    stage
+    steam locomotive
+    steel arch bridge
+    steel drum
+    stethoscope
+    stole
+    stone wall
+    stopwatch, stop watch
+    stove
+    strainer
+    streetcar, tram, tramcar, trolley, trolley car
+    stretcher
+    studio couch, day bed
+    stupa, tope
+    submarine, pigboat, sub, U-boat
+    suit, suit of clothes
+    sundial
+    sunglass
+    sunglasses, dark glasses, shades
+    sunscreen, sunblock, sun blocker
+    suspension bridge
+    swab, swob, mop
+    sweatshirt
+    swimming trunks, bathing trunks
+    swing
+    switch, electric switch, electrical switch
+    syringe
+    table lamp
+    tank, army tank, armored combat vehicle, armoured combat vehicle
+    tape player
+    teapot
+    teddy, teddy bear
+    television, television system
+    tennis ball
+    thatch, thatched roof
+    theater curtain, theatre curtain
+    thimble
+    thresher, thrasher, threshing machine
+    throne
+    tile roof
+    toaster
+    tobacco shop, tobacconist shop, tobacconist
+    toilet seat
+    torch
+    totem pole
+    tow truck, tow car, wrecker
+    toyshop
+    tractor
+    trailer truck, tractor trailer, trucking rig, rig, articulated lorry, semi
+    tray
+    trench coat
+    tricycle, trike, velocipede
+    trimaran
+    tripod
+    triumphal arch
+    trolleybus, trolley coach, trackless trolley
+    trombone
+    tub, vat
+    turnstile
+    typewriter keyboard
+    umbrella
+    unicycle, monocycle
+    upright, upright piano
+    vacuum, vacuum cleaner
+    vase
+    vault
+    velvet
+    vending machine
+    vestment
+    viaduct
+    violin, fiddle
+    volleyball
+    waffle iron
+    wall clock
+    wallet, billfold, notecase, pocketbook
+    wardrobe, closet, press
+    warplane, military plane
+    washbasin, handbasin, washbowl, lavabo, wash-hand basin
+    washer, automatic washer, washing machine
+    water bottle
+    water jug
+    water tower
+    whiskey jug
+    whistle
+    wig
+    window screen
+    window shade
+    Windsor tie
+    wine bottle
+    wing
+    wok
+    wooden spoon
+    wool, woolen, woollen
+    worm fence, snake fence, snake-rail fence, Virginia fence
+    wreck
+    yawl
+    yurt
+    web site, website, internet site, site
+    comic book
+    crossword puzzle, crossword
+    street sign
+    traffic light, traffic signal, stoplight
+    book jacket, dust cover, dust jacket, dust wrapper
+    menu
+    plate
+    guacamole
+    consomme
+    hot pot, hotpot
+    trifle
+    ice cream, icecream
+    ice lolly, lolly, lollipop, popsicle
+    French loaf
+    bagel, beigel
+    pretzel
+    cheeseburger
+    hotdog, hot dog, red hot
+    mashed potato
+    head cabbage
+    broccoli
+    cauliflower
+    zucchini, courgette
+    spaghetti squash
+    acorn squash
+    butternut squash
+    cucumber, cuke
+    artichoke, globe artichoke
+    bell pepper
+    cardoon
+    mushroom
+    Granny Smith
+    strawberry
+    orange
+    lemon
+    fig
+    pineapple, ananas
+    banana
+    jackfruit, jak, jack
+    custard apple
+    pomegranate
+    hay
+    carbonara
+    chocolate sauce, chocolate syrup
+    dough
+    meat loaf, meatloaf
+    pizza, pizza pie
+    potpie
+    burrito
+    red wine
+    espresso
+    cup
+    eggnog
+    alp
+    bubble
+    cliff, drop, drop-off
+    coral reef
+    geyser
+    lakeside, lakeshore
+    promontory, headland, head, foreland
+    sandbar, sand bar
+    seashore, coast, seacoast, sea-coast
+    valley, vale
+    volcano
+    ballplayer, baseball player
+    groom, bridegroom
+    scuba diver
+    rapeseed
+    daisy
+    yellow lady's slipper, yellow lady-slipper, Cypripedium calceolus, Cypripedium parviflorum
+    corn
+    acorn
+    hip, rose hip, rosehip
+    buckeye, horse chestnut, conker
+    coral fungus
+    agaric
+    gyromitra
+    stinkhorn, carrion fungus
+    earthstar
+    hen-of-the-woods, hen of the woods, Polyporus frondosus, Grifola frondosa
+    bolete
+    ear, spike, capitulum
+    toilet tissue, toilet paper, bathroom tissue
