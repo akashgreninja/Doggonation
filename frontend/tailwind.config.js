@@ -62,7 +62,7 @@ module.exports = {
       width: {
         forgif: "70vw",
         lastsectionw: "30vw",
-        sidebarw: "19.75rem",
+        sidebarw: "17rem",
         sidebarwimg: "8.75rem",
         searchbarw: "28rem",
         half: "70%",

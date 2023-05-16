@@ -4,7 +4,7 @@ import { BsThreeDots } from "react-icons/bs";
 import Comment from "./Comment";
 import { like_post } from "../../api/likepost";
 import { remove_like_post } from "../../api/unlikepost";
-import "./Post.css"
+import "./Post.css";
 
 const Post = (props) => {
   let toggle = false;
@@ -41,21 +41,23 @@ const Post = (props) => {
     }
   };
   return (
-    <div className="w-full bg-white  mb-2 mt-2 rounded-lg p-2 border-2 border-grey-500">
+    <div className="w-full bg-white  mb-2 mt-2 rounded-lg border-2 border-grey-500">
       <div className="flex flex-col w-full">
-        <div class="flex items-center pt-3 pl-3 ">
-          <img
-            src={element[0]}
-            alt="Profile Image"
-            class="rounded-full w-10 h-10 mb-3"
-          />
-          <div class="ml-4">
-            <h2 class="text-l font-bold">{element[1]}</h2>
-            <p class="text-gray-500 text-xs "> {element[5]}</p>
+        <div className="flex items-center justify-content-between  pt-3 pl-3 pr-5">
+          <div class="flex items-center">
+            <img
+              src={element[0]}
+              alt="Profile Image"
+              class="rounded-full w-10 h-10 mb-3"
+            />
+            <div class="ml-4">
+              <h2 class="text-l font-bold">{element[1]}</h2>
+              <p class="text-gray-500 text-xs "> {element[5]}</p>
+            </div>
           </div>
-          <div className="relative ml-threething">
+          <div className="">
             <div
-              className="ml-threething cursor-pointer"
+              className="cursor-pointer"
               onClick={() => setShowOptions(!showOptions)}
             >
               <BsThreeDots />
@@ -84,31 +86,50 @@ const Post = (props) => {
             )}
           </div>
         </div>
-        <div className="text-sm border-b-2">{element[1]}</div>
-        <div className="w-full">
+
+        <div className="text-sm pl-3 pb-2">{element[1]}</div>
+        <div className="w-full pb-2">
           <img
             src={element[0]}
             alt=""
             srcset=""
             width={450}
-            className="px-10 w-full"
+            className="w-full"
           />
         </div>
-        <div className="  flex flex-row w-full border-t-2">
-          <button className="interaction-button" key={likerender} onClick={handleLike}>
-            {element[4] === 0 ? (
-              <i class="fa-regular fa-2x fa-heart"></i>
-            ) : (
-              <i class="fa-solid fa-2x fa-heart"></i>
-            )}{"Like"}
-          </button>
-          <button className="interaction-button" onClick={handlecomment}>
-            comment
-          </button>
-          <button className="interaction-button">share</button>
-        </div>
-        <div ref={commentRef} style={{ display: "none" }} className="container">
-          {loadcomments ? <Comment post_id={element[2]} /> : null}
+        <div className=" pt-0.5 border-t-2 mx-3">
+          <div className="  flex flex-row w-full">
+            <button
+              className="interaction-button"
+              key={likerender}
+              onClick={handleLike}
+            >
+              {element[4] === 0 ? (
+                <i class="fa-regular fa-2x fa-heart"></i>
+              ) : (
+                <i class="fa-solid fa-2x fa-heart"></i>
+              )}
+              Like
+            </button>
+            <button className="interaction-button" onClick={handlecomment}>
+              {!loadcomments ? (
+                <i class="fa-regular fa-2x fa-comment"></i>
+              ) : (
+                <i class="fa-solid fa-2x fa-comment"></i>
+              )}
+              Comment
+            </button>
+            <button className="interaction-button">
+              <i class="fa-regular fa-2x fa-paper-plane"></i>Share
+            </button>
+          </div>
+          <div
+            ref={commentRef}
+            style={{ display: "none" }}
+            className="container w-full"
+          >
+            {loadcomments ? <Comment post_id={element[2]} /> : null}
+          </div>
         </div>
       </div>
     </div>
