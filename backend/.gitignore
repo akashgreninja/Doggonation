@@ -1,6 +1,4 @@
 .env
 venv/
 
-__pycache__/fiftyonemodel.cpython-310.pyc
-__pycache__/getrequests.cpython-310.pyc
-__pycache__/postrequests.cpython-310.pyc
+__pycache__/

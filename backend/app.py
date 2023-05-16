@@ -12,7 +12,6 @@ from flask_cors import CORS
 from flask_login import LoginManager,login_required,current_user,logout_user,login_user
 # import pyodbc   this was the azure connection
 import base64
-import eventlet
 import mysql.connector
 import json
 # all internal modules here
