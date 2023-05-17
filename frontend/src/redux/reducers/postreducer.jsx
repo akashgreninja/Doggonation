@@ -22,6 +22,6 @@ export const UserIdReducer = (state = initialState, { type, payload }) => {
       return { ...state, Userinfo: payload };
 
     default:
-      return state;
+      return {...state,Userinfo:localStorage.getItem("token")};
   }
 };

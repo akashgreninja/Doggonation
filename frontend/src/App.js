@@ -10,20 +10,19 @@ import LoginForm from "./components/form/LoginForm";
 import SignIn from "./pages/SignIn";
 import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
-import DonationPage from "./pages/DonationPage"
+import DonationPage from "./pages/DonationPage";
 import Explore from "./pages/Explore";
-import Dm from "./pages/Dm"
+import Dm from "./pages/Dm";
 
 function App() {
   // const [Sidebar, setsidebar] = useState(true);
-  const [sidebar, setsidebar] = useState(false)
+  const [sidebar, setsidebar] = useState(false);
 
   return (
     <>
       <Router>
-        {sidebar===true? <Sidebar  />:null }
+        {sidebar === true ? <Sidebar /> : null}
         {/* <Sidebar/> */}
-
 
         <Suspense>
           <Routes>
@@ -32,14 +31,28 @@ function App() {
               path="/"
               element={<PreLoaderPage shouldit={setsidebar} />}
             /> */}
-            <Route path="/" element={<HomePage  Sidebarrender={setsidebar}/>} />
-            <Route path="/SignUp" element={<RegisterPage Sidebarrender={setsidebar}/>} />
-            <Route path="/About" element={<DonationPage Sidebarrender={setsidebar}/>} />
-            <Route path="/Signin" element={<SignIn Sidebarrender={setsidebar}/>} />
-            <Route path="/profile/:id" element={<ProfilePage Sidebarrender={setsidebar}/>} />
-            <Route path="/explore" element={<Explore  Sidebarrender={setsidebar}/> } />
-            <Route path="/dm" element={<Dm  Sidebarrender={setsidebar}/> } />
-
+            <Route path="/" element={<HomePage Sidebarrender={setsidebar} />} />
+            <Route
+              path="/SignUp"
+              element={<RegisterPage Sidebarrender={setsidebar} />}
+            />
+            <Route
+              path="/About"
+              element={<DonationPage Sidebarrender={setsidebar} />}
+            />
+            <Route
+              path="/Signin"
+              element={<SignIn Sidebarrender={setsidebar} />}
+            />
+            <Route
+              path="/profile/:id"
+              element={<ProfilePage Sidebarrender={setsidebar} />}
+            />
+            <Route
+              path="/explore"
+              element={<Explore Sidebarrender={setsidebar} />}
+            />
+            <Route path="/dm" element={<Dm Sidebarrender={setsidebar} />} />
           </Routes>
 
           {/* <Loader  loader={loader}/> */}
