@@ -22,7 +22,6 @@ from flask_login import (
 
 # import pyodbc   this was the azure connection
 import base64
-import eventlet
 import mysql.connector
 import json
 
@@ -376,25 +375,27 @@ def handle_message(data):
     mycursor.execute(f"select * from `chats` where `msg_id`='{room_id}' ")
     result = mycursor.fetchone()
     print(result)
-    existing_list = json.loads(result[0])
+    existing_list = json.loads(str(result[0]))
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     # print(result)
 
     if result:
-        try:
+        # try:
 
-            existing_list = json.loads(result[0])
-            if isinstance(existing_list, list):
+            existing_list = ast.literal_eval(str(result[3]))
+            print(existing_list)
+            if True:
                 new_element = {
                     "sender": {sender_id},
                     "message": {text},
                     "time": {timestamp},
                 }
+                print(new_element)
                 existing_list.append(new_element)
-
-                updated_list_str = json.dumps(existing_list)
+                print(existing_list)
+                updated_list_str = str(existing_list)
                 mycursor.execute(
-                    f"UPDATE `chats` SET `text` = '{updated_list_str}' WHERE `chats`.`msg_id` = '{room_id}';"
+                    f'UPDATE `chats` SET `text` = "{updated_list_str}" WHERE `chats`.`msg_id` = "{room_id}";'
                 )
                 mydb.commit()
                 socketio.emit(
@@ -403,8 +404,8 @@ def handle_message(data):
 
             
                 
-        except json.TypeError:
-            print("sdsd")
+        # except :
+        #     print("sdsd")
             
 
     # else:
