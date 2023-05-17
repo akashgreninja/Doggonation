@@ -23,7 +23,7 @@ const Addpost = (props) => {
   };
   const user_id = 3;
   const [loading, setloading] = useState(false);
-  const [laodingtext, setlaodingtext] = useState("submit");
+  const [laodingtext, setlaodingtext] = useState("Post");
   const [keyset, setkeyset] = useState(1);
   const [tags, settags] = useState([]);
   const [open, setOpen] = React.useState(false);

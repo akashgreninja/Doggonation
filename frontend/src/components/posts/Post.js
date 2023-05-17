@@ -5,6 +5,7 @@ import Comment from "./Comment";
 import { like_post } from "../../api/likepost";
 import { remove_like_post } from "../../api/unlikepost";
 import "./Post.css";
+import Report from "./Report";
 
 const Post = (props) => {
   let toggle = false;
@@ -63,22 +64,17 @@ const Post = (props) => {
               <BsThreeDots />
             </div>
             {showOptions && (
-              <div className="absolute top-0 right-0 mt-2 w-48 bg-white rounded-lg shadow-xl">
+              <div className="absolute mt-2 w-48 bg-white rounded-lg shadow-xl">
+                <Report post_id={element[2]}/>
                 <a
                   href="#"
-                  className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
-                >
-                  Report
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+                  className="block px-4 py-2 text-gray-800 hover:bg-banana-100 hover:text-white"
                 >
                   Option 2
                 </a>
                 <a
                   href="#"
-                  className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+                  className="block px-4 py-2 text-gray-800 hover:bg-banana-100 hover:text-white"
                 >
                   Option 3
                 </a>

@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <Router>
-        {sidebar===true? <Sidebar  />:null }
+        {/* {sidebar===true? <Sidebar  />:null } */}
         {/* <Sidebar/> */}
 
 
