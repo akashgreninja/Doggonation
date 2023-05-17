@@ -33,7 +33,7 @@ from postrequests import Post
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "13342"
-socketio = SocketIO(app, async_mode="eventlet", cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 
 CORS(app)
