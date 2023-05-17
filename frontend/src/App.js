@@ -13,6 +13,7 @@ import RegisterPage from "./pages/RegisterPage";
 import DonationPage from "./pages/DonationPage"
 import Explore from "./pages/Explore";
 import Dm from "./pages/Dm"
+import NotFound from "./pages/NotFound";
 
 function App() {
   // const [Sidebar, setsidebar] = useState(true);
@@ -39,6 +40,7 @@ function App() {
             <Route path="/profile/:id" element={<ProfilePage Sidebarrender={setsidebar}/>} />
             <Route path="/explore" element={<Explore  Sidebarrender={setsidebar}/> } />
             <Route path="/dm" element={<Dm  Sidebarrender={setsidebar}/> } />
+            <Route path="*" element={<NotFound/> } />
 
           </Routes>
 
