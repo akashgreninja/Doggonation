@@ -30,7 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-project": "concurrently --kill-others \"npm start\" \"python ../backend/app.py\""
+    "project": "concurrently --kill-others \"npm start\" \"python ../backend/app.py\""
   },
   "eslintConfig": {
     "extends": [
