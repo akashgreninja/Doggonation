@@ -29,7 +29,7 @@ const Report = (post_id) => {
     setlaodingtext("Submit");
   };
 
-  const [reason, setreason] = useState({ reason: "" });
+  const [reason, setreason] = useState("");
 
   const [emptyWarningText, setemptyWarningText] = useState(false);
 
@@ -90,7 +90,7 @@ const Report = (post_id) => {
               placeholder="Why are you reporting this"
             />
             {emptyWarningText ? (
-              <small className="text-red-100">Please enter a reason</small>
+              <p className="text-red-800">Please enter a reason</p>
             ) : (
               " "
             )}
