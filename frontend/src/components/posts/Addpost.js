@@ -163,7 +163,7 @@ const Addpost = (props) => {
           />
           <button
             onClick={handleOpen}
-            className="h-8 w-1/3 pl-3 bg-ocean-100 hover:bg-ocean-200 text-white"
+            className="h-8 w-32 pl-2 bg-ocean-100 hover:bg-ocean-200 text-white"
           >
             Create Post
           </button>
