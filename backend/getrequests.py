@@ -100,9 +100,12 @@ class Get:
             for i in result:
                 cursor.execute(f"SELECT * FROM `posts` where `user_id`='{i[0]}' ORDER BY `posts`.`post_id` DESC")
                 result_post=cursor.fetchone()
+                cursor.execute(f"select `name`,`profile_pic` from `user` where `user_id`='{i[0]}'  ")
+                user_result=cursor.fetchone()
+                print(user_result)
                 if result_post:
                     
-                    final_res+=[result_post]
+                    final_res+=[result_post + user_result]
                 else:
                    continue
             return jsonify(final_res)
@@ -110,6 +113,21 @@ class Get:
             cursor.execute(f"select * from `posts` ORDER BY `post_id` DESC")
             result=cursor.fetchall()
             return jsonify(result)
+           ##uncomment it afterwards
+        #    for i in range(15):
+        #        try:
+        #         cursor.execute(f"select * from `posts` ORDER BY `post_id` where `user_id`='{i}'")
+        #         result=cursor.fetchone()
+        #         cursor.execute(f"select `name`,`profile_pic` from `user`where `user_id`='{i}' ")
+        #         user_result=cursor.fetchone()
+        #        except:
+        #            continue
+        #        if result_post:
+                    
+        #             final_res+=[result_post + user_result]
+        #        else:
+        #            continue
+        #    return jsonify(final_res)
 
     def getcomments(self,cursor,post_id):
         query=f"SELECT * FROM `comments` WHERE post_id={post_id} ORDER BY  `comments`.`comment_id` DESC"

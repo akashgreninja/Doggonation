@@ -10,20 +10,20 @@ import LoginForm from "./components/form/LoginForm";
 import SignIn from "./pages/SignIn";
 import ProfilePage from "./pages/ProfilePage";
 import RegisterPage from "./pages/RegisterPage";
-import DonationPage from "./pages/DonationPage"
+import DonationPage from "./pages/DonationPage";
 import Explore from "./pages/Explore";
 import Dm from "./pages/Dm"
+import NotFound from "./pages/NotFound";
 
 function App() {
   // const [Sidebar, setsidebar] = useState(true);
-  const [sidebar, setsidebar] = useState(false)
+  const [sidebar, setsidebar] = useState(false);
 
   return (
     <>
       <Router>
-        {/* {sidebar===true? <Sidebar  />:null } */}
+        {sidebar === true ? <Sidebar /> : null}
         {/* <Sidebar/> */}
-
 
         <Suspense>
           <Routes>
@@ -39,6 +39,7 @@ function App() {
             <Route path="/profile/:id" element={<ProfilePage Sidebarrender={setsidebar}/>} />
             <Route path="/explore" element={<Explore  Sidebarrender={setsidebar}/> } />
             <Route path="/dm" element={<Dm  Sidebarrender={setsidebar}/> } />
+            <Route path="*" element={<NotFound/> } />
 
           </Routes>
 

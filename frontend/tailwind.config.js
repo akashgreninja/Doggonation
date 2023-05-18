@@ -76,6 +76,11 @@ module.exports = {
         fortest2: "20%",
         bottommargin: "70px",
         threething: "65%",
+        chatmargin: "30%",
+        
+      },
+      padding: {
+        chatpaddingtop: "5%",
       },
       borderWidth: {
         1: "0.5px",
