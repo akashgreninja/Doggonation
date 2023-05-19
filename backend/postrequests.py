@@ -309,7 +309,8 @@ class Post:
     
     def msgfn(self,data,cursor):
         room=data['room']
-        cursor.execute(f"select `text` from `chats` where `msg_id`='{room}'")
+        print(room)
+        cursor.execute(f"select `text` from `chats` where `msg_id`='7'")
         result=cursor.fetchall()
         print(result)
         return jsonify(result)
