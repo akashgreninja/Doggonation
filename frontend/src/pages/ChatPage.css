@@ -25,9 +25,8 @@ body {
   margin-left: 280px;
   border-left: 1px solid #eaeaea;
 }
-.beta{
-
-    height: 100px;
+.beta {
+  height: 100px;
 }
 .people-list {
   -moz-transition: 0.5s;
@@ -90,10 +89,15 @@ body {
   float: left;
   padding-left: 10px;
 }
-
+.for-scrollbar {
+  height: 300px;
+  overflow-y: scroll;
+}
 .chat .chat-history {
   padding: 20px;
   border-bottom: 2px solid #fff;
+  height: 300px;
+  overflow-y: auto;
 }
 
 .chat .chat-history ul {

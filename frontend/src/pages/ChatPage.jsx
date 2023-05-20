@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./ChatPage.css";
 import { Getallfollowersforuser } from "../api/getallfollowers";
 import { msg } from "../api/msg";
-
+import clicktochat from "../images/Designer.png";
+import io from "socket.io-client";
+const socket = io("http://localhost:3003");
 const ChatPage = (props) => {
   const { RoomId } = props;
   const [sideusers, setsideusers] = useState([]);
@@ -10,10 +12,27 @@ const ChatPage = (props) => {
   const [Note, setNote] = useState({ message: "" });
   const currentuser = localStorage.getItem("token");
   useEffect(() => {
-    Loadpreviousmessages();
+    // Loadpreviousmessages();
     loadinactiveusers();
   }, []);
 
+  socket.on("messagerec", (message) => {
+    // setMessages([
+    //   ...messages,
+    //   `[ ${message.sender_id}, ${message.data},'2023-05-18 00:27:45']`,
+    // ]);
+    console.log(message);
+    let finalmsg = [[message.sender_id, message.data, "2023-05-18 00:27:45"]];
+    setMessages(Messages.concat(finalmsg));
+
+    console.log(Messages);
+  });
+
+  const HandleUserClick = (e) => {
+    console.log(e);
+    socket.emit("connectuser", { sender_id: currentuser, reciever_id: e });
+    Loadpreviousmessages();
+  };
   const loadinactiveusers = async () => {
     const { data } = await Getallfollowersforuser(currentuser);
 
@@ -32,7 +51,7 @@ const ChatPage = (props) => {
       console.log(action);
       setMessages((Messages) => [...Messages, action]);
     }
-    // console.log(Messages);
+    console.log(Messages);
 
     // console.log(action);
     // const das=JSON.parse(Messages[0][0])
@@ -67,21 +86,27 @@ const ChatPage = (props) => {
                     placeholder="Search..."
                   />
                 </div>
-                <ul class="list-unstyled chat-list mt-2 mb-0">
-                  {sideusers?sideusers.map((e, index) => {
-                    return (
-                      <li class="clearfix active" key={index}>
-                        <img src={e[6]} alt="avatar" />
-                        <div class="about">
-                          <div class="name">{e[3]}</div>
-                          <div class="status">
-                            {" "}
-                            <i class="fa fa-circle online"></i> online{" "}
-                          </div>
-                        </div>
-                      </li>
-                    );
-                  }):null}
+                <ul class="list-unstyled chat-list mt-2 mb-0 for-scrollbar">
+                  {sideusers.length
+                    ? sideusers.map((e, index) => {
+                        return (
+                          <li
+                            class="clearfix active"
+                            key={index}
+                            onClick={() => HandleUserClick(e[0])}
+                          >
+                            <img src={e[6]} alt="avatar" />
+                            <div class="about">
+                              <div class="name">{e[3]}</div>
+                              <div class="status">
+                                {" "}
+                                <i class="fa fa-circle online"></i> online{" "}
+                              </div>
+                            </div>
+                          </li>
+                        );
+                      })
+                    : null}
 
                   {/* <li class="clearfix">
                     <img
@@ -122,10 +147,15 @@ const ChatPage = (props) => {
                         data-toggle="modal"
                         data-target="#view_info"
                       >
-                        <img src={sideusers?sideusers[0][6]:null} alt="avatar" />
+                        <img
+                          src={sideusers.length ? sideusers[0][6] : null}
+                          alt="avatar"
+                        />
                       </a>
                       <div class="chat-about">
-                        <h6 class="m-b-0">{sideusers?sideusers[0][3]:null}</h6>
+                        <h6 class="m-b-0">
+                          {sideusers.length ? sideusers[0][3] : null}
+                        </h6>
                         <small>Last seen: 2 hours ago</small>
                       </div>
                     </div>
@@ -157,37 +187,43 @@ const ChatPage = (props) => {
                     </div>
                   </div>
                 </div>
-                <div class="chat-history">
-                  <ul class="m-b-0">
-                    {Messages.map((e) => {
-                      return e[0] === currentuser ? (
-                        <li class="clearfix">
-                          <div class="message-data">
-                            <span class="message-data-time">
-                              10:12 AM, Today
-                            </span>
-                          </div>
-                          <div class="message my-message">{e[1]}</div>
-                        </li>
-                      ) : (
-                        <li class="clearfix">
-                          <div class="message-data text-right">
-                            <span class="message-data-time">
-                              10:10 AM, Today
-                            </span>
-                            <img
-                              src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="message other-message float-right">
-                            {e[1]}
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
+                {Messages.length ? (
+                  <div class="chat-history">
+                    <ul class="m-b-0">
+                      {Messages.map((e, index) => {
+                        return e[0] === currentuser ? (
+                          <li class="clearfix" key={index}>
+                            <div class="message-data">
+                              <span class="message-data-time">
+                                10:12 AM, Today
+                              </span>
+                            </div>
+                            <div class="message my-message">{e[1]}</div>
+                          </li>
+                        ) : (
+                          <li class="clearfix" key={index}>
+                            <div class="message-data text-right">
+                              <span class="message-data-time">
+                                10:10 AM, Today
+                              </span>
+                              <img src={clicktochat} alt="avatar" />
+                            </div>
+                            <div class="message other-message float-right">
+                              {e[1]}
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                ) : (
+                  <img
+                    src={clicktochat}
+                    alt="avatar"
+                    height={200}
+                    width={400}
+                  />
+                )}
                 <div class="chat-message clearfix">
                   <div class="input-group mb-0">
                     <div class="input-group-prepend">
