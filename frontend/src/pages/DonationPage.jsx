@@ -9,8 +9,8 @@ const DonationPage = (props) => {
       }, []);   
 
       return(
-        <div>
-            <div className="feed-container">
+        <div style={{'width':'1270px',}} >
+            <div className="feed-container overflow-y-scroll w-full">
                 <div className="background-image ">
                         <h1 className="center-text pt-150 text-size-150 font-colour-white">
                             DOGS!

@@ -128,14 +128,15 @@ const Razorpay = () => {
     paymentObject.open();
   };
   return (
-    <div>
+    <div className="border-2 bg-white rounded-xl m-auto w-fit">
       <input
         type="number"
         placeholder="INR"
         value={orderAmount}
+        className="pl-10 py-0.5 rounded-xl m-auto w-28 rounded-b-none "
         onChange={handleChange}
       />
-      <button className="btn-donate" onClick={loadRazorpay}>Razorpay</button>
+      <button className="btn-donate m-auto" onClick={loadRazorpay}>Razorpay</button>
     </div>
   );
 };
