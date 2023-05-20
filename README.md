@@ -1,6 +1,6 @@
 # Doggonation - Where Dogs and Their Owners Unite: Welcome to Doggonation (Looking for frontend devs)
 
-<img src="https://raw.githubusercontent.com/akashgreninja/helper-repository-for-doggo-nation/main/logo-no-background.png" alt="Doggo Nation Logo">
+<img src="https://firebasestorage.googleapis.com/v0/b/doggonation-612e8.appspot.com/o/helper%20folder%2Flogo-no-background.png?alt=media&token=25c940c0-1d8a-4d47-b117-426b73e9eff7">
 
 
 <h2>This Project is in Progress so the ui does not fully work as required please contact me via my email id on my profile if you need any help </h2>
@@ -112,7 +112,7 @@ To learn more about NLTK and explore its extensive capabilities, refer to the [N
 
 ## Text Speech Analysis
 
-![Sentiment Analysis](https://raw.githubusercontent.com/akashgreninja/helper-repository-for-doggo-nation/main/sentiment_analysis.jpg)
+![Sentiment Analysis](https://firebasestorage.googleapis.com/v0/b/doggonation-612e8.appspot.com/o/helper%20folder%2Fsentiment_analysis.jpg?alt=media&token=c9585737-5353-4359-acff-b3de3843c965)
 
 In this project, we performed text speech analysis using various natural language processing techniques to extract insights from textual data. We utilized tools such as sentiment analysis, topic modeling, and named entity recognition to gain a deeper understanding of the language used in our dataset.
 
@@ -120,7 +120,7 @@ Our sentiment analysis, as depicted in the above image, revealed a generally pos
 
 Here's another image that shows the word cloud generated from our dataset:
 
-![Word Cloud](https://raw.githubusercontent.com/akashgreninja/helper-repository-for-doggo-nation/main/image1.png)
+![Word Cloud](https://firebasestorage.googleapis.com/v0/b/doggonation-612e8.appspot.com/o/helper%20folder%2Fimage1.png?alt=media&token=8cda53c0-d14b-4095-83e9-06e3bb5a3fa0)
 
 ## Translation with Azure Cognitive Services
 
