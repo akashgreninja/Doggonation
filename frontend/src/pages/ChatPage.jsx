@@ -1,7 +1,67 @@
-import React from "react";
-import'./ChatPage.css'
+import React, { useState, useEffect } from "react";
+import "./ChatPage.css";
+import { Getallfollowersforuser } from "../api/getallfollowers";
+import { msg } from "../api/msg";
+import clicktochat from "../images/Designer.png";
+import io from "socket.io-client";
+const socket = io("http://localhost:3003");
+const ChatPage = (props) => {
+  const { RoomId } = props;
+  const [sideusers, setsideusers] = useState([]);
+  const [Messages, setMessages] = useState([]);
+  const [Note, setNote] = useState({ message: "" });
+  const currentuser = localStorage.getItem("token");
+  useEffect(() => {
+    // Loadpreviousmessages();
+    loadinactiveusers();
+  }, []);
 
-const ChatPage = () => {
+  socket.on("messagerec", (message) => {
+    // setMessages([
+    //   ...messages,
+    //   `[ ${message.sender_id}, ${message.data},'2023-05-18 00:27:45']`,
+    // ]);
+    console.log(message);
+    let finalmsg = [[message.sender_id, message.data, "2023-05-18 00:27:45"]];
+    setMessages(Messages.concat(finalmsg));
+
+    console.log(Messages);
+  });
+
+  const HandleUserClick = (e) => {
+    console.log(e);
+    socket.emit("connectuser", { sender_id: currentuser, reciever_id: e });
+    Loadpreviousmessages();
+  };
+  const loadinactiveusers = async () => {
+    const { data } = await Getallfollowersforuser(currentuser);
+
+    setsideusers(data);
+
+    console.log(sideusers);
+  };
+
+  const Loadpreviousmessages = async () => {
+    // console.log(RoomId);
+    const { data } = await msg(RoomId);
+
+    const dictValues = eval(data[0][0]);
+    for (let i = 0; i < dictValues.length; i++) {
+      const action = Object.values(dictValues[i]);
+      console.log(action);
+      setMessages((Messages) => [...Messages, action]);
+    }
+    console.log(Messages);
+
+    // console.log(action);
+    // const das=JSON.parse(Messages[0][0])
+    // console.log(das);
+
+    // console.log(data[0][0]);
+  };
+  const onChange = (e) => {
+    setNote({ ...Note, [e.target.name]: e.target.value });
+  };
   return (
     <>
       <link
@@ -26,47 +86,29 @@ const ChatPage = () => {
                     placeholder="Search..."
                   />
                 </div>
-                <ul class="list-unstyled chat-list mt-2 mb-0">
-                  <li class="clearfix">
-                    <img
-                      src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                      alt="avatar"
-                    />
-                    <div class="about">
-                      <div class="name">Vincent Porter</div>
-                      <div class="status">
-                        {" "}
-                        <i class="fa fa-circle offline"></i> left 7 mins ago{" "}
-                      </div>
-                    </div>
-                  </li>
-                  <li class="clearfix active">
-                    <img
-                      src="https://bootdey.com/img/Content/avatar/avatar2.png"
-                      alt="avatar"
-                    />
-                    <div class="about">
-                      <div class="name">Aiden Chavez</div>
-                      <div class="status">
-                        {" "}
-                        <i class="fa fa-circle online"></i> online{" "}
-                      </div>
-                    </div>
-                  </li>
-                  <li class="clearfix">
-                    <img
-                      src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                      alt="avatar"
-                    />
-                    <div class="about">
-                      <div class="name">Mike Thomas</div>
-                      <div class="status">
-                        {" "}
-                        <i class="fa fa-circle online"></i> online{" "}
-                      </div>
-                    </div>
-                  </li>
-                  <li class="clearfix">
+                <ul class="list-unstyled chat-list mt-2 mb-0 for-scrollbar">
+                  {sideusers.length
+                    ? sideusers.map((e, index) => {
+                        return (
+                          <li
+                            class="clearfix active"
+                            key={index}
+                            onClick={() => HandleUserClick(e[0])}
+                          >
+                            <img src={e[6]} alt="avatar" />
+                            <div class="about">
+                              <div class="name">{e[3]}</div>
+                              <div class="status">
+                                {" "}
+                                <i class="fa fa-circle online"></i> online{" "}
+                              </div>
+                            </div>
+                          </li>
+                        );
+                      })
+                    : null}
+
+                  {/* <li class="clearfix">
                     <img
                       src="https://bootdey.com/img/Content/avatar/avatar7.png"
                       alt="avatar"
@@ -79,19 +121,7 @@ const ChatPage = () => {
                       </div>
                     </div>
                   </li>
-                  <li class="clearfix">
-                    <img
-                      src="https://bootdey.com/img/Content/avatar/avatar8.png"
-                      alt="avatar"
-                    />
-                    <div class="about">
-                      <div class="name">Monica Ward</div>
-                      <div class="status">
-                        {" "}
-                        <i class="fa fa-circle online"></i> online{" "}
-                      </div>
-                    </div>
-                  </li>
+            
                   <li class="clearfix">
                     <img
                       src="https://bootdey.com/img/Content/avatar/avatar3.png"
@@ -105,7 +135,7 @@ const ChatPage = () => {
                         28{" "}
                       </div>
                     </div>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
               <div class="chat">
@@ -118,12 +148,14 @@ const ChatPage = () => {
                         data-target="#view_info"
                       >
                         <img
-                          src="https://bootdey.com/img/Content/avatar/avatar2.png"
+                          src={sideusers.length ? sideusers[0][6] : null}
                           alt="avatar"
                         />
                       </a>
                       <div class="chat-about">
-                        <h6 class="m-b-0">Aiden Chavez</h6>
+                        <h6 class="m-b-0">
+                          {sideusers.length ? sideusers[0][3] : null}
+                        </h6>
                         <small>Last seen: 2 hours ago</small>
                       </div>
                     </div>
@@ -155,51 +187,57 @@ const ChatPage = () => {
                     </div>
                   </div>
                 </div>
-                <div class="chat-history">
-                  <ul class="m-b-0">
-                    <li class="clearfix">
-                      <div class="message-data text-right">
-                        <span class="message-data-time">10:10 AM, Today</span>
-                        <img
-                          src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                          alt="avatar"
-                        />
-                      </div>
-                      <div class="message other-message float-right">
-                        {" "}
-                        Hi Aiden, how are you? How is the project coming along?{" "}
-                      </div>
-                    </li>
-                    <li class="clearfix">
-                      <div class="message-data">
-                        <span class="message-data-time">10:12 AM, Today</span>
-                      </div>
-                      <div class="message my-message">
-                        Are we meeting today?
-                      </div>
-                    </li>
-                    <li class="clearfix">
-                      <div class="message-data">
-                        <span class="message-data-time">10:15 AM, Today</span>
-                      </div>
-                      <div class="message my-message">
-                        Project has been already finished and I have results to
-                        show you.
-                      </div>
-                    </li>
-                  </ul>
-                </div>
+                {Messages.length ? (
+                  <div class="chat-history">
+                    <ul class="m-b-0">
+                      {Messages.map((e, index) => {
+                        return e[0] === currentuser ? (
+                          <li class="clearfix" key={index}>
+                            <div class="message-data">
+                              <span class="message-data-time">
+                                10:12 AM, Today
+                              </span>
+                            </div>
+                            <div class="message my-message">{e[1]}</div>
+                          </li>
+                        ) : (
+                          <li class="clearfix" key={index}>
+                            <div class="message-data text-right">
+                              <span class="message-data-time">
+                                10:10 AM, Today
+                              </span>
+                              <img src={clicktochat} alt="avatar" />
+                            </div>
+                            <div class="message other-message float-right">
+                              {e[1]}
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                ) : (
+                  <img
+                    src={clicktochat}
+                    alt="avatar"
+                    height={200}
+                    width={400}
+                  />
+                )}
                 <div class="chat-message clearfix">
                   <div class="input-group mb-0">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
-                        <i class="fa fa-send"></i>
+                        <i class="fa fa-send" onClick={props.sendMessage}></i>
                       </span>
                     </div>
                     <input
                       type="text"
                       class="form-control"
                       placeholder="Enter text here..."
+                      id="textinput"
+                      onChange={onChange}
+                      // value={Note.message}
                     />
                   </div>
                 </div>

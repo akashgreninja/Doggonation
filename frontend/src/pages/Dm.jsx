@@ -18,26 +18,31 @@ const Dm = (props) => {
 
   const [roomid, setroomid] = useState(null);
   const [allusers, Setallusers] = useState([]);
-  const sender = 29;
+
   useEffect(() => {
     props.Sidebarrender(true);
     GetAllfollowers();
-    socket.emit("connectuser", { sender_id: user, reciever_id: 2 });
-    loadmsgs();
+    socket.emit("connectuser", { sender_id: user, reciever_id: 56 });
+    // loadmsgs();
   }, []);
   socket.on("connection", (message) => {
     setroomid(message["data"]);
   });
 
-  const loadmsgs = async () => {
-    const {data} = await msg(roomid);
-    setMessages(data);
-    console.log(data);
-  };
+  // const loadmsgs = async () => {
+  //   const {data} = await msg(roomid);
+  //   setMessages(data);
+  //   console.log(data);
+  // };
   socket.on("messagerec", (message) => {
-    setMessages([ ...messages,
-      `{'sender': ${user}, 'message': {"dsdsd"}, 'time': {'2023-05-18 00:27:45'}}`]);
-    console.log(message);
+    // setMessages([
+    //   ...messages,
+    //   `[ ${message.sender_id}, ${message.data},'2023-05-18 00:27:45']`,
+    // ]);
+    // let  finalmsg=[message.sender_id, message.data,'2023-05-18 00:27:45']
+    // setMessages(messages.concat(finalmsg))
+
+    // console.log(message);
   });
   const GetAllfollowers = async () => {
     const { data } = await Getallfollowersforuser(user);
@@ -50,8 +55,8 @@ const Dm = (props) => {
     socket.emit("message", {
       data: msg.value,
       room_id: roomid,
-      sender_id: sender,
-      reciever_id: 2,
+      sender_id: user,
+      reciever_id: 56,
     });
     msg.value = "";
   };
@@ -66,7 +71,7 @@ const Dm = (props) => {
     //   <button onClick={sendMessage}>Send Message</button>
     // </div>
     <div className="ml-chatmargin pt-chatpaddingtop max-h-10 ">
-      <ChatPage/>
+      <ChatPage sendMessage={sendMessage} RoomId={roomid} livemessages={messages} />
     </div>
   );
 };
