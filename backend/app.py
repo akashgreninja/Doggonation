@@ -386,14 +386,14 @@ def handle_message(data):
             print(existing_list)
             if True:
                 new_element = {
-                    "sender": {sender_id},
-                    "message": {text},
-                    "time": {timestamp},
+                    "sender": sender_id,
+                    "message": text,
+                    "time": timestamp,
                 }
                 print(new_element)
                 existing_list.append(new_element)
                 print(existing_list)
-                updated_list_str = str(existing_list)
+                updated_list_str = existing_list
                 mycursor.execute(
                     f'UPDATE `chats` SET `text` = "{updated_list_str}" WHERE `chats`.`msg_id` = "{room_id}";'
                 )
@@ -416,4 +416,4 @@ def handle_message(data):
 if __name__ == "__main__":
     # eventlet.monkey_patch()
 
-    socketio.run(app, port=3003, debug=True)
+    socketio.run(app, port=3003, debug=False)
