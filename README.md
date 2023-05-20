@@ -3,6 +3,8 @@
 <img src="https://raw.githubusercontent.com/akashgreninja/helper-repository-for-doggo-nation/main/logo-no-background.png" alt="Doggo Nation Logo">
 
 
+<h2>This Project is in Progress so the ui does not fully work as required please contact me via my email id on my profile if you need any help </h2>
+
 
 
 <p>Doggonation is an innovative social media platform that caters to the discerning sensibilities of dog owners and enthusiasts. The app is designed to connect canine aficionados from all walks of life, enabling them to share photographs, videos, and anecdotes of their beloved furry friends. It also features an array of cutting-edge functionalities that facilitate a safe and enjoyable user experience.</p>
