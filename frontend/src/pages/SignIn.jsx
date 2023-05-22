@@ -8,9 +8,9 @@ const SignIn = (props) => {
   
   return (
     <>
-    <div className='flex flex-row w-screen h-screen'>
+    <div className='flex flex-row w-screen'>
       <div className=' w-half min-h-screen  bg-doggo-background bg-no-repeat bg-cover '>sas</div>
-      <div className=' max-h-screen  '>  
+      <div className=''>  
         <LoginForm/>
       </div>
     </div>
