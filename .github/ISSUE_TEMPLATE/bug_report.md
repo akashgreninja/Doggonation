@@ -1,17 +1,10 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: "[BUG]: "
-labels: ''
-assignees: ''
-
----
-
 Name: 🐞 Bug report
+About: 
 <!--
 Provide a very short and concise description about the bug in the about section.
 -->
-About: 
+Title: "[BUG]: "
 
 <!--
 Example how to mark a checkbox:-
@@ -26,9 +19,9 @@ Example how to mark a checkbox:-
 |     |   Bug report                         |
 |-----|--------------------------------------|
 | 🐞  | Create a report to help us improve    |
-| **Describe the bug** | Please provide a clear and concise description of the issue encountered, including any relevant details about the bug. |
-| **Location of the bug** | If known, please specify the file location where the bug was identified, including any relevant directories or paths. |
-| **Expected behavior** | Please provide a clear and concise description of the expected behavior or outcome. What should happen instead of the observed bug? |
+| **Describe the bug** | Please provide a clear and concise description of the issue encountered |
+| **Location of the bug** | If known, please specify the file location where the bug was identified |
+| **Expected behavior** | What should happen instead of the observed bug? |
 
 ## Screenshots (if any)
 ---
