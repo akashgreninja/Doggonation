@@ -1,6 +1,6 @@
 ---
-Name: 🐞 Bug report
-About: Short description about the issue.
+name: 🐞 Bug report
+about: Short description about the issue.
 Title: "[BUG]: "
 ---
 <!--
