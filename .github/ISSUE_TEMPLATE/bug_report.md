@@ -1,7 +1,7 @@
 ---
 name: 🐞 Bug report
 about: Short description about the issue.
-Title: "[BUG]: "
+title: "[BUG]: "
 ---
 <!--
 Example how to mark a checkbox:-
