@@ -1,8 +1,12 @@
 ---
-name: 🐞 Bug report
+name: "\U0001F41E Bug report"
 about: Short description about the issue.
 title: "[BUG]: "
+labels: ''
+assignees: ''
+
 ---
+
 <!--
 Example how to mark a checkbox:-
 - [x] My code follows the code style of this project.
