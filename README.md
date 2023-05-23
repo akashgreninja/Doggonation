@@ -4,18 +4,6 @@
 
 
 
-<h1>Contributers! Please contribute only to the frontend</h1>
-<h3>And Try to adhere to the following colours</h3>
-<small>People working on new themes may derive from these colours</small>
-<ul>
-  <li>Banana-0: #FFFDF7</li>
-  <li>Banana-50: #FDD85D</li>
-  <li>Banana-100: #FDC921</li>
-  <li>Ocean-50: #99D6EA</li>
-  <li>Ocean-100: #77c4de</li>
-  <li>Ocean-200: #6798C0</li>
-</ul>
-<small>*People using tailwind can also just use the name of the colour</small>
 <h2>This Project is in Progress so the ui does not fully work as required please contact me via my email id on my profile if you need any help </h2>
 
 
