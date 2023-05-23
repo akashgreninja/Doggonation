@@ -45,8 +45,19 @@ class Get:
         for i in final_postid:
             cursor.execute(f"select * from `posts` where `post_id`={i}")
             result=cursor.fetchone()
-            print(result)
-            explore_posts.append(result)
+            user_id=result[3]
+            cursor.execute(f"select `name`,`profile_pic` from `user` where `user_id`='{user_id}'")
+            user=cursor.fetchone()
+            result_fin=[]
+            if result:
+                    
+                    result_fin+=[result + user]
+            else:
+                   continue
+
+            
+            print(result_fin)
+            explore_posts.append(result_fin)
         return jsonify(explore_posts)
     
     def get_user (self,data,mycursor,mydb):
@@ -102,17 +113,18 @@ class Get:
                 result_post=cursor.fetchone()
                 cursor.execute(f"select `name`,`profile_pic` from `user` where `user_id`='{i[0]}'  ")
                 user_result=cursor.fetchone()
-                print(user_result)
                 if result_post:
                     
                     final_res+=[result_post + user_result]
                 else:
                    continue
-            return jsonify(final_res)
+            if result != []:
+                print(result)
+                return jsonify(final_res)
+            else:
+               return self.explore(cursor)
         else:
-            cursor.execute(f"select * from `posts` ORDER BY `post_id` DESC")
-            result=cursor.fetchall()
-            return jsonify(result)
+           return self.explore(cursor)
            ##uncomment it afterwards
         #    for i in range(15):
         #        try:
