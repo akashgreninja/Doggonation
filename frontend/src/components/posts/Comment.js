@@ -5,7 +5,7 @@ import { gettags } from "../../api/gettags";
 import { translate } from "../../api/translate";
 
 const Comment = (props) => {
-  let user_id = 29;
+  let user_id = localStorage.getItem('token')
   useEffect(() => {
     loadcomments();
     loadtags();

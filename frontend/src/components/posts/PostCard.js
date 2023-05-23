@@ -4,7 +4,7 @@ import Post from "./Post";
 import { json } from "react-router-dom";
 
 const PostCard = () => {
-  let user_id=29
+  let user_id=localStorage.getItem('token')
   const [posts, setposts] = useState([]);
   useEffect(() => {
     load();
