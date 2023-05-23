@@ -50,7 +50,7 @@ const Post = (props) => {
   const [likerender, setlikerender] = useState(null);
   const [loadcomments, setloadcomments] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
-  let element = props.element;
+  let element = props.element[0];
   let commentRef = useRef(null);
   const handlecomment = () => {
     if (toggle == true) {
@@ -100,12 +100,12 @@ const Post = (props) => {
         <div className="flex items-center justify-content-between  pt-3 pl-3 pr-5">
           <div class="flex items-center">
             <img
-              src={element[0]}
+              src={element[11]}
               alt="Profile Image"
               class="rounded-full w-10 h-10 mb-3"
             />
             <div class="ml-4">
-              <h2 class="text-l font-bold">{element[1]}</h2>
+              <h2 class="text-l font-bold">{element[10]}</h2>
               <p class="text-gray-500 text-xs "> {element[5]}</p>
             </div>
           </div>
