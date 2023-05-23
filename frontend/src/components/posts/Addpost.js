@@ -158,6 +158,8 @@ const Addpost = (props) => {
         <div className="flex w-full items-center h-12  bg-stone-100 border border-gray-800 rounded p-2">
           <input
             type="text"
+            readOnly
+            disabled
             placeholder="Have something to share...??"
             className="w-full px-2 py-1 text-gray-800 bg-stone-100"
           />
