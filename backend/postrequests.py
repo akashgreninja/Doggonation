@@ -213,7 +213,7 @@ class Post:
     def report(self, data, cursor, db):
         reason = data["reason"]
         post_id = data["post_id"]
-        cursor.execute(f"insert into report  values ('{reason}','{post_id}',NULL)")
+        cursor.execute(f"insert into report  values ('{reason}','{post_id}')")
         cursor.execute(f"select reported from posts where post_id={post_id}")
         reported = cursor.fetchone()[0]
         reported += 1

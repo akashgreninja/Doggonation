@@ -23,7 +23,7 @@ const Addpost = (props) => {
   };
   const user_id = localStorage.getItem('token')
   const [loading, setloading] = useState(false);
-  const [laodingtext, setlaodingtext] = useState("submit");
+  const [laodingtext, setlaodingtext] = useState("Post");
   const [keyset, setkeyset] = useState(1);
   const [tags, settags] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -163,7 +163,7 @@ const Addpost = (props) => {
           />
           <button
             onClick={handleOpen}
-            className="h-8 w-1/3 pl-3 bg-ocean-100 hover:bg-ocean-200 text-white"
+            className="h-8 w-32 pl-2 bg-ocean-100 hover:bg-ocean-200 text-white"
           >
             Create Post
           </button>
