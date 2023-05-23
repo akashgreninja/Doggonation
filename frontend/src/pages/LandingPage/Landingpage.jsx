@@ -3,7 +3,6 @@ import Wrapper from './Wrapper'
 import Navbar from './Navbar'
 import HomeBanner from './HomeBanner'
 import About from './About'
-import Contact from './Contact'
 import { useEffect } from 'react'
 
 const Landingpage = (props) => {
@@ -16,7 +15,6 @@ const Landingpage = (props) => {
       <div>
         <HomeBanner/>
         <About/>
-        <Contact/>
       </div>
     </Wrapper>
   )
