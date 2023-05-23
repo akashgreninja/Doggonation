@@ -4,10 +4,6 @@
 
 
 
-<h1>Contributers! Please contribute only to the frontend</h1>
-
-
-
 <h2>This Project is in Progress so the ui does not fully work as required please contact me via my email id on my profile if you need any help </h2>
 
 

@@ -1,4 +1,4 @@
-button {
+/* button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,4 +81,4 @@ button {
   button:hover .filled {
     opacity: 1;
     animation: beatingHeart 1.2s infinite;
-  }
+  } */
