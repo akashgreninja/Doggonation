@@ -21,7 +21,7 @@ const Addpost = (props) => {
     p: 4,
     borderRadius: 0.5,
   };
-  const user_id = 3;
+  const user_id = localStorage.getItem('token')
   const [loading, setloading] = useState(false);
   const [laodingtext, setlaodingtext] = useState("submit");
   const [keyset, setkeyset] = useState(1);

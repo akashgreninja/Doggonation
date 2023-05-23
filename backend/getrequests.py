@@ -42,6 +42,7 @@ class Get:
                 if i==new[j]:
                     final_postid.append(result[j][1])
         explore_posts=[]
+        final_postid=set(final_postid)
         for i in final_postid:
             cursor.execute(f"select * from `posts` where `post_id`={i}")
             result=cursor.fetchone()
@@ -50,7 +51,7 @@ class Get:
             user=cursor.fetchone()
             result_fin=[]
             if result:
-                    
+                
                     result_fin+=[result + user]
             else:
                    continue
@@ -115,31 +116,19 @@ class Get:
                 user_result=cursor.fetchone()
                 if result_post:
                     
-                    final_res+=[result_post + user_result]
+                    final_res+=[[result_post + user_result]]
                 else:
                    continue
-            if result != []:
-                print(result)
-                return jsonify(final_res)
+            if result == []:
+              
+                return self.explore(cursor)
+                
             else:
-               return self.explore(cursor)
+                return jsonify(final_res)
+               
         else:
            return self.explore(cursor)
-           ##uncomment it afterwards
-        #    for i in range(15):
-        #        try:
-        #         cursor.execute(f"select * from `posts` ORDER BY `post_id` where `user_id`='{i}'")
-        #         result=cursor.fetchone()
-        #         cursor.execute(f"select `name`,`profile_pic` from `user`where `user_id`='{i}' ")
-        #         user_result=cursor.fetchone()
-        #        except:
-        #            continue
-        #        if result_post:
-                    
-        #             final_res+=[result_post + user_result]
-        #        else:
-        #            continue
-        #    return jsonify(final_res)
+      
 
     def getcomments(self,cursor,post_id):
         query=f"SELECT * FROM `comments` WHERE post_id={post_id} ORDER BY  `comments`.`comment_id` DESC"

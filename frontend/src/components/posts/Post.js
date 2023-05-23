@@ -17,7 +17,7 @@ import { Getallfollowersforuser } from "../../api/getallfollowers";
 
 const Post = (props) => {
   const socket = io("http://localhost:3003");
-  const user_id=55
+  const user_id=localStorage.getItem('token')
   const style = {
     position: "absolute",
     top: "30%",
@@ -53,7 +53,7 @@ const Post = (props) => {
   let element = props.element[0];
   let commentRef = useRef(null);
   const handlecomment = () => {
-    if (toggle == true) {
+    if (toggle === true) {
       commentRef.current.style.display = "none";
       setloadcomments(false);
       toggle = false;
@@ -63,21 +63,19 @@ const Post = (props) => {
       toggle = true;
     }
   };
-  const handleLike = async () => {
-    if (element[4] === 0) {
-      let data = await like_post(element[2]);
-      if (data.status === 200) {
-        element[4] = 1;
-        setlikerender(1);
-      }
-    } else {
-      let data = await remove_like_post(element[2]);
-      if (data.status === 200) {
-        element[4] = 0;
-        setlikerender(2);
-      }
-    }
-  };
+ const handleLike =async()=>{
+    if(element[4]===0){
+    let data=await like_post(element[2])
+    if (data.status===200){element[4]=1
+      element[8]+=1
+    setlikerender(1)    }
+  }else{
+    let data =await remove_like_post(element[2])
+    if (data.status===200){
+    element[4]=0
+    element[8]-=1
+    setlikerender(2)}
+  }}
 
   const handleshare=async(reciever_id,msg)=>{
     socket.emit("connectuser", { sender_id: user_id, reciever_id: 2 });
@@ -157,13 +155,16 @@ const Post = (props) => {
               className="interaction-button"
               key={likerender}
               onClick={handleLike}
-            >
+            > 
               {element[4] === 0 ? (
                 <i class="fa-regular fa-2x fa-heart"></i>
               ) : (
                 <i class="fa-solid fa-2x fa-heart"></i>
               )}
-              Like
+              {
+                element[8]
+              }
+               Likes
             </button>
             <button className="interaction-button" onClick={handlecomment}>
               {!loadcomments ? (
