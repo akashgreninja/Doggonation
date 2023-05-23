@@ -3,9 +3,10 @@ import { REPORT} from './routes';
 
 const apiConfig = createApiConfig();
 
-export const report = (post_id) => {
+export const report = (reason,post_id) => {
     const check={
-      post_id:post_id
+      reason:reason,
+      post_id:post_id,
     }
     return apiConfig.post(REPORT,check);
   };
