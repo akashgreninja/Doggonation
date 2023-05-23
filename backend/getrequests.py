@@ -1,10 +1,12 @@
+# python -m nltk.downloader punkt
+
 from flask import Flask, abort,jsonify,Response
 from werkzeug.security import generate_password_hash, check_password_hash
 import nltk
 from nltk import FreqDist
 from nltk.tokenize import word_tokenize
 
-
+# nltk.download('punkt')
 
 class Get:
     def __init__(self):

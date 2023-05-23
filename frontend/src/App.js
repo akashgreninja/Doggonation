@@ -25,8 +25,8 @@ function App() {
   return (
     <>
       <Router>
-        {sidebar === true ? <Sidebar /> : null}
-        {/* <Sidebar/> */}
+        {/* {sidebar === true ? <Sidebar /> : null} */}
+        <Sidebar/>
 
         <Suspense>
           <Routes>

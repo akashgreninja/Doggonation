@@ -66,7 +66,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className="flex fixed  flex-row  "
+      className="flex fixed  flex-row  h-10 "
       style={{ "pointer-events": "auto" }}
     >
       <div className="h-screen bg-white  w-sidebarw  border-r-1 border-gray-400">
@@ -132,7 +132,7 @@ const Sidebar = () => {
           <span class="text-[15px] ml-4 text-black font-bold">Logout</span>
         </div>
       </div>
-      <nav className="w-screen h-sidebarh bg-white flex flex-row border-b-1 border-gray-400 justify-items-center">
+      <nav className="w-screen h-sidebarh bg-white flex flex-row border-b-1 justify-items-center">
         {/* <div class="flex items-center ml-10 mr-9">
           <svg
             xmlns="http://www.w3.org/2000/svg"
