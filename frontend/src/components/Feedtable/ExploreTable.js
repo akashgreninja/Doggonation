@@ -17,7 +17,7 @@ const ExploreTable = (props) => {
       console.log(exploredata)
   }
 
-  //placehlder for getposts
+  // placehlder for getposts
   // let user_id = 29;
   // useEffect(() => {
   //   load();
@@ -31,7 +31,7 @@ const ExploreTable = (props) => {
 
   return (
     <div
-      className="bg-[#f5f1eb]"
+      className="bg-[#f5f1eb] w-full h-[100vh]"
       style={{ "padding-left": "17rem", "padding-top": "62px" }}
     >
       <div className="flex flex-row mx-auto mt-10 w-10/12 ">
