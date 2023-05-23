@@ -60,6 +60,10 @@ const Sidebar = () => {
     // }
   };
 
+  const handlehome = ()=>{
+    navigate("/")
+  }
+
   return (
     <div
       className="flex fixed  flex-row  "
@@ -85,9 +89,9 @@ const Sidebar = () => {
           </li>
         </ul>
 </div> */}
-        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-banana-50 text-black">
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-banana-50 text-black" onClick={()=>handlehome()}>
           <i class="bi bi-house-door-fill"></i>
-          <span class="text-[15px] ml-4 text-black font-bold">Home</span>
+       <span class="text-[15px] ml-4 text-black font-bold">Home</span>
         </div>
         <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-banana-50 text-black">
           <i class="bi bi-bookmark-fill"></i>
