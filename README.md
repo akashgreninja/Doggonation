@@ -23,6 +23,10 @@
   <li>Chat with Other Dog Owners and Forge New Canine Friendships</li>
   <li>🤖 Use the Roberto Model for Advanced Text Sentiment Analysis to Ensure Appropriate Content for All Users</li>
   <li>🔍 Employ Image Analysis to Detect and Prevent Inappropriate Content</li>
+  
+  
+
+  <li>Firebase auth for Google and Facebook</li>
 </ul>
 <h2>Firebase auth for Google and Facebook </h2>
 <p>This project utilizes Firebase Authentication for user authentication, specifically for Google and Facebook sign in. Firebase Authentication provides a secure and easy-to-use way to authenticate users, and supports multiple authentication providers, including email and password, phone number, and third-party providers like Google and Facebook.</p>
@@ -38,6 +42,7 @@
   <li>Azure MySQL for the SQL database hosting</li>
   <li>Azure App Services for hosting the backend</li>
   <li>Azure Cognitive Services for translation</li>
+  <li>CI/CD using GitHub Actions</li>
 </ul>
 
 
@@ -218,3 +223,7 @@ Here's another image that shows the word cloud generated from our dataset:
 <a href="https://github.com/akashgreninja/doggonation/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=akashgreninja/doggonation" />
 </a>
+
+🚀🚀 Thanks to all the contributors who have dedicated their time and expertise to improve and enhance Doggonation. Their contributions are invaluable in shaping the project and making it a success.
+
+🚀🚀 Join Doggonation, where dogs and their owners unite, and be part of the journey in building a vibrant social media platform for the dog-loving community. Together, let's create an engaging and enjoyable space where dogs and their stories can be celebrated.
