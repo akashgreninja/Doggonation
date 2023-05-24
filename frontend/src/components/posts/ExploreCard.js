@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Modal from "@mui/material/Modal";
 import Post from "./Post";
+import PostModal from "./PostModal";
 
 const ExploreCard = (props) => {
   const [openPost, setOpenPost] = useState(false);
@@ -23,8 +24,8 @@ const ExploreCard = (props) => {
         aria-describedby="modal-modal-post"
       >
         <box>
-          <div className="w-2/5 my-28 mx-auto">
-            <Post element={element} />
+          <div className="h-5/6 w-fit mx-auto my-10">
+            <PostModal element={element} />
           </div>
         </box>
       </Modal>
