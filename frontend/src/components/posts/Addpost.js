@@ -21,9 +21,9 @@ const Addpost = (props) => {
     p: 4,
     borderRadius: 0.5,
   };
-  const user_id = 3;
+  const user_id = localStorage.getItem('token')
   const [loading, setloading] = useState(false);
-  const [laodingtext, setlaodingtext] = useState("submit");
+  const [laodingtext, setlaodingtext] = useState("Post");
   const [keyset, setkeyset] = useState(1);
   const [tags, settags] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -158,12 +158,14 @@ const Addpost = (props) => {
         <div className="flex w-full items-center h-12  bg-stone-100 border border-gray-800 rounded p-2">
           <input
             type="text"
+            readOnly
+            disabled
             placeholder="Have something to share...??"
             className="w-full px-2 py-1 text-gray-800 bg-stone-100"
           />
           <button
             onClick={handleOpen}
-            className="h-8 w-1/3 pl-3 bg-ocean-100 hover:bg-ocean-200 text-white"
+            className="h-8 w-32 pl-2 bg-ocean-100 hover:bg-ocean-200 text-white"
           >
             Create Post
           </button>

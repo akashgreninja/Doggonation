@@ -87,6 +87,22 @@ If no changes are needed, this means that your Pull Request has been reviewed an
 
 - Note : Always add screenshots to help the maintainer know what this enhancement/implementation is all about.
 
+
+<h1>Contributers! Please contribute only to the frontend</h1>
+<h3>Adhere to the following colour palette</h3>
+<small>People working on new themes may derive from these colours</small>
+<ul>
+  <li>Banana-0: #FFFDF7</li>
+  <li>Banana-50: #FDD85D</li>
+  <li>Banana-100: #FDC921</li>
+  <li>Ocean-50: #99D6EA</li>
+  <li>Ocean-100: #77c4de</li>
+  <li>Ocean-200: #6798C0</li>
+</ul>
+<small>*People using tailwind can also just use the name of the colour in classname</small>
+
+
+
 ### Need more help?
 
 You can refer to the following articles on basics of Git and GitHub and also contact the Project Mentors, in case you are stuck:
