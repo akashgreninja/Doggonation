@@ -163,13 +163,15 @@ const Addpost = (props) => {
             placeholder="Have something to share...??"
             className="w-full px-2 py-1 text-gray-800 bg-stone-100"
           />
-          <button
-            onClick={handleOpen}
-            className="h-8 w-32 pl-2 bg-ocean-100 hover:bg-ocean-200 text-white"
-          >
-            Create Post
-          </button>
-
+          <div>
+            <button
+              onClick={handleOpen}
+              className="h-8 w-28 pl-3 bg-ocean-100 hover:bg-ocean-200 text-white"
+            >
+              Create Post
+            </button>
+          </div>
+          
           <Modal
             open={open}
             onClose={handleClose}
