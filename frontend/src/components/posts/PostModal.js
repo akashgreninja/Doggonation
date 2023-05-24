@@ -32,6 +32,7 @@ const PostModal = (props) => {
   const [msgsent, setmsgsent] = useState(false);
   const [roomid, setroomid] = useState(null);
   const [open, setOpen] = React.useState(false);
+
   const handleOpen = async () => {
     setOpen(true);
     let data = await Getallfollowersforuser(user_id);
@@ -42,14 +43,19 @@ const PostModal = (props) => {
     setmsgsent(false);
   };
 
-  let toggle = true;
+  let toggle = false;
   let likeRef = useRef(null);
   const [following, setfollowing] = useState([]);
   const [likerender, setlikerender] = useState(null);
-  const [loadcomments, setloadcomments] = useState(true);
+  const [loadcomments, setloadcomments] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   let element = props.element[0];
   let commentRef = useRef(null);
+
+  useEffect (() => {
+    handlecomment();
+  })
+
   const handlecomment = () => {
     if (toggle === true) {
       commentRef.current.style.display = "none";
@@ -93,7 +99,7 @@ const PostModal = (props) => {
     setmsgsent(true);
   };
   return (
-    <div className="h-full bg-white mb-2 mt-2 rounded-lg border-2 border-grey-500">
+    <div className="h-full bg-white rounded-lg border-2 border-grey-500">
       <div className="h-full flex">
         <div className="">
           <img
@@ -103,7 +109,7 @@ const PostModal = (props) => {
             className="h-full"
           />
         </div>
-        <div className="flex flex-col w-96">
+        <div className="flex flex-col w-96 p-2">
           <div className="flex items-center justify-content-between  pt-3 pl-3 pr-5">
             <div class="flex items-center">
               <img
@@ -173,7 +179,6 @@ const PostModal = (props) => {
               </button>
               <Modal
                 open={open}
-                onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >

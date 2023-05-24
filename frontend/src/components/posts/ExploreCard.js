@@ -2,12 +2,25 @@ import React, { useState, useEffect, useRef } from "react";
 import Modal from "@mui/material/Modal";
 import Post from "./Post";
 import PostModal from "./PostModal";
+import { Box } from "@mui/material";
 
 const ExploreCard = (props) => {
-  const [openPost, setOpenPost] = useState(false);
+  const [openPost, setOpenPost] = React.useState(false);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 1000,
+    boxShadow: 12,
+    outlinewidth: 0,
+  };
 
   const element = props.element;
   const handleOpenPost = () => setOpenPost(true);
+
+  const handleClosePost = () => setOpenPost(false);
 
   return (
     <div className="mx-px py-px ">
@@ -20,14 +33,13 @@ const ExploreCard = (props) => {
       />
       <Modal
         open={openPost}
+        onClose={handleClosePost}
         aria-labelledby="modal-modal-Post"
         aria-describedby="modal-modal-post"
       >
-        <box>
-          <div className="h-5/6 w-fit mx-auto my-10">
+        <Box sx={style}> 
             <PostModal element={element} />
-          </div>
-        </box>
+        </Box>
       </Modal>
     </div>
   );

@@ -182,7 +182,6 @@ const Addpost = (props) => {
               <div className="flex ">
                 <div className="mt-5">
                   <p className="form-title pl-2 pb-5 leading-5">
-                    {" "}
                     Create new post
                   </p>
                   <i className="fa-solid fa-envelope fa-2x p-2" />
