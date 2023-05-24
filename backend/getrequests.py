@@ -23,10 +23,9 @@ class Get:
     def explore(self,cursor):
         cursor.execute(f"select * from `tags`")
         result=cursor.fetchall()
-        new=[]
-        for i in result:
-            new.append(i[0])       
-      
+        
+        new=[i[0] for i in result]
+        
         text = " ".join(new)
         words = word_tokenize(text)
         fdist = FreqDist(words)
