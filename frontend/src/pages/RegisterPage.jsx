@@ -46,7 +46,7 @@ const RegisterPage = (props) => {
       else {
         localStorage.setItem("token", data);
       
-        nav("/home");
+    nav("/");
         window.location.reload();
         console.log(data)
       }

@@ -8,12 +8,15 @@ export const LOGIN_URL='/login'
 
 export const GET_USER_DETAILS='/getuser'
 export const GET_FOLLOWING='/getfollowing'
+export const GET_FOLLOWERS='/getfollowers'
+export const FOLLOW_USER='/follow'
 
 //Signup Api
 export const SIGNUP_URL='/register'
 
 //posts
 export const ALL_POSTS_URL='/getallposts'
+export const GET_USER_POSTS='/getuserposts'
 export const REPORT='/report'
 export const ADD_POST='/addpost'
 export const UPDATE_POST='/updatepost'

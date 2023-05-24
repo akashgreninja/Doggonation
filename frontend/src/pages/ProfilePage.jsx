@@ -4,16 +4,50 @@ import React, { useState, useEffect } from "react";
 import "./ProfilePage.css";
 import { useParams } from "react-router-dom";
 import { Getuser } from "../api/getuser";
+import {
+  GetNumberOfFollowersForUser,
+  GetNumberOfFollowingForUser,
+} from "../api/getallfollowers";
+import { getuserposts } from "../api/allpost";
+import FollowButton from "../components/buttons/followbutton";
 const ProfilePage = (props) => {
   const { id } = useParams();
   const [body, setbody] = useState();
+  const [followers, setfollowers] = useState();
+  const [following, setfollowing] = useState();
+  const [posts, setposts] = useState();
   useEffect(() => {
     props.Sidebarrender(true);
 
     getuser();
+    getFolloowers();
+    getFollowing();
+    getAllPosts();
   }, []);
 
   //  const {id}=useParams()
+
+  const getFolloowers = async () => {
+    const { data } = await GetNumberOfFollowersForUser(id);
+    setfollowers(data);
+    console.log(data);
+    if (data[0] === null) {
+      setfollowers(0);
+    }
+  };
+  const getAllPosts = async () => {
+    const { data } = await getuserposts(id);
+    setposts(data);
+    console.log(data);
+  };
+  const getFollowing = async () => {
+    const { data } = await GetNumberOfFollowingForUser(id);
+    setfollowing(data);
+    console.log(data);
+    if (data[0] === null) {
+      setfollowing(0);
+    }
+  };
 
   const getuser = async () => {
     console.log(id);
@@ -25,9 +59,9 @@ const ProfilePage = (props) => {
   };
 
   return (
-    <div class="col-md-5 mx-auto">
+    <div class="col-md-5 mx-auto h-10">
       {" "}
-      <div class="bg-white shadow rounded overflow-hidden">
+      <div class="bg-white shadow rounded overflow-hidden -z-10 relative">
         {" "}
         <div class="px-4 pt-0 pb-4 cover">
           {" "}
@@ -38,11 +72,13 @@ const ProfilePage = (props) => {
                 src={body ? body[6] : null}
                 alt="..."
                 width="130"
-                class="rounded mb-2 img-thumbnail "
+                class="rounded mb-2 img-thumbnail -z-10 relative "
               />
-              <a href="#" class="btn btn-outline-dark btn-sm btn-block">
-                Edit profile
-              </a>
+              {body && body[0] === localStorage.getItem("token") ? (
+                <a href="#" class="btn btn-outline-dark btn-sm btn-block">
+                  Edit profile
+                </a>
+              ) : null}
             </div>{" "}
             <div class="media-body mb-5 text-white">
               {" "}
@@ -60,7 +96,9 @@ const ProfilePage = (props) => {
             {" "}
             <li class="list-inline-item">
               {" "}
-              <h5 class="font-weight-bold mb-0 d-block">215</h5>
+              <h5 class="font-weight-bold mb-0 d-block">
+                {posts ? posts.length : 0}
+              </h5>
               <small class="text-muted">
                 {" "}
                 <i class="fas fa-image mr-1"></i>Photos
@@ -68,7 +106,7 @@ const ProfilePage = (props) => {
             </li>{" "}
             <li class="list-inline-item">
               {" "}
-              <h5 class="font-weight-bold mb-0 d-block">745</h5>
+              <h5 class="font-weight-bold mb-0 d-block">{followers}</h5>
               <small class="text-muted">
                 {" "}
                 <i class="fas fa-user mr-1"></i>Followers
@@ -76,11 +114,14 @@ const ProfilePage = (props) => {
             </li>{" "}
             <li class="list-inline-item">
               {" "}
-              <h5 class="font-weight-bold mb-0 d-block">340</h5>
+              <h5 class="font-weight-bold mb-0 d-block">{following}</h5>
               <small class="text-muted">
                 {" "}
                 <i class="fas fa-user mr-1"></i>Following
               </small>{" "}
+            </li>{" "}
+            <li class="list-inline-item">
+              <FollowButton />
             </li>{" "}
           </ul>{" "}
         </div>{" "}
@@ -112,13 +153,20 @@ const ProfilePage = (props) => {
           </div>{" "}
           <div class="row">
             {" "}
-            <div class="col-lg-6 mb-2 pr-lg-1">
-              <img
-                src="https://images.unsplash.com/photo-1469594292607-7bd90f8d3ba4?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=750&amp;q=80"
-                alt=""
-                class="img-fluid rounded shadow-sm"
-              />
-            </div>{" "}
+            {posts
+              ? posts.map((post) => {
+                  return (
+                    <div class="col-lg-6 mb-2 pr-lg-1">
+                      {" "}
+                      <img
+                        src={post[0]}
+                        alt="..."
+                        class="img-fluid rounded shadow-sm"
+                      />{" "}
+                    </div>
+                  );
+                })
+              : null}
           </div>{" "}
         </div>{" "}
       </div>{" "}
