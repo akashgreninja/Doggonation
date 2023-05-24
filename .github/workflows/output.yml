@@ -1,0 +1,25 @@
+name: Deploy
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: get Code
+        uses: actions/checkout@v2
+      - name: cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+        
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit !='true'
+        run: npm ci -f
+
+      - name: run tests
+        run: echo "no tests for now"

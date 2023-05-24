@@ -1,0 +1,26 @@
+.interaction-button {
+    padding: 8px;
+    font-size: 0.8rem;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+    box-shadow: none;
+   }
+   
+   .interaction-button:active {
+    color: white;
+   }
+   
+   .interaction-button:hover:not(:disabled) {
+    background: #FDC921;
+    color: white;
+   }
+   
+   .interaction-button:disabled {
+    cursor: auto;
+    color: grey;
+   }
