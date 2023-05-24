@@ -78,7 +78,7 @@ class identifydog:
 
       out = alexnet(batch_t)
 
-      with open('E:/doginsta/backend/imagenet_classes.txt') as f:
+      with open('./imagenet_classes.txt') as f:
         classes = [line.strip() for line in f.readlines()]
       _, index = torch.max(out, 1)
       
