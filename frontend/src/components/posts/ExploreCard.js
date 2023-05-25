@@ -21,7 +21,7 @@ const ExploreCard = (props) => {
         className="w-full cursor-pointer hover:shadow-[inset_0_-2px_4px_rgba(0,0,0,0.6)]"
         onClick={handleOpenPost}
       />
-      <PostModal element={element} openPost={openPost} handleClosePost={handleClosePost}/>
+      <PostModal element={element[0]} openPost={openPost} handleClosePost={handleClosePost}/>
     </div>
   );
 };
