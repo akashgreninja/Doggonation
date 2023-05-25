@@ -9,8 +9,6 @@ const HomePage = (props) => {
   useEffect(() => {
     props.Sidebarrender(true);
     getUserDetails();
-   
-
   }, []);
 
   const getUserDetails = async () => {

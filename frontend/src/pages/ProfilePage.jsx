@@ -185,16 +185,7 @@ const ProfilePage = (props) => {
                         
                         onClick={handleOpenPost}
                         />
-                        <Modal
-                          open={openPost}
-                          onClose={handleClosePost}
-                          aria-labelledby="modal-modal-Post"
-                          aria-describedby="modal-modal-post"
-                        >
-                          <Box sx={style}> 
-                              <PostModal element={post} />
-                          </Box>
-                        </Modal>
+                        <PostModal element={post} openPost={openPost} handleClosePost={handleClosePost}/>
                     </div>
                   );
                 })
