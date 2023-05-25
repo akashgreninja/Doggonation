@@ -1,6 +1,8 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 import time
 import datetime
+from appwrite.services.databases import Databases
+from appwrite.query import Query
 from flask import Flask, jsonify, abort, request, send_file
 from flask import Flask, jsonify, abort, request, send_file, Response
 from flask_login import (
@@ -101,7 +103,7 @@ class Post:
         db.commit()
         return jsonify("like updated")
 
-    def register(self, data, cursor, mydb):
+    def register(self, data,databases,databaseID,userCollectionID):
         print(data)
         email = data["email"]
         password = data["password"]
@@ -118,28 +120,41 @@ class Post:
             password, method="pbkdf2:sha256", salt_length=16
         )
 
-        query = f"SELECT * FROM user WHERE email  = '{email}'"
-        cursor.execute(query)
+        # query = f"SELECT * FROM user WHERE email  = '{email}'"
+        print(email)
+        query=Query.equal("email",email)
+        # cursor.execute(query)
 
-        result = cursor.fetchall()
-        print(result)
+        result=databases.list_documents(databaseID,userCollectionID,queries=[query])
+        print(type(result))
+        print("dsdsdsdsdds")
 
-        if result:
+        if int(result.get("total")) > 0:
             message = {"error": "User already exists"}
-            print("we in this")
+          
 
             return message
         else:
-            query_add = f"INSERT INTO user (`profile_pic`, `email`, `password`, `name`, `gender`,`dob`) VALUES ('{profile_pic}', '{email}', '{finalpassword}', '{name}', '{gender}','{dob}')"
-            cursor.execute(query_add)
-            mydb.commit()
+            data={
+                "email":email,
+                "password":finalpassword,
+                "name":name,
+                "profile_pic":profile_pic,
+                # "dob":dob,
+                # "gender":gender
+            }
 
-            query1 = f"SELECT * FROM user WHERE email  = '{email}'"
-            cursor.execute(query1)
-            result = cursor.fetchall()
-
+            result=databases.create_document(databaseID, userCollectionID, 'unique()',data)
             print(result)
-            result = {"result": result[0][0]}
+
+            query=Query.equal("email",email)
+     
+
+            check=databases.list_documents(databaseID,userCollectionID,queries=[query])
+
+            print(check)
+            
+            result = {"result": check["documents"][0]["$id"]}
 
             return result
 
