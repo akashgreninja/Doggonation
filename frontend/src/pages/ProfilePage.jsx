@@ -21,7 +21,7 @@ const ProfilePage = (props) => {
   const [body, setbody] = useState();
   const [followers, setfollowers] = useState();
   const [following, setfollowing] = useState();
-  const [posts, setposts] = useState();
+  const [posts, setposts] = useState([]);
   const [openPost, setOpenPost] = React.useState(false);
   const user_id = localStorage.getItem("token");
   const style = {
@@ -141,7 +141,7 @@ const ProfilePage = (props) => {
               <h5 class="font-weight-bold mb-0 d-block">{followers}</h5>
               <small class="text-muted">
                 
-                <i class="fas fa-user mr-1"></i>Followers
+                <i class="fas fa-user mr-1"></i>Following
               </small>
             </li>
             <li class="list-inline-item">
@@ -149,7 +149,7 @@ const ProfilePage = (props) => {
               <h5 class="font-weight-bold mb-0 d-block">{following}</h5>
               <small class="text-muted">
                 
-                <i class="fas fa-user mr-1"></i>Following
+                <i class="fas fa-user mr-1"></i>Followers
               </small>
             </li>
             <li class="list-inline-item">

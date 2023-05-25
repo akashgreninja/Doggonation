@@ -226,7 +226,7 @@ class Post:
     def follow(self, data, cursor, db):
         user_id = data["user_id"]
         followed_id = data["followed_id"]
-        cursor.execute(f"select * from follow where `follower`={user_id}")
+        cursor.execute(f"select * from follow where `follower`={user_id} and `following`='{followed_id}'" )
         result = cursor.fetchall()
         if result:
             return jsonify("already following")

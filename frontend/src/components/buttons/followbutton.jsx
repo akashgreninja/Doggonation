@@ -19,8 +19,13 @@ getfollowers(id)
     const {data}=await Getallfollowersforuser(id)
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
-      if (id===element[0]){
+      
+   console.log(user_id.toString(), )
+     
+      if ((user_id.toString())===element[0].toString()){
+        
        setButtonText("Following")
+       break
       }
       else{
         setButtonText("Follow")
