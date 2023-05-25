@@ -1,25 +1,26 @@
 # Doggonation - Where Dogs and Their Owners Unite: Welcome to Doggonation (Looking for frontend devs)
 
-<img src="https://firebasestorage.googleapis.com/v0/b/doggonation-612e8.appspot.com/o/helper%20folder%2Flogo-no-background.png?alt=media&token=25c940c0-1d8a-4d47-b117-426b73e9eff7">
+<img src="[https://github.com/akashgreninja/Doggonation/assets/127649294/c2f83807-9f41-419a-af34-56920f738442]">
 
 
 
-<h2>This Project is in Progress so the ui does not fully work as required please contact me via my email id on my profile if you need any help </h2>
+<h2> This Project is not compleye yet,its UI is still in Progress . Feel free to contact me thhrough email mentioned on my Github Profile for any type of Support or help.  </h2>
 
 
 
-<p>Doggonation is an innovative social media platform that caters to the discerning sensibilities of dog owners and enthusiasts. The app is designed to connect canine aficionados from all walks of life, enabling them to share photographs, videos, and anecdotes of their beloved furry friends. It also features an array of cutting-edge functionalities that facilitate a safe and enjoyable user experience.</p>
+<p> Welcome to Doggonation, the ultimate innovative social media platform designed exclusively for dog owners and enthusiasts ! Whether you're looking to connect with fellow dog lovers, share adorable photos of your furry friends, or seek expert advice on canine care, Doggonation is the place to be.
+With Doggonation, you'll join a vibrant community that celebrates everything about dogs. It also features an array of cutting-edge functionalities that facilitate a safe and enjoyable user experience. </p>
+
 <h2>Features 🐶</h2>
 <ul>
-  <li>Create a Profile for Your Pooch and Connect with Other Canine Lovers</li>
-  <li>Share Photographs and Videos of Your Furry Friend and Follow Other Dogs</li>
-  <li>Discover Inspiring and Engaging Dog-Related Content, Including Articles, Videos, and Products</li>
-  <li>Join Groups and Communities Based on Dog Breeds, Interests, and More</li>
-  <li>Find Local Dog-Friendly Places, Such as Parks, Cafes, and Shops</li>
-  <li>Chat with Other Dog Owners and Forge New Canine Friendships</li>
+  <li>✨Create a Profile for Your Pooch and Connect with Other Canine Lovers</li>
+  <li>📷Share Photographs and Videos of Your Furry Friend and Follow Other Dogs</li>
+  <li>📄Discover Inspiring and Engaging Dog-Related Content, Including Articles, Videos, and Products</li>
+  <li>👥Join Groups and Communities Based on Dog Breeds, Interests, and More</li>
+  <li>🏬Find Local Dog-Friendly Places, Such as Parks, Cafes, and Shops</li>
+  <li>💬Chat with Other Dog Owners and Forge New Canine Friendships</li>
   <li>🤖 Use the Roberto Model for Advanced Text Sentiment Analysis to Ensure Appropriate Content for All Users</li>
   <li>🔍 Employ Image Analysis to Detect and Prevent Inappropriate Content</li>
-  
   
 
   <li>Firebase auth for Google and Facebook</li>
@@ -28,7 +29,7 @@
 <p>This project utilizes Firebase Authentication for user authentication, specifically for Google and Facebook sign in. Firebase Authentication provides a secure and easy-to-use way to authenticate users, and supports multiple authentication providers, including email and password, phone number, and third-party providers like Google and Facebook.</p>
     <p>To implement Firebase Authentication in this project, we followed the guidelines and best practices outlined in the Firebase Authentication documentation. You can find more information about Firebase Authentication and how to use it in your own projects in the official Firebase Authentication documentation.</p>
     <p>We believe that Firebase Authentication provides a robust and reliable authentication solution that meets the needs of our project and our users. By leveraging Firebase Authentication, we can ensure that user data is secure and protected, and that our application is easy to use and access for all of our users.</p>
-    <a href="https://firebase.google.com/docs/auth/?hl=en&authuser=0">here are the docs you can refer to use firebase auth </a>
+    <a href="https://firebase.google.com/docs/auth/?hl=en&authuser=0">Official Documentation of Firebase Authentication </a>
 <h2>Technologies</h2>
 <p>Doggonation is built using the following technologies:</p>
 <ul>
@@ -56,7 +57,7 @@
 <p>Using GitHub Actions, we can also automate the deployment process for our applications. We can set up a workflow that deploys our code to a staging environment for testing and then to production once it has been approved. This ensures that our code is always up-to-date and running smoothly.</p>
 <img src="https://i.ytimg.com/vi/0tMkRSdp-Go/maxresdefault.jpg" alt="CI/CD with GitHub Actions">
 
-# Using the torchvision library with AlexNet
+# Using the AlexNet Model from Torchvision_Models Library
 <div align="center">
   <img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*cQwk1chsEgnSlyILwenqsw.png" width="500px">
 </div>
@@ -65,7 +66,7 @@
 
 ## Introduction
 
-The torchvision library is a popular computer vision library for PyTorch. It provides a set of functions and classes that can be used to easily and efficiently load and preprocess image datasets, as well as pre-trained models for image classification and object detection.
+The Torchvision library is a popular computer vision library which is a part of the PyTorch project. PyTorch is an open source machine learning framework. Torchvision Library provides a set of functions and classes that can be used to easily and efficiently load and preprocess image datasets, as well as pre-trained models for image classification and object detection.
 
 One of the pre-trained models available in torchvision is AlexNet, a deep convolutional neural network that was developed by Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton in 2012. AlexNet is known for its outstanding performance on the ImageNet dataset, and it helped to popularize deep learning in computer vision.
 
@@ -73,7 +74,7 @@ One of the pre-trained models available in torchvision is AlexNet, a deep convol
 
 <p>The <code>torchvision</code> module is a collection of datasets, models, and transforms for computer vision tasks in PyTorch. One of the pre-trained models included in torchvision is AlexNet, which is a deep convolutional neural network that was introduced in 2012 and won the ImageNet Large Scale Visual Recognition Challenge that year.</p>
 
-<p>AlexNet is designed to classify images into one of 1,000 categories, such as dogs, cats, cars, and so on. The model consists of 5 convolutional layers, 3 fully connected layers, and 1 softmax layer. The input to the model is a 224x224 RGB image.</p>
+<pThe pretrained network can classify images into 1000 object categories, such as dogs,cats, mouse, pencil,keyboards ,more animals,etc. The model consists of 5 convolutional layers, 3 fully connected layers, and 1 softmax layer. The input to the model is a 224x224 RGB image.</p>
 
 <p>In our project, we used AlexNet and torchvision to analyze input pictures and determine if they contain a dog or not. Specifically, we fine-tuned the AlexNet model on a dataset of dog images using transfer learning, which allowed us to use the pre-trained weights of the model and train only the last layer on our own dataset.</p>
 
@@ -100,11 +101,13 @@ alexnet.eval()
 outputs = alexnet(inputs)
 
 ```
+</p>
+    <a href="[https://pytorch.org/vision/stable/models/generated/torchvision.models.alexnet.html]">For more information regarding AlexNet model</a>
 
 
 ## NLTK (Natural Language Toolkit)
 
-NLTK (Natural Language Toolkit) is a Python library that provides various tools and resources for natural language processing (NLP). It offers easy-to-use interfaces to perform tasks such as tokenization, stemming, part-of-speech tagging, and more.
+NLTK (Natural Language Toolkit) is a powerful open-source Python library extensively utilized for natural language processing (NLP) tasks. It offers a comprehensive range of tools, algorithms, and resources for tasks such as tokenization, part-of-speech tagging, named entity recognition, sentiment analysis, text classification, stemming, lemmatization, and more. NLTK also provides an extensive collection of textual corpora and seamlessly integrates with popular machine learning libraries. It is widely employed in academia, research, and industry to process and analyze human language data, making it an invaluable resource for NLP applications.
 
 ### Why NLTK?
 
@@ -211,6 +214,22 @@ Here's another image that shows the word cloud generated from our dataset:
 <p>Make sure to configure the necessary environment variables and update the configuration files as per your requirements.</p>
 
 <p>Feel free to modify and adapt these steps based on your specific setup and environment.</p>
+
+
+## New to Open Source programs/events!
+
+Here are few articles and Videos which will help you to get an idea on how you start contributing in open source projects,
+You can refer to the following articles on the basics of Git and Github.
+
+- [Watch this video to get started, if you have no clue about open source](https://youtu.be/SYtPC9tHYyQ)
+- [Forking a Repo](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)
+- [Cloning a Repo](https://help.github.com/en/desktop/contributing-to-projects/creating-a-pull-request)
+- [How to create a Pull Request](https://opensource.com/article/19/7/create-pull-request-github)
+- [Getting started with Git and GitHub](https://towardsdatascience.com/getting-started-with-git-and-github-6fcd0f2d4ac6)
+
+<h2>Open Source Contribution </h2>
+- [GSSOC (GirlScript Summer of Code)](https://gssoc.girlscript.tech/)
+   <img src="[https://d33wubrfki0l68.cloudfront.net/710cb0d537d2e7fa6246445c0977ecc994f05f5a/6a3b4/assets/img/jwoc_logo.svg](https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Fgirlscript%2Fgssoc-website-new&psig=AOvVaw1Ks7Ss-5wCfFHDRbWctzsR&ust=1685112288507000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCKCMwMnakP8CFQAAAAAdAAAAABAE)" width="30%"/>
 
 <h2>License 📝</h2>
 <p>Doggonation is an open source project and is available under the <a href="https://github.com/your/your-project/blob/master/LICENSE">MIT License</a>.</p>
