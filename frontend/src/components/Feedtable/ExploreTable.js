@@ -67,7 +67,7 @@ const ExploreTable = (props) => {
                 if (index % 3 == 2) {
                   return (
                     <div key={element}>
-                      <ExploreCard element={element} />
+                      <ExploreCard element={element}/>
                     </div>
                   );
                 }

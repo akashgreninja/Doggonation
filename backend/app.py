@@ -111,6 +111,12 @@ def getall():
     user_id = data["user_id"]
     return get_requests.getallposts(mycursor, user_id)
 
+@app.route("/getuserposts", methods=["POST"])
+def getuserposts():
+    data = request.json
+    user_id = data["user_id"]
+    return get_requests.getuserposts(mycursor, user_id)
+
 
 # report
 @app.route("/report", methods=["POST"])

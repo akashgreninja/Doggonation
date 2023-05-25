@@ -17,6 +17,17 @@ import Report from "./Report";
 const PostModal = (props) => {
   const socket = io("http://localhost:3003");
   const user_id = localStorage.getItem("token");
+
+  const Modalstyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 1000,
+    boxShadow: 12,
+    outlinewidth: 0,
+  };
+
   const style = {
     position: "absolute",
     top: "30%",
@@ -32,6 +43,7 @@ const PostModal = (props) => {
   const [msgsent, setmsgsent] = useState(false);
   const [roomid, setroomid] = useState(null);
   const [open, setOpen] = React.useState(false);
+
   const handleOpen = async () => {
     setOpen(true);
     let data = await Getallfollowersforuser(user_id);
@@ -42,14 +54,18 @@ const PostModal = (props) => {
     setmsgsent(false);
   };
 
-  let toggle = true;
+  let toggle = false;
   let likeRef = useRef(null);
   const [following, setfollowing] = useState([]);
   const [likerender, setlikerender] = useState(null);
-  const [loadcomments, setloadcomments] = useState(true);
+  const [loadcomments, setloadcomments] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
-  let element = props.element[0];
-  let commentRef = useRef(null);
+  let element = props.element;
+  console.log(element);
+  let openPost = props.openPost;
+  let handleClosePost = props.handleClosePost;
+  let commentRef = useRef();
+
   const handlecomment = () => {
     if (toggle === true) {
       commentRef.current.style.display = "none";
@@ -93,130 +109,136 @@ const PostModal = (props) => {
     setmsgsent(true);
   };
   return (
-    <div className="h-full bg-white mb-2 mt-2 rounded-lg border-2 border-grey-500">
-      <div className="h-full flex">
-        <div className="">
-          <img
-            src={element[0]}
-            alt=""
-            srcset=""
-            className="h-full"
-          />
-        </div>
-        <div className="flex flex-col w-96">
-          <div className="flex items-center justify-content-between  pt-3 pl-3 pr-5">
-            <div class="flex items-center">
-              <img
-                src={element[11]}
-                alt="Profile Image"
-                class="rounded-full w-10 h-10 mb-3"
-              />
-              <div class="ml-4">
-                <h2 class="text-l font-bold">{element[10]}</h2>
-                <p class="text-gray-500 text-xs "> {element[5]}</p>
-              </div>
-            </div>
+    <Modal
+      open={openPost}
+      onClose={handleClosePost}
+      aria-labelledby="modal-modal-Post"
+      aria-describedby="modal-modal-post"
+    >
+      <Box sx={Modalstyle}>
+        <div className="h-full bg-white rounded-lg border-2 border-grey-500">
+          <div className="h-full flex">
             <div className="">
-              <div
-                className="cursor-pointer"
-                onClick={() => setShowOptions(!showOptions)}
-              >
-                <BsThreeDots />
-              </div>
-              {showOptions && (
-                <div className="absolute mt-2 w-48 bg-white rounded-lg shadow-xl">
-                  <Report post_id={element[2]} />
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-gray-800 hover:bg-banana-100 hover:text-white"
-                  >
-                    Option 2
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-gray-800 hover:bg-banana-100 hover:text-white"
-                  >
-                    Option 3
-                  </a>
+              <img src={element[0]} alt="" srcset="" className="h-full" />
+            </div>
+            <div className="flex flex-col w-96 p-2">
+              <div className="flex items-center justify-content-between  pt-3 pl-3 pr-5">
+                <div class="flex items-center">
+                  <img
+                    src={element[11]}
+                    alt="Profile Image"
+                    class="rounded-full w-10 h-10 mb-3"
+                  />
+                  <div class="ml-4">
+                    <h2 class="text-l font-bold">{element[10]}</h2>
+                    <p class="text-gray-500 text-xs "> {element[5]}</p>
+                  </div>
                 </div>
-              )}
-            </div>
-          </div>
+                <div className="">
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => setShowOptions(!showOptions)}
+                  >
+                    <BsThreeDots />
+                  </div>
+                  {showOptions && (
+                    <div className="absolute mt-2 w-48 bg-white rounded-lg shadow-xl">
+                      <Report post_id={element[2]} />
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-gray-800 hover:bg-banana-100 hover:text-white"
+                      >
+                        Option 2
+                      </a>
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-gray-800 hover:bg-banana-100 hover:text-white"
+                      >
+                        Option 3
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </div>
 
-          <div className="text-sm pl-3 pb-2">{element[1]}</div>
+              <div className="text-sm pl-3 pb-2">{element[1]}</div>
 
-          <div className=" pt-0.5 border-t-2 mx-3">
-            <div className="  flex flex-row w-full">
-              <button
-                className="interaction-button"
-                key={likerender}
-                onClick={handleLike}
-              >
-                {element[4] === 0 ? (
-                  <i class="fa-regular fa-2x fa-heart"></i>
-                ) : (
-                  <i class="fa-solid fa-2x fa-heart"></i>
-                )}
-                {element[8]}
-                Likes
-              </button>
-              <button className="interaction-button" onClick={handlecomment}>
-                {!loadcomments ? (
-                  <i class="fa-regular fa-2x fa-comment"></i>
-                ) : (
-                  <i class="fa-solid fa-2x fa-comment"></i>
-                )}
-                Comment
-              </button>
-              <button onClick={handleOpen} className="interaction-button">
-                <i class="fa-regular fa-2x fa-paper-plane"></i>Share
-              </button>
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={style}>
-                  friends
-                  {following.map((ele) => {
-                    return (
-                      <div className="flex flex-row" key={ele}>
-                        <img
-                          src={ele[6]}
-                          alt="Profile Image"
-                          className="rounded-full w-10 h-10 mb-3 mx-2"
-                        />
-                        <h3 className="mx-3">{ele[3]}</h3>
-                        <div className="mx-2 w-2/12 ">
-                          <button
-                            onClick={() => handleshare(ele[0], element[0])}
-                            className="interaction-button border"
-                          >
-                            {msgsent ? (
-                              "sent"
-                            ) : (
-                              <i class="fa-regular fa-2x fa-paper-plane"></i>
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </Box>
-              </Modal>
-            </div>
-            <div
-              ref={commentRef}
-              style={{ display: "none" }}
-              className="container w-full"
-            >
-              {loadcomments ? <Comment post_id={element[2]} /> : null}
+              <div className=" pt-0.5 border-t-2 mx-3">
+                <div className="  flex flex-row w-full">
+                  <button
+                    className="interaction-button"
+                    key={likerender}
+                    onClick={handleLike}
+                  >
+                    {element[4] === 0 ? (
+                      <i class="fa-regular fa-2x fa-heart"></i>
+                    ) : (
+                      <i class="fa-solid fa-2x fa-heart"></i>
+                    )}
+                    {element[8]}
+                    Likes
+                  </button>
+                  <button
+                    className="interaction-button"
+                    onClick={handlecomment}
+                  >
+                    {!loadcomments ? (
+                      <i class="fa-regular fa-2x fa-comment"></i>
+                    ) : (
+                      <i class="fa-solid fa-2x fa-comment"></i>
+                    )}
+                    Comment
+                  </button>
+                  <button onClick={handleOpen} className="interaction-button">
+                    <i class="fa-regular fa-2x fa-paper-plane"></i>Share
+                  </button>
+                  <Modal
+                    open={open}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style}>
+                      friends
+                      {following.map((ele) => {
+                        return (
+                          <div className="flex flex-row" key={ele}>
+                            <img
+                              src={ele[6]}
+                              alt="Profile Image"
+                              className="rounded-full w-10 h-10 mb-3 mx-2"
+                            />
+                            <h3 className="mx-3">{ele[3]}</h3>
+                            <div className="mx-2 w-2/12 ">
+                              <button
+                                onClick={() => handleshare(ele[0], element[0])}
+                                className="interaction-button border"
+                              >
+                                {msgsent ? (
+                                  "sent"
+                                ) : (
+                                  <i class="fa-regular fa-2x fa-paper-plane"></i>
+                                )}
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </Box>
+                  </Modal>
+                </div>
+                <div
+                  ref={commentRef}
+                  style={{ display: "block" }}
+                  className="container w-full"
+                >
+                  {loadcomments ? <Comment post_id={element[2]} /> : null}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </Box>
+    </Modal>
   );
 };
 
