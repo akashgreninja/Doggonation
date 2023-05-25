@@ -69,59 +69,7 @@ class Get:
         print(console)
         return jsonify(console)
 
-    def followers(self, data, cursor):
-        # route is /getfollowers
-
-        try:
-            user_id = data["user_id"]
-            onlynumber = data["onlynumber"]
-            if onlynumber:
-                query = f"select count(*) from follow where following={user_id}"
-                cursor.execute(query)
-                result = cursor.fetchone()
-                print(result)
-                return jsonify(result[0])
-        except:
-            user_id = data["user_id"]
-            cursor.execute(f"select follower from follow where following={user_id}")
-            followers = cursor.fetchall()
-
-            new = []
-            if followers != []:
-                for i in followers:
-                    cursor.execute(f"select * from user where user_id={i[0]}")
-                    result = cursor.fetchone()
-                    new.append(result)
-
-                return jsonify(new)
-            else:
-                return jsonify(0)
-
-    def following(self, data, cursor):
-        try:
-            user_id = data["user_id"]
-            onlynumber = data["onlynumber"]
-            if onlynumber:
-                query = f"select count(*) from follow where follower={user_id}"
-                cursor.execute(query)
-                result = cursor.fetchone()
-                print(result)
-                return jsonify(result[0])
-
-        except:
-            user_id = data["user_id"]
-            cursor.execute(f"select following from follow where follower={user_id}")
-            following = cursor.fetchall()
-            new = []
-            if following != []:
-                for i in following:
-                    cursor.execute(f"select * from user where user_id={i[0]}")
-                    result = cursor.fetchone()
-                    new.append(result)
-
-                return jsonify(new)
-            else:
-                return jsonify(0)
+    
 
     def getallposts(self, cursor, user_id):
         cursor.execute(f"select `following` from `follow` where `follower`='{user_id}'")

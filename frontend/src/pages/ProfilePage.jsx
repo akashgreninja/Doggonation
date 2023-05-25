@@ -7,12 +7,14 @@ import { Getuser } from "../api/getuser";
 import {
   GetNumberOfFollowersForUser,
   GetNumberOfFollowingForUser,
+  Getallfollowersforuser,
 } from "../api/getallfollowers";
 import { useNavigate} from "react-router-dom";
 import { getuserposts } from "../api/allpost";
 import FollowButton from "../components/buttons/followbutton";
 import { Box, Modal } from "@mui/material";
 import PostModal from "../components/posts/PostModal";
+import { follow } from "../api/follow";
 const ProfilePage = (props) => {
 
   const { id } = useParams();
@@ -21,7 +23,7 @@ const ProfilePage = (props) => {
   const [following, setfollowing] = useState();
   const [posts, setposts] = useState();
   const [openPost, setOpenPost] = React.useState(false);
-
+  const user_id = localStorage.getItem("token");
   const style = {
     position: "absolute",
     top: "50%",
@@ -37,6 +39,7 @@ const ProfilePage = (props) => {
     props.Sidebarrender(true);
 
     getuser();
+    
     getFolloowers();
     getFollowing();
     getAllPosts();
@@ -52,20 +55,23 @@ const ProfilePage = (props) => {
   const getFolloowers = async () => {
     const { data } = await GetNumberOfFollowersForUser(id);
     setfollowers(data);
-    console.log(data);
+  
     if (data[0] === null) {
       setfollowers(0);
     }
   };
+
+  
   const getAllPosts = async () => {
     const { data } = await getuserposts(id);
     setposts(data);
-    console.log(data);
+
   };
+
   const getFollowing = async () => {
     const { data } = await GetNumberOfFollowingForUser(id);
     setfollowing(data);
-    console.log(data);
+   
     if (data[0] === null) {
       setfollowing(0);
     }
@@ -75,9 +81,9 @@ const ProfilePage = (props) => {
     console.log(id);
 
     const { data } = await Getuser(id);
-    console.log(data);
+
     setbody(data);
-    console.log(body);
+  
     if (data===null){
       nav('/404')
       props.Sidebarrender(false);
@@ -147,7 +153,7 @@ const ProfilePage = (props) => {
               </small>
             </li>
             <li class="list-inline-item">
-              <FollowButton />
+              <div className=""><FollowButton user_id={user_id}  refresh={getFollowing} id={id}/></div>
             </li>
           </ul>
         </div>

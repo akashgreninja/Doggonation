@@ -199,13 +199,13 @@ def unfollow():
 @app.route("/getfollowers", methods=["GET", "POST"])
 def follower():
     data = request.json
-    return get_requests.followers(data, mycursor)
+    return post_requests.followers(data, mycursor)
 
 
 @app.route("/getfollowing", methods=["GET", "POST"])
 def following():
     data = request.json
-    return get_requests.following(data, mycursor)
+    return post_requests.following(data, mycursor)
 
 
 @app.route("/search", methods=["POST"], strict_slashes=False)
