@@ -10,6 +10,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { add_post } from "../../api/addpost";
 
 const Addpost = (props) => {
+  let {posts,setposts,load}=props
   const style = {
     position: "absolute",
     top: "50%",
@@ -21,6 +22,7 @@ const Addpost = (props) => {
     p: 4,
     borderRadius: 0.5,
   };
+
   const user_id = localStorage.getItem('token')
   const [loading, setloading] = useState(false);
   const [laodingtext, setlaodingtext] = useState("Post");
@@ -126,7 +128,8 @@ const Addpost = (props) => {
       //add alert
       setloading(false);
       setlaodingtext("Retry");
-      window.location.reload();
+      // window.location.reload();
+      load()
       setwarning(
         "upload unsuccessfull..sorry we didnt find any dogs in this picture retry to upload anyway"
       );
