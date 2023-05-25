@@ -3,7 +3,11 @@ import React, { useState } from "react";
 const Followbutton = () => {
   const [buttonText, setButtonText] = useState("Follow");
   const [buttonColor, setButtonColor] = useState("blue-500");
-  const handleClick = () => {
+  const handleClick = (props) => {
+    // const {data}=
+    
+
+
     if (buttonText === "Follow") {
       setButtonText("Followed");
       setButtonColor("blue-700");

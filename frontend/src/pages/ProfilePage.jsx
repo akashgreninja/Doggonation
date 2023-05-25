@@ -8,6 +8,7 @@ import {
   GetNumberOfFollowersForUser,
   GetNumberOfFollowingForUser,
 } from "../api/getallfollowers";
+import { useNavigate} from "react-router-dom";
 import { getuserposts } from "../api/allpost";
 import FollowButton from "../components/buttons/followbutton";
 const ProfilePage = (props) => {
@@ -26,7 +27,7 @@ const ProfilePage = (props) => {
   }, []);
 
   //  const {id}=useParams()
-
+  const nav = useNavigate();
   const getFolloowers = async () => {
     const { data } = await GetNumberOfFollowersForUser(id);
     setfollowers(data);
@@ -56,6 +57,10 @@ const ProfilePage = (props) => {
     console.log(data);
     setbody(data);
     console.log(body);
+    if (data===null){
+      nav('/404')
+      props.Sidebarrender(false);
+    }
   };
 
   return (
@@ -121,7 +126,7 @@ const ProfilePage = (props) => {
               </small>{" "}
             </li>{" "}
             <li class="list-inline-item">
-              <FollowButton />
+              <FollowButton id={id} />
             </li>{" "}
           </ul>{" "}
         </div>{" "}
