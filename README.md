@@ -4,7 +4,7 @@
 
 
 
-<h2> This Project is not compleye yet,its UI is still in Progress . Feel free to contact me thhrough email mentioned on my Github Profile for any type of Support or help.  </h2>
+<h2> This Project is not completed yet,its UI is still in Progress . Feel free to contact me through my  email mentioned on my Github Profile for any type of support or help.  </h2>
 
 
 
