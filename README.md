@@ -228,8 +228,14 @@ You can refer to the following articles on the basics of Git and Github.
 - [Getting started with Git and GitHub](https://towardsdatascience.com/getting-started-with-git-and-github-6fcd0f2d4ac6)
 
 <h2>Open Source Contribution </h2>
-- [GSSOC (GirlScript Summer of Code)](https://gssoc.girlscript.tech/)
-<img src=("https://firebasestorage.googleapis.com/v0/b/doggonation-3e963.appspot.com/o/gssoc.png?alt=media&token=f9b661b6-152b-4292-b867-2664d0e2b5f8",width=100px height=100px)
+<table>
+<tr>
+ <td align="center">
+<a href="https://gssoc.girlscript.tech/"><img src="https://raw.githubusercontent.com/prathimacode-hub/prathimacode-hub/main/Open%20Source%20Programs/GirlScript%20Summer%20Of%20Code%202022/GirlScript%20Summer%20Of%20Code%20Logo.png" width=100px height=100px /><br /><sub><b>Girl Script Summer of Code</b></sub></a>
+ </td>
+</tr>
+</table>
+
 
 <h2>License 📝</h2>
 <p>Doggonation is an open source project and is available under the <a href="https://github.com/your/your-project/blob/master/LICENSE">MIT License</a>.</p>
