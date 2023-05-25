@@ -54,7 +54,8 @@ const PostModal = (props) => {
 
   useEffect (() => {
     handlecomment();
-  })
+  },[])
+  
 
   const handlecomment = () => {
     if (toggle === true) {
