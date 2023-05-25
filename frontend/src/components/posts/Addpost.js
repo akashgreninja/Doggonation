@@ -120,12 +120,13 @@ const Addpost = (props) => {
 
     if (data.status === 200) {
       setlaodingtext("upload successfull");
+      
       handleClose();
     } else {
       //add alert
       setloading(false);
       setlaodingtext("Retry");
-      
+      window.location.reload();
       setwarning(
         "upload unsuccessfull..sorry we didnt find any dogs in this picture retry to upload anyway"
       );
