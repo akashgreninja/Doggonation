@@ -1,6 +1,6 @@
 # Doggonation - Where Dogs and Their Owners Unite: Welcome to Doggonation (Looking for frontend devs)
 
-<img src="[https://github.com/akashgreninja/Doggonation/assets/127649294/c2f83807-9f41-419a-af34-56920f738442]">
+<img src=["https://firebasestorage.googleapis.com/v0/b/doggonation-3e963.appspot.com/o/DOGGONATION.jpg?alt=media&token=edaa3d0b-4e4b-406b-a07d-5d621269eaea"]>
 
 
 
@@ -229,7 +229,7 @@ You can refer to the following articles on the basics of Git and Github.
 
 <h2>Open Source Contribution </h2>
 - [GSSOC (GirlScript Summer of Code)](https://gssoc.girlscript.tech/)
-   <img src="[https://d33wubrfki0l68.cloudfront.net/710cb0d537d2e7fa6246445c0977ecc994f05f5a/6a3b4/assets/img/jwoc_logo.svg](https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Fgirlscript%2Fgssoc-website-new&psig=AOvVaw1Ks7Ss-5wCfFHDRbWctzsR&ust=1685112288507000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCKCMwMnakP8CFQAAAAAdAAAAABAE)" width="30%"/>
+   <img src=("https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Fgirlscript%2Fgssoc-website-new&psig=AOvVaw1Ks7Ss-5wCfFHDRbWctzsR&ust=1685112288507000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCKCMwMnakP8CFQAAAAAdAAAAABAE") width="30%"/>
 
 <h2>License 📝</h2>
 <p>Doggonation is an open source project and is available under the <a href="https://github.com/your/your-project/blob/master/LICENSE">MIT License</a>.</p>
