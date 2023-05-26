@@ -296,10 +296,6 @@ class Post:
 
         # check=Databases.list_documents(databaseID,razorpayCollectionID,queries=[query])
 
-        # print(check)
-        # query = f"insert into razorpay (`amount`,`razorpayPaymentId`,`razorpayOrderId`,`razorpaySignature`) values ('{amount}','{razorpayPaymentId}','{razorpayOrderId}','{razorpaySignature}')"
-        # cursor.execute(query)
-        # mydb.commit()
 
         return jsonify({"message": "payment captured successfully"})
 
