@@ -53,6 +53,7 @@ apikey = os.getenv("API_KEY")
 projectID = os.getenv("PROJECT_ID")
 databaseID = os.getenv("DATABASE_ID")
 userCollectionID = os.getenv("USER_COLLECTION_ID")
+razorpayCollectionID = os.getenv("RAZORPAY_ID")
 get_requests = Get()
 post_requests = Post()
 
@@ -304,10 +305,10 @@ def register():
 #     return post_requests.create_order(razorpay_key, razorpay_secret, amount)
 
 
-# @app.route("/capture-payment", methods=["POST"])
-# def capture_payment():
-#     data = request.json
-#     return post_requests.capture_payment(data, mycursor, mydb)
+@app.route("/capture-payment", methods=["POST"])
+def capture_payment():
+    data = request.json
+    return post_requests.capture_payment(data, databases, databaseID, razorpayCollectionID)
 
 
 # # @app.route ('/verify-payment', methods=['POST'])
