@@ -111,6 +111,12 @@ def getall():
     user_id = data["user_id"]
     return get_requests.getallposts(mycursor, user_id)
 
+@app.route("/getuserposts", methods=["POST"])
+def getuserposts():
+    data = request.json
+    user_id = data["user_id"]
+    return get_requests.getuserposts(mycursor, user_id)
+
 
 # report
 @app.route("/report", methods=["POST"])
@@ -193,13 +199,13 @@ def unfollow():
 @app.route("/getfollowers", methods=["GET", "POST"])
 def follower():
     data = request.json
-    return get_requests.followers(data, mycursor)
+    return post_requests.followers(data, mycursor)
 
 
 @app.route("/getfollowing", methods=["GET", "POST"])
 def following():
     data = request.json
-    return get_requests.following(data, mycursor)
+    return post_requests.following(data, mycursor)
 
 
 @app.route("/search", methods=["POST"], strict_slashes=False)

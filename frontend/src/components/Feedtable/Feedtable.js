@@ -1,14 +1,23 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import PostCard from "../posts/PostCard";
 import Addpost from "../posts/Addpost";
+import { getallposts } from "../../api/allpost";
 const Feedtable = (props) => {
+  let user_id=localStorage.getItem('token')
+
+  const [posts, setposts] = useState([]);
+  const load = async () => {
+    let data = await getallposts(user_id);
+    data = await data.data;
+    setposts(data);
+  };
   return (
     <div className="" style={{ "margin-bottom": "50px", "pointer-events":"auto" }}>
       <div className="w-1/2 mx-32" >
 
-       <Addpost loader={props.loader}/>
+       <Addpost loader={props.loader} posts={posts} setposts={setposts} load={load}/>
         <div className="just">
-          <PostCard />
+          <PostCard posts={posts} setposts={setposts} load={load}/>
         </div>
       </div>
       

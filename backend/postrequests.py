@@ -211,10 +211,12 @@ class Post:
         return jsonify("like reduced by 1")
 
     def report(self, data, cursor, db):
-        reason = data["reason"]
-        post_id = data["post_id"]
-        cursor.execute(f"insert into report  values ('{reason}','{post_id}')")
-        cursor.execute(f"select reported from posts where post_id={post_id}")
+        reason = data["reason"]["reason"]
+        
+        post_id = data["post_id"]["post_id"]
+        print(reason,post_id)
+        cursor.execute(f"insert into `report` (`reason`,`post_id`) values ('{reason}','{post_id}')")
+        cursor.execute(f"select `reported` from `posts` where `post_id`='{post_id}'")
         reported = cursor.fetchone()[0]
         reported += 1
         cursor.execute(f"update posts set reported={reported} where post_id={post_id}")
@@ -224,7 +226,7 @@ class Post:
     def follow(self, data, cursor, db):
         user_id = data["user_id"]
         followed_id = data["followed_id"]
-        cursor.execute(f"select * from follow where `follower`={user_id}")
+        cursor.execute(f"select * from follow where `follower`={user_id} and `following`='{followed_id}'" )
         result = cursor.fetchall()
         if result:
             return jsonify("already following")
@@ -233,6 +235,60 @@ class Post:
         )
         db.commit()
         return jsonify("done")
+
+    def followers(self, data, cursor):
+        # route is /getfollowers
+
+        try:
+            user_id = data["user_id"]
+            onlynumber = data["onlynumber"]
+            if onlynumber:
+                query = f"select count(*) from follow where following={user_id}"
+                cursor.execute(query)
+                result = cursor.fetchone()
+                print(result)
+                return jsonify(result[0])
+        except:
+            user_id = data["user_id"]
+            cursor.execute(f"select follower from follow where following={user_id}")
+            followers = cursor.fetchall()
+
+            new = []
+            if followers != []:
+                for i in followers:
+                    cursor.execute(f"select * from user where user_id={i[0]}")
+                    result = cursor.fetchone()
+                    new.append(result)
+
+                return jsonify(new)
+            else:
+                return jsonify(0)
+
+    def following(self, data, cursor):
+        try:
+            user_id = data["user_id"]
+            onlynumber = data["onlynumber"]
+            if onlynumber:
+                query = f"select count(*) from follow where follower={user_id}"
+                cursor.execute(query)
+                result = cursor.fetchone()
+                print(result)
+                return jsonify(result[0])
+
+        except:
+            user_id = data["user_id"]
+            cursor.execute(f"select following from follow where follower={user_id}")
+            following = cursor.fetchall()
+            new = []
+            if following != []:
+                for i in following:
+                    cursor.execute(f"select * from user where user_id={i[0]}")
+                    result = cursor.fetchone()
+                    new.append(result)
+
+                return jsonify(new)
+            else:
+                return jsonify(0)
 
     def unfollow(self, data, cursor, db):
         follower = data["user_id"]

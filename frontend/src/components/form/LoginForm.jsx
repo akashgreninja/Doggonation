@@ -47,7 +47,7 @@ const LoginForm = () => {
       setloginErrorMessage(" ")
       localStorage.setItem("token", data.user_id);
 
-      nav("/home");
+      nav("/");
       window.location.reload();
       console.log(data);
     } else {

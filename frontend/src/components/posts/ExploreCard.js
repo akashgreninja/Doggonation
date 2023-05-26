@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import Modal from "@mui/material/Modal";
 import Post from "./Post";
+import PostModal from "./PostModal";
+import { Box } from "@mui/material";
 
 const ExploreCard = (props) => {
-  const [openPost, setOpenPost] = useState(false);
+  const [openPost, setOpenPost] = React.useState(false);
 
   const element = props.element;
   const handleOpenPost = () => setOpenPost(true);
+
+  const handleClosePost = () => setOpenPost(false);
 
   return (
     <div className="mx-px py-px ">
@@ -17,17 +21,7 @@ const ExploreCard = (props) => {
         className="w-full cursor-pointer hover:shadow-[inset_0_-2px_4px_rgba(0,0,0,0.6)]"
         onClick={handleOpenPost}
       />
-      <Modal
-        open={openPost}
-        aria-labelledby="modal-modal-Post"
-        aria-describedby="modal-modal-post"
-      >
-        <box>
-          <div className="w-2/5 my-28 mx-auto">
-            <Post element={element} />
-          </div>
-        </box>
-      </Modal>
+      <PostModal element={element[0]} openPost={openPost} handleClosePost={handleClosePost}/>
     </div>
   );
 };

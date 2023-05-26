@@ -10,6 +10,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { add_post } from "../../api/addpost";
 
 const Addpost = (props) => {
+  let {posts,setposts,load}=props
   const style = {
     position: "absolute",
     top: "50%",
@@ -21,6 +22,7 @@ const Addpost = (props) => {
     p: 4,
     borderRadius: 0.5,
   };
+
   const user_id = localStorage.getItem('token')
   const [loading, setloading] = useState(false);
   const [laodingtext, setlaodingtext] = useState("Post");
@@ -120,12 +122,14 @@ const Addpost = (props) => {
 
     if (data.status === 200) {
       setlaodingtext("upload successfull");
+      
       handleClose();
     } else {
       //add alert
       setloading(false);
       setlaodingtext("Retry");
-      
+      // window.location.reload();
+      load()
       setwarning(
         "upload unsuccessfull..sorry we didnt find any dogs in this picture retry to upload anyway"
       );
@@ -163,13 +167,15 @@ const Addpost = (props) => {
             placeholder="Have something to share...??"
             className="w-full px-2 py-1 text-gray-800 bg-stone-100"
           />
-          <button
-            onClick={handleOpen}
-            className="h-8 w-32 pl-2 bg-ocean-100 hover:bg-ocean-200 text-white"
-          >
-            Create Post
-          </button>
-
+          <div>
+            <button
+              onClick={handleOpen}
+              className="h-8 w-28 pl-3 bg-ocean-100 hover:bg-ocean-200 text-white"
+            >
+              Create Post
+            </button>
+          </div>
+          
           <Modal
             open={open}
             onClose={handleClose}
@@ -180,7 +186,6 @@ const Addpost = (props) => {
               <div className="flex ">
                 <div className="mt-5">
                   <p className="form-title pl-2 pb-5 leading-5">
-                    {" "}
                     Create new post
                   </p>
                   <i className="fa-solid fa-envelope fa-2x p-2" />
