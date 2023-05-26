@@ -19,10 +19,10 @@ class Get:
 
     def explore(self, cursor):
         cursor.execute(f"select * from `tags`")
-        result = cursor.fetchall()
-        new = []
-        for i in result:
-            new.append(i[0])
+
+        result=cursor.fetchall()
+        
+        new=[i[0] for i in result]
 
         text = " ".join(new)
         words = word_tokenize(text)
@@ -164,3 +164,4 @@ class Get:
     def getRazorpayKey(self):
         key = {"key": "rzp_test_v0GwBrDGUuFtEq"}
         return jsonify(key)
+
