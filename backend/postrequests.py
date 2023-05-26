@@ -272,7 +272,7 @@ class Post:
             print(e)
             return e
 
-    def capture_payment(self, data, cursor, mydb):
+    def capture_payment(self, data, databaseID, userCollectionID):
         amount = data["amount"]
         razorpayPaymentId = data["razorpayPaymentId"]
         razorpayOrderId = data["razorpayOrderId"]
@@ -280,9 +280,26 @@ class Post:
         print(amount)
         print(razorpayPaymentId)
         print(razorpayOrderId)
-        query = f"insert into razorpay (`amount`,`razorpayPaymentId`,`razorpayOrderId`,`razorpaySignature`) values ('{amount}','{razorpayPaymentId}','{razorpayOrderId}','{razorpaySignature}')"
-        cursor.execute(query)
-        mydb.commit()
+
+        data = {
+            "amount":amount,
+            "razorpayOrderId":razorpayOrderId,
+            "razorpaySignature":razorpaySignature,
+            "razorpayPaymentId":razorpayPaymentId,
+        }
+
+        result=databases.create_document(databaseID, userCollectionID, 'unique()',data)
+
+        print(result)
+
+        query =Query.equal("razorpayOrderId",razorpayOrderId)
+
+        check=Databases.list_documents(databaseID,userCollectionID,queries=[query])
+
+        print(check)
+        # query = f"insert into razorpay (`amount`,`razorpayPaymentId`,`razorpayOrderId`,`razorpaySignature`) values ('{amount}','{razorpayPaymentId}','{razorpayOrderId}','{razorpaySignature}')"
+        # cursor.execute(query)
+        # mydb.commit()
 
         return jsonify({"message": "payment captured successfully"})
 
