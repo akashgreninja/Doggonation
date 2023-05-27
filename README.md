@@ -4,10 +4,6 @@
 
 
 
-<h1>Contributers! Please contribute only to the frontend</h1>
-
-
-
 <h2>This Project is in Progress so the ui does not fully work as required please contact me via my email id on my profile if you need any help </h2>
 
 
@@ -201,8 +197,10 @@ Here's another image that shows the word cloud generated from our dataset:
   <pre><code>pip install -r requirements.txt</code></pre>
 
   <li>Start your XXAMP server.</li>
+  
+  <li>Make a database server named doggonation</li>
 
-  <li>Import the provided sample database (<code>sample_db.sql</code>) into your database server.</li>
+  <li>Import the provided sample database (<code>sample_db.sql</code>) into the database server.</li>
 
   <li>Run the backend server:</li>
   <pre><code>python app.py</code></pre>

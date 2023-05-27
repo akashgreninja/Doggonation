@@ -12,12 +12,11 @@ import io from "socket.io-client";
 import { remove_like_post } from "../../api/unlikepost";
 import "./Post.css";
 import { Getallfollowersforuser } from "../../api/getallfollowers";
-
-
+import Report from "./Report";
 
 const Post = (props) => {
   const socket = io("http://localhost:3003");
-  const user_id=55
+  const user_id=localStorage.getItem('token')
   const style = {
     position: "absolute",
     top: "30%",
@@ -53,7 +52,7 @@ const Post = (props) => {
   let element = props.element[0];
   let commentRef = useRef(null);
   const handlecomment = () => {
-    if (toggle == true) {
+    if (toggle === true) {
       commentRef.current.style.display = "none";
       setloadcomments(false);
       toggle = false;
@@ -63,21 +62,19 @@ const Post = (props) => {
       toggle = true;
     }
   };
-  const handleLike = async () => {
-    if (element[4] === 0) {
-      let data = await like_post(element[2]);
-      if (data.status === 200) {
-        element[4] = 1;
-        setlikerender(1);
-      }
-    } else {
-      let data = await remove_like_post(element[2]);
-      if (data.status === 200) {
-        element[4] = 0;
-        setlikerender(2);
-      }
-    }
-  };
+ const handleLike =async()=>{
+    if(element[4]===0){
+    let data=await like_post(element[2])
+    if (data.status===200){element[4]=1
+      element[8]+=1
+    setlikerender(1)    }
+  }else{
+    let data =await remove_like_post(element[2])
+    if (data.status===200){
+    element[4]=0
+    element[8]-=1
+    setlikerender(2)}
+  }}
 
   const handleshare=async(reciever_id,msg)=>{
     socket.emit("connectuser", { sender_id: user_id, reciever_id: 2 });
@@ -117,22 +114,17 @@ const Post = (props) => {
               <BsThreeDots />
             </div>
             {showOptions && (
-              <div className="absolute top-0 right-0 mt-2 w-48 bg-white rounded-lg shadow-xl">
+              <div className="absolute mt-2 w-48 bg-white rounded-lg shadow-xl">
+                <Report post_id={element[2]}/>
                 <a
                   href="#"
-                  className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
-                >
-                  Report
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+                  className="block px-4 py-2 text-gray-800 hover:bg-banana-100 hover:text-white"
                 >
                   Option 2
                 </a>
                 <a
                   href="#"
-                  className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+                  className="block px-4 py-2 text-gray-800 hover:bg-banana-100 hover:text-white"
                 >
                   Option 3
                 </a>
@@ -157,13 +149,16 @@ const Post = (props) => {
               className="interaction-button"
               key={likerender}
               onClick={handleLike}
-            >
+            > 
               {element[4] === 0 ? (
                 <i class="fa-regular fa-2x fa-heart"></i>
               ) : (
                 <i class="fa-solid fa-2x fa-heart"></i>
               )}
-              Like
+              {
+                element[8]
+              }
+               Likes
             </button>
             <button className="interaction-button" onClick={handlecomment}>
               {!loadcomments ? (

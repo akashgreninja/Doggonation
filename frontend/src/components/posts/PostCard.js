@@ -3,17 +3,12 @@ import { getallposts } from "../../api/allpost";
 import Post from "./Post";
 import { json } from "react-router-dom";
 
-const PostCard = () => {
-  let user_id=29
-  const [posts, setposts] = useState([]);
+const PostCard = (props) => {
+  let {posts,setposts,load}=props
   useEffect(() => {
     load();
   }, []);
-  const load = async () => {
-    let data = await getallposts(user_id);
-    data = await data.data;
-    setposts(data);
-  };
+  
 
   return (
     <div>

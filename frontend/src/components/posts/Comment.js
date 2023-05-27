@@ -5,7 +5,7 @@ import { gettags } from "../../api/gettags";
 import { translate } from "../../api/translate";
 
 const Comment = (props) => {
-  let user_id = 29;
+  let user_id = localStorage.getItem('token')
   useEffect(() => {
     loadcomments();
     loadtags();
@@ -50,7 +50,7 @@ const Comment = (props) => {
     }
   };
   return (
-    <div className="w-full mb-3 border-t-2">
+    <div className="w-full h-full mb-3 border-t-2">
       <div className="flex my-2 text-stone-700">
         {tags.map((element) => {
           return <p key={element}>#{element[0]}</p>;
