@@ -52,6 +52,7 @@ endpoint = os.getenv("ENDPOINT")
 apikey = os.getenv("API_KEY")
 projectID = os.getenv("PROJECT_ID")
 databaseID = os.getenv("DATABASE_ID")
+chatID = os.getenv("CHAT_ID")
 userCollectionID = os.getenv("USER_COLLECTION_ID")
 razorpayCollectionID = os.getenv("RAZORPAY_ID")
 get_requests = Get()
@@ -320,10 +321,10 @@ def capture_payment():
 # # all the cloud routes
 
 
-# @app.route("/translate", methods=["POST"])
-# def translate():
-#     data = request.json
-#     return post_requests.translatefn(key, endpoint, location, data)
+@app.route("/translate", methods=["POST"])
+def translate():
+    data = request.json
+    return post_requests.translatefn(data, databases, databaseID, userCollectionID)
 
 
 # @app.route("/msg", methods=["POST"])
@@ -336,31 +337,53 @@ def capture_payment():
 # room_id = []
 
 
-# @socketio.on("connectuser")
-# def handle_connect(data):
-#     sender = data["sender_id"]
-#     reciever = data["reciever_id"]
-#     mycursor.execute(
-#         f"select * from `chats` where `sender_id`='{sender}' and `recipient_id`='{reciever}' or `sender_id`='{reciever}' and `recipient_id`='{sender}'"
-#     )
-#     result = mycursor.fetchone()
-#     if result:
-#         room_id = result[0]
-#     else:
-#         mycursor.execute(
-#             f"INSERT INTO `chats` (`sender_id`, `recipient_id`) VALUES ( '{sender}', '{reciever}'); "
-#         )
-#         mydb.commit()
-#         mycursor.execute(
-#             f"select * from `chats` where `sender_id`='{sender}' and `recipient_id`='{reciever}' or `sender_id`='{reciever}' and `recipient_id`='{sender}'"
-#         )
-#         result = mycursor.fetchone()
-#         ##
-#         print("created")
-#         room_id = result[0]
+@socketio.on("connectuser")
+def handle_connect(data):
+    sender = data["sender_id"]
+    reciever = data["reciever_id"]
+    query= Query.equal('sender_id', [sender])
+    query2= Query.equal('reciever_id', [reciever])
+    query3= Query.equal('sender_id', [reciever])
+    query4= Query.equal('reciever_id', [sender])
 
-#     #    join_room(room_id)
-#     socketio.emit("connection", {"data": room_id})
+
+    result = databases.list_documents(databaseID,  chatID,query=[query,query2])
+    result2 = databases.list_documents(databaseID,  chatID,query=[query3,query4])
+
+    if result and result2:
+        print("dsdsd")
+    # mycursor.execute(
+    #     f"select * from `chats` where `sender_id`='{sender}' and `recipient_id`='{reciever}' or `sender_id`='{reciever}' and `recipient_id`='{sender}'"
+    # )
+    # result = mycursor.fetchone()
+    # if result:
+    #     room_id = result[0]
+    else:
+        data={
+            "sender_id":sender,
+            "reciever_id":reciever
+
+        }
+        result = databases.create_document(databaseID, chatID, 'unique()', data)
+        # mycursor.execute(
+        #     f"INSERT INTO `chats` (`sender_id`, `recipient_id`) VALUES ( '{sender}', '{reciever}'); "
+        # )
+        # mydb.commit()
+        toad1 = databases.list_documents(databaseID,  chatID,query=[query,query2])
+        toad2 = databases.list_documents(databaseID,  chatID,query=[query3,query4])
+        # mycursor.execute(
+        #     f"select * from `chats` where `sender_id`='{sender}' and `recipient_id`='{reciever}' or `sender_id`='{reciever}' and `recipient_id`='{sender}'"
+        # )
+        # result = mycursor.fetchone()
+        if toad1 and toad2:
+            print("dsdsd")
+            room_id = result[0]
+        ##
+        print("created")
+        
+
+    #    join_room(room_id)
+    socketio.emit("connection", {"data": room_id})
 
 
 # @socketio.on("disconnect")
