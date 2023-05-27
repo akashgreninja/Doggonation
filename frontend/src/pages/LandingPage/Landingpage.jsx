@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 const Landingpage = (props) => {
   useEffect(() => {
     props.Sidebarrender(false)
-  }, [])
+  }, [props])
   return (
     <Wrapper>
       <Navbar/>
