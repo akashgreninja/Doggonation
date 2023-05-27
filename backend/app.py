@@ -49,12 +49,13 @@ razorpay_secret = os.getenv("RAZORPAY_SECRET")
 razorpay_key = os.getenv("RAZORPAY_KEY_ID")
 key = os.getenv("KEY")
 endpoint = os.getenv("ENDPOINT")
+location= os.getenv("LOCATION")
 apikey = os.getenv("API_KEY")
 projectID = os.getenv("PROJECT_ID")
 databaseID = os.getenv("DATABASE_ID")
-chatID = os.getenv("CHAT_ID")
+chatID = os.getenv("CHAT_COLLECTION_ID")
 userCollectionID = os.getenv("USER_COLLECTION_ID")
-razorpayCollectionID = os.getenv("RAZORPAY_ID")
+razorpayCollectionID = os.getenv("RAZORPAY_COLLECTION_ID")
 get_requests = Get()
 post_requests = Post()
 
@@ -206,10 +207,10 @@ def register():
 #     return get_requests.following(data, mycursor)
 
 
-# @app.route("/search", methods=["POST"], strict_slashes=False)
-# def search():
-#     data = request.json
-#     return get_requests.search(data, mycursor)
+@app.route("/search", methods=["POST"], strict_slashes=False)
+def search():
+    data = request.json
+    return get_requests.search(data, databases, databaseID, userCollectionID)
 
 
 # # ban and unban routes
@@ -324,7 +325,7 @@ def capture_payment():
 @app.route("/translate", methods=["POST"])
 def translate():
     data = request.json
-    return post_requests.translatefn(data, databases, databaseID, userCollectionID)
+    return post_requests.translatefn(apikey,endpoint,location,data)
 
 
 # @app.route("/msg", methods=["POST"])

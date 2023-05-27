@@ -318,24 +318,24 @@ class Post:
 #         else:
 #             return jsonify({"message": "false"})
 
-#     def translatefn(self, key, endpoint, location, data):
-#         text = data["text"]
-#         target_language = 'en'
-#         path = '/translate?api-version=3.0'
-#         target_language_parameter = '&to=' + target_language
-#         constructed_url = endpoint + path + target_language_parameter
-#         headers = {
-#         'Ocp-Apim-Subscription-Key': key,
-#         'Ocp-Apim-Subscription-Region': location,
-#         'Content-type': 'application/json',
-#         'X-ClientTraceId': str(uuid.uuid4())
-#     }
-#         body = [{ 'text': text }]
-#         translator_request = requests.post(constructed_url, headers=headers, json=body)
-#         translator_response = translator_request.json()
-#         translated_text = translator_response[0]['translations'][0]['text']
-#         print(translated_text)
-#         return jsonify({"message": translated_text})
+    def translatefn(self, key, endpoint, location, data):
+        text = data["text"]
+        target_language = 'en'
+        path = '/translate?api-version=3.0'
+        target_language_parameter = '&to=' + target_language
+        constructed_url = endpoint + path + target_language_parameter
+        headers = {
+        'Ocp-Apim-Subscription-Key': key,
+        'Ocp-Apim-Subscription-Region': location,
+        'Content-type': 'application/json',
+        'X-ClientTraceId': str(uuid.uuid4())
+    }
+        body = [{ 'text': text }]
+        translator_request = requests.post(constructed_url, headers=headers, json=body)
+        translator_response = translator_request.json()
+        translated_text = translator_response[0]['translations'][0]['text']
+        print(translated_text)
+        return jsonify({"message": translated_text})
     
 #     def msgfn(self,data,cursor):
 #         room=data['room']
