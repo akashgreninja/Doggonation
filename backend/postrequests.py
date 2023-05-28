@@ -115,27 +115,36 @@ class Post:
 #             return jsonify("failed")
 
 #     # like and unlike
-#     def like(self, post_id, cursor, db):
-#         cursor.execute(f"select `likes` from `posts` where `post_id`='{post_id}'")
-#         likes=cursor.fetchone()[0]
-#         likes+=1
-#         cursor.execute(f"UPDATE `posts` SET `likes` = '{likes}' WHERE `posts`.`post_id` = '{post_id}';")
-#         cursor.execute(
-#             f"UPDATE `posts` SET `liked` = '1' WHERE `posts`.`post_id` = {post_id}"
-#         )
-#         db.commit()
-#         return jsonify("like updated")
+    def like(self, post_id,databases,databaseID,postsCollectionID):
+        
+        result=databases.get_document(databaseID,postsCollectionID,post_id)
+        # cursor.execute(f"select `likes` from `posts` where `post_id`='{post_id}'")
+        # likes=cursor.fetchone()[0]
+        like=result['likes'] +1    
+        # likes+=1
+        result = databases.update_document(databaseID, postsCollectionID,post_id,data={"likes":like} )
 
-#     def rmlike(self, post_id, cursor, db):
-#         cursor.execute(f"select `likes` from `posts` where `post_id`='{post_id}'")
-#         likes=cursor.fetchone()[0]
-#         likes-=1
-#         cursor.execute(f"UPDATE `posts` SET `comments` = '{likes}' WHERE `posts`.`post_id` = '{post_id}';")
-#         cursor.execute(
-#             f"UPDATE `posts` SET `liked` = '0' WHERE `posts`.`post_id` = {post_id}"
-#         )
-#         db.commit()
-#         return jsonify("like updated")
+        # cursor.execute(f"UPDATE `posts` SET `likes` = '{likes}' WHERE `posts`.`post_id` = '{post_id}';")
+        # cursor.execute(
+        #     f"UPDATE `posts` SET `liked` = '1' WHERE `posts`.`post_id` = {post_id}"
+        # )
+        # db.commit()
+        return jsonify("like updated")
+
+    def rmlike(self, post_id,databases,databaseID,postsCollectionID):
+        result=databases.get_document(databaseID,postsCollectionID,post_id)
+        # cursor.execute(f"select `likes` from `posts` where `post_id`='{post_id}'")
+        # likes=cursor.fetchone()[0]
+        like=result['likes'] -1    
+        # likes+=1
+        result = databases.update_document(databaseID, postsCollectionID,post_id,data={"likes":like} )
+
+        # cursor.execute(f"UPDATE `posts` SET `likes` = '{likes}' WHERE `posts`.`post_id` = '{post_id}';")
+        # cursor.execute(
+        #     f"UPDATE `posts` SET `liked` = '1' WHERE `posts`.`post_id` = {post_id}"
+        # )
+        # db.commit()
+        return jsonify("like updated")
 
     def register(self, data,databases,databaseID,userCollectionID):
         print(data)

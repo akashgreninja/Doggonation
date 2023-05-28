@@ -147,16 +147,16 @@ def addpost():
 #     return post_requests.deletepost(data["post_id"], mycursor, mydb)
 
 
-# @app.route("/like_post", methods=["POST"])
-# def like():
-#     data = request.json
-#     return post_requests.like(data["post_id"], mycursor, mydb)
+@app.route("/like_post", methods=["POST"])
+def like():
+    data = request.json
+    return post_requests.like(data["post_id"],databases,databaseID,postsCollectionID)
 
 
-# @app.route("/rmlike_post", methods=["POST"])
-# def rmlike():
-#     data = request.json
-#     return post_requests.rmlike(data["post_id"], mycursor, mydb)
+@app.route("/rmlike_post", methods=["POST"])
+def rmlike():
+    data = request.json
+    return post_requests.rmlike(data["post_id"], databases,databaseID,postsCollectionID)
 
 
 # # authentication routes and user routes
