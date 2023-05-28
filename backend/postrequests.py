@@ -23,7 +23,7 @@ class Post:
 
     # posts crud
     # adding a new post
-    def addpost(self, data, cursor, db):
+    def addpost(self, data,databases,databaseID,postsCollectionID,tagsCollectionID):
         image = data["pic_url"]
         result = identifydog.run_check(imageurl=image)
 
@@ -35,16 +35,50 @@ class Post:
             user_id = data["user_id"]
             tags = data["tags"] + result
 
-            query = f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},'{location}');"
-            cursor.execute(query)
-            db.commit()
-            cursor.execute("SELECT LAST_INSERT_ID();")
-            post_id = cursor.fetchone()[0]
-            print(tags)
+    #   result=databases.create_document(databaseID, userCollectionID, 'unique()',data)
+    #         print(result)
+
+    #         query=Query.equal("email",email)
+     
+
+    #         check=databases.list_documents(databaseID,userCollectionID,queries=[query])
+
+    #         print(check)
+            
+    #         result = {"result": check["documents"][0]["$id"]}
+            time=datetime.datetime.now()
+          
+            data={
+                "pic":pic,
+                "caption":caption,
+                "user_id":user_id,
+                "location":location,
+                "time":str(time)
+
+            }
+            try:
+                databases.create_document(databaseID, postsCollectionID, 'unique()',data)
+            except:
+                return jsonify("couldnt process your request")
+            check=(databases.list_documents(databaseID,postsCollectionID))
+            post_id=check['documents'][-1]['$id']
+
+            # query = f"INSERT INTO `posts` (`pic`, `caption`,`user_id`, `location`) VALUES ('{pic}', '{caption}',{user_id},'{location}');"
+            # cursor.execute(query)
+            # db.commit()
+            # cursor.execute("SELECT LAST_INSERT_ID();")
+            # post_id = cursor.fetchone()[0]
+            # print(tags)
             for i in tags:
-                cursor.execute(f"INSERT INTO `tags` (`tag`, `post_id`) VALUES  ('{i}', '{post_id}')"
-                )
-            db.commit()
+                data={
+                    "post_id":post_id,
+                    "tag":i
+
+                }
+                databases.create_document(databaseID, tagsCollectionID, 'unique()',data)
+                
+            #     )
+            # db.commit()
         
         
             return jsonify("post added succesfully")

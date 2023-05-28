@@ -53,6 +53,8 @@ apikey = os.getenv("API_KEY")
 projectID = os.getenv("PROJECT_ID")
 databaseID = os.getenv("DATABASE_ID")
 userCollectionID = os.getenv("USER_COLLECTION_ID")
+postsCollectionID = os.getenv("POSTS_COLLECTION_ID")
+tagsCollectionID = os.getenv("TAGS_COLLECTION_ID")
 get_requests = Get()
 post_requests = Post()
 
@@ -124,10 +126,10 @@ def route_path():
 # # post requests
 
 
-# @app.route("/addpost", methods=["POST"])
-# def addpost():
-#     data = request.json
-#     return post_requests.addpost(data, mycursor, mydb)
+@app.route("/addpost", methods=["POST"])
+def addpost():
+    data = request.json
+    return post_requests.addpost(data, databases, databaseID,postsCollectionID,tagsCollectionID )
 
 
 # @app.route("/updatepost", methods=["POST"])
