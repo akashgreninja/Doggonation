@@ -17,4 +17,4 @@ checkers={
         }
     ],
 }
-print()
+print(checkers['documents'][0]['email'])
