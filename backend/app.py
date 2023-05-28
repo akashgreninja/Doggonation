@@ -58,6 +58,7 @@ userCollectionID = os.getenv("USER_COLLECTION_ID")
 razorpayCollectionID = os.getenv("RAZORPAY_COLLECTION_ID")
 postsCollectionID = os.getenv("POSTS_COLLECTION_ID")
 tagsCollectionID = os.getenv("TAGS_COLLECTION_ID")
+followCollectionID = os.getenv("FOLLOW_COLLECTION_ID")
 get_requests = Get()
 post_requests = Post()
 
@@ -112,11 +113,11 @@ def route_path():
 #     return get_requests.getcomments(mycursor, post_id)
 
 
-# @app.route("/getallposts", methods=["POST"])
-# def getall():
-#     data = request.json
-#     user_id = data["user_id"]
-#     return get_requests.getallposts(mycursor, user_id)
+@app.route("/getallposts", methods=["POST"])
+def getall():
+    data = request.json
+    user_id = data["user_id"]
+    return get_requests.getallposts(user_id,databases, databaseID,postsCollectionID)
 
 
 # # report
@@ -185,16 +186,16 @@ def register():
 #     return get_requests.get_user(data, mycursor, mydb)
 
 
-# @app.route("/follow", methods=["GET", "POST"])
-# def follow():
-#     data = request.json
-#     return post_requests.follow(data, mycursor, mydb)
+@app.route("/follow", methods=["GET", "POST"])
+def follow():
+    data = request.json
+    return post_requests.follow(data, databases,databaseID,followCollectionID)
 
 
-# @app.route("/unfollow", methods=["GET", "POST"])
-# def unfollow():
-#     data = request.json
-#     return post_requests.unfollow(data, mycursor, mydb)
+@app.route("/unfollow", methods=["GET", "POST"])
+def unfollow():
+    data = request.json
+    return post_requests.unfollow(data,databases,databaseID,followCollectionID)
 
 
 # @app.route("/getfollowers", methods=["GET", "POST"])

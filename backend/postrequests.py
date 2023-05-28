@@ -281,27 +281,62 @@ class Post:
 #         db.commit()
 #         return jsonify("reported successfully")
 
-#     def follow(self, data, cursor, db):
-#         user_id = data["user_id"]
-#         followed_id = data["followed_id"]
-#         cursor.execute(f"select * from follow where `follower`={user_id}")
-#         result = cursor.fetchall()
-#         if result:
-#             return jsonify("already following")
-#         cursor.execute(
-#             f"insert into follow (`follower`,`following`) values ({user_id},{followed_id})"
-#         )
-#         db.commit()
-#         return jsonify("done")
+    def follow(self, data,databases,databaseID,followCollectionID):
 
-#     def unfollow(self, data, cursor, db):
-#         follower = data["user_id"]
-#         following = data["followed_id"]
-#         cursor.execute(
-#             f"delete from follow where `follower`={follower} and `following`={following}"
-#         )
-#         db.commit()
-#         return jsonify("successfully unfollowed")
+        user_id = data["user_id"]
+        followed_id = data["followed_id"]
+        result=None
+        query=[Query.equal("follower",user_id)]
+        try:
+            result=databases.list_documents(databaseID,followCollectionID,queries=query)
+            id=None
+            for i in range(len(result)):
+                if result['documents'][i]['following']==followed_id:
+                    id=result['documents'][0]['$id']
+                    break
+            if id:
+                result=databases.get_document(databaseID,followCollectionID,id)
+            print(id)   
+        except Exception as e:
+            print(e)
+
+            result=None
+        # cursor.execute(f"select * from follow where `follower`={user_id}")
+        # result = cursor.fetchall()
+        if result:
+            return jsonify("already following")
+        data={
+            "follower":user_id,
+            "following":followed_id
+        }
+        result=databases.create_document(databaseID, followCollectionID, 'unique()',data)
+        # cursor.execute(
+        #     f"insert into follow (`follower`,`following`) values ({user_id},{followed_id})"
+        # )
+        # db.commit()
+        return jsonify("done")
+
+    def unfollow(self, data,databases,databaseID,followCollectionID):
+        user_id = data["user_id"]
+        followed_id = data["followed_id"]
+        result=None
+        query=[Query.equal("follower",user_id)]
+        try:
+            result=databases.list_documents(databaseID,followCollectionID,queries=query)
+            id=None
+            for i in range(len(result)):
+                if result['documents'][i]['following']==followed_id:
+                    id=result['documents'][0]['$id']
+                    break
+            if id:
+                result=databases.delete_document(databaseID,followCollectionID,id)
+            print(id) 
+        except Exception as e:
+            print(e)
+
+            result=None
+        
+        return jsonify("successfully unfollowed")
 
 #     def create_order(self, razorpay_key, razorpay_secret, amount):
 #         print(amount)
