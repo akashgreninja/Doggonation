@@ -81,9 +81,9 @@ class Post:
             # db.commit()
         
         
-#             return jsonify("post added succesfully")
-#         else:
-#             return Response("no dogs found", status=201, mimetype="application/json")
+            return jsonify("post added succesfully")
+        else:
+            return Response("no dogs found", status=201, mimetype="application/json")
 
 #     def updatepost(self, data, cursor, db):
 #         location = data["location"]
@@ -137,60 +137,60 @@ class Post:
 #         db.commit()
 #         return jsonify("like updated")
 
-#     def register(self, data,databases,databaseID,userCollectionID):
-#         print(data)
-#         email = data["email"]
-#         password = data["password"]
-#         name = data["name"]
-#         gender = data["gender"]
-#         try:
-#             profile_pic = data["profile_pic"]
-#         except Exception as NameError:
-#             profile_pic = None
+    def register(self, data,databases,databaseID,userCollectionID):
+        print(data)
+        email = data["email"]
+        password = data["password"]
+        name = data["name"]
+        gender = data["gender"]
+        try:
+            profile_pic = data["profile_pic"]
+        except Exception as NameError:
+            profile_pic = None
 
-#         dob = data["dob"]
-#         print(profile_pic)
-#         finalpassword = generate_password_hash(
-#             password, method="pbkdf2:sha256", salt_length=16
-#         )
+        dob = data["dob"]
+        print(profile_pic)
+        finalpassword = generate_password_hash(
+            password, method="pbkdf2:sha256", salt_length=16
+        )
 
-#         # query = f"SELECT * FROM user WHERE email  = '{email}'"
-#         print(email)
-#         query=Query.equal("email",email)
-#         # cursor.execute(query)
+        # query = f"SELECT * FROM user WHERE email  = '{email}'"
+        print(email)
+        query=Query.equal("email",email)
+        # cursor.execute(query)
 
-#         result=databases.list_documents(databaseID,userCollectionID,queries=[query])
-#         print(type(result))
-#         print("dsdsdsdsdds")
+        result=databases.list_documents(databaseID,userCollectionID,queries=[query])
+        print(type(result))
+        print("dsdsdsdsdds")
 
-#         if int(result.get("total")) > 0:
-#             message = {"error": "User already exists"}
+        if int(result.get("total")) > 0:
+            message = {"error": "User already exists"}
           
 
-#             return message
-#         else:
-#             data={
-#                 "email":email,
-#                 "password":finalpassword,
-#                 "name":name,
-#                 "profile_pic":profile_pic,
-#                 # "dob":dob,
-#                 # "gender":gender
-#             }
+            return message
+        else:
+            data={
+                "email":email,
+                "password":finalpassword,
+                "name":name,
+                "profile_pic":profile_pic,
+                # "dob":dob,
+                # "gender":gender
+            }
 
-#             result=databases.create_document(databaseID, userCollectionID, 'unique()',data)
-#             print(result)
+            result=databases.create_document(databaseID, userCollectionID, 'unique()',data)
+            print(result)
 
-#             query=Query.equal("email",email)
+            query=Query.equal("email",email)
      
 
-#             check=databases.list_documents(databaseID,userCollectionID,queries=[query])
+            check=databases.list_documents(databaseID,userCollectionID,queries=[query])
 
-#             print(check)
+            print(check)
             
-#             result = {"result": check["documents"][0]["$id"]}
+            result = {"result": check["documents"][0]["$id"]}
 
-#             return result
+            return result
 
 #     def profile(self, data, cursor, db):
 #         dob = data["dob"]
