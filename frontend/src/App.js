@@ -35,8 +35,8 @@ function App() {
               path="/"
               element={<PreLoaderPage shouldit={setsidebar} />}
             /> */}
-            <Route path="/home" element={<HomePage Sidebarrender={setsidebar} />} />
-            <Route path="/" element={<Landingpage  Sidebarrender={setsidebar}/>} />
+            <Route path="/donation" element={<About  />} />
+            <Route path="/" element={<HomePage  Sidebarrender={setsidebar}/>} />
             <Route
               path="/SignUp"
               element={<RegisterPage Sidebarrender={setsidebar} />}
