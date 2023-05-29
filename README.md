@@ -1,6 +1,24 @@
 # Doggonation - Where Dogs and Their Owners Unite: Welcome to Doggonation (Looking for frontend devs)
-
-<img src="https://firebasestorage.googleapis.com/v0/b/doggonation-3e963.appspot.com/o/DOGGONATION.jpg?alt=media&token=edaa3d0b-4e4b-406b-a07d-5d621269eaea">
+<br/>
+<div align="center">
+  <img src="https://forthebadge.com/images/badges/built-with-love.svg" />
+  <img src="https://forthebadge.com/images/badges/uses-brains.svg" />
+  <img src="https://forthebadge.com/images/badges/powered-by-responsibility.svg" />
+  <br/>
+  <img src="https://img.shields.io/github/repo-size/akashgreninja/Doggonation?style=for-the-badge" />
+  <img src="https://img.shields.io/github/license/akashgreninja/Doggonation?style=for-the-badge" />
+  <img src="https://img.shields.io/github/issues-closed-raw/akashgreninja/Doggonation?style=for-the-badge" />
+  <img src="https://img.shields.io/github/issues/akashgreninja/Doggonation?style=for-the-badge" />
+  <img src="https://img.shields.io/github/stars/akashgreninja/Doggonation?style=for-the-badge" />
+  <img src="https://img.shields.io/github/forks/akashgreninja/Doggonation?style=for-the-badge" />
+  <img src="https://img.shields.io/github/issues-pr/akashgreninja/Doggonation?style=for-the-badge" />
+  <img src="https://img.shields.io/github/last-commit/akashgreninja/Doggonation?style=for-the-badge" />
+  <img src="https://img.shields.io/github/contributors/akashgreninja/Doggonation?style=for-the-badge" />
+  <img src="https://img.shields.io/github/issues-pr-closed-raw/akashgreninja/Doggonation?style=for-the-badge" />
+  
+</div>
+<br/>
+<img src="https://firebasestorage.googleapis.com/v0/b/doggonation-612e8.appspot.com/o/helper%20folder%2Flogo-no-background.png?alt=media&token=25c940c0-1d8a-4d47-b117-426b73e9eff7"
 
 
 
