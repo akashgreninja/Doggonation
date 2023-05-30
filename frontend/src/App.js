@@ -14,6 +14,9 @@ import DonationPage from "./pages/DonationPage";
 import Explore from "./pages/Explore";
 import Dm from "./pages/Dm";
 import NotFound from "./pages/NotFound";
+import Landingpage from "./pages/LandingPage/Landingpage";
+import About from "./pages/LandingPage/About";
+import Contact from "./pages/LandingPage/Contact";
 
 function App() {
   // const [Sidebar, setsidebar] = useState(true);
@@ -32,7 +35,8 @@ function App() {
               path="/"
               element={<PreLoaderPage shouldit={setsidebar} />}
             /> */}
-            <Route path="/" element={<HomePage Sidebarrender={setsidebar} />} />
+            <Route path="/donation" element={<About  />} />
+            <Route path="/" element={<HomePage  Sidebarrender={setsidebar}/>} />
             <Route
               path="/SignUp"
               element={<RegisterPage Sidebarrender={setsidebar} />}
