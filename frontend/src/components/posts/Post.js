@@ -179,8 +179,9 @@ const Post = (props) => {
           >
             <Box sx={style}>
                friends
+               
                {
-                following.map((ele)=>{
+                following && following.map((ele)=>{
                   return <div className="flex flex-row" key={ele}>
                    <img
               src={ele[6]}
