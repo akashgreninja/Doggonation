@@ -18,48 +18,60 @@ class Get:
         dict = {"message": "backend is online"}
         return dict
 
-    # def explore(self, cursor):
-    #     cursor.execute(f"select * from `tags`")
-    #     result = cursor.fetchall()
-    #     new = []
-    #     for i in result:
-    #         new.append(i[0])
+    def explore(self,databases, databaseID,tagsCollectionID,postsCollectionID,userCollectionID):
+        check=(databases.list_documents(databaseID,tagsCollectionID))
+        result=(check['documents'])
+        
 
-    #     text = " ".join(new)
-    #     words = word_tokenize(text)
-    #     fdist = FreqDist(words)
-    #     most_common_words = fdist.most_common()
-    #     returning_list = []
-    #     j = 0
-    #     for i in most_common_words:
-    #         if j > 5:
-    #             break
-    #         returning_list.append(i[0])
-    #         j += 1
-    #     final_postid = []
-    #     for i in returning_list:
-    #         for j in range(len(new)):
-    #             if i == new[j]:
-    #                 final_postid.append(result[j][1])
-    #     explore_posts = []
-    #     final_postid = set(final_postid)
-    #     for i in final_postid:
-    #         cursor.execute(f"select * from `posts` where `post_id`={i}")
-    #         result = cursor.fetchone()
-    #         user_id = result[3]
-    #         cursor.execute(
-    #             f"select `name`,`profile_pic` from `user` where `user_id`='{user_id}'"
-    #         )
-    #         user = cursor.fetchone()
-    #         result_fin = []
-    #         if result:
-    #             result_fin += [result + user]
-    #         else:
-    #             continue
+        
+        # result = cursor.fetchall()
+        new = []
+        for i in result:
+            new.append(i['tag'])
+        print(new)
+        
+        text = " ".join(new)
+        words = word_tokenize(text)
+        fdist = FreqDist(words)
+        most_common_words = fdist.most_common()
+        returning_list = []
+        j = 0
+        for i in most_common_words:
+            if j > 5:
+                break
+            returning_list.append(i[0])
+            j += 1
+        final_postid = []
+        for i in returning_list:
+            for j in range(len(new)):
+                if i == new[j]:
+                    final_postid.append(result[j]['post_id'])
+        explore_posts = []
+        final_postid = set(final_postid)
+        print(final_postid)
+        # return jsonify("null")
+        for i in final_postid:
+            result=databases.get_document(databaseID,postsCollectionID,i)
+            # cursor.execute(f"select * from `posts` where `post_id`={i}")
+            # result = cursor.fetchone()
+            user_id = result['user_id']
+            print(user_id)
+            user_res=databases.get_document(databaseID,userCollectionID,user_id)
+            # cursor.execute(
+                # f"select `name`,`profile_pic` from `user` where `user_id`='{user_id}'"
+            # )
+            user=[user_res['name'],user_res['profile_pic']]
+            result_fin = []
+            result_posts=[result['pic'],result['caption'],result['$id'],result['user_id'],result['liked'],result['location'],result['time'],result['reported'],result['likes'],result['comments'],user[0],user[1]]
+            print(result)
+            if result_posts:
+                result_fin += [ result_posts  ]
+            else:
+                continue
 
-    #         print(result_fin)
-    #         explore_posts.append(result_fin)
-    #     return jsonify(explore_posts)
+            print(result_fin)
+            explore_posts.append(result_fin)
+        return jsonify(explore_posts)
 
     # def get_user(self, data, mycursor, mydb):
     #     id = data["id"]
@@ -129,6 +141,7 @@ class Get:
 
             # else:
             # return jsonify(final_res)
+            
 
         # else:
         #     return self.explore(cursor)

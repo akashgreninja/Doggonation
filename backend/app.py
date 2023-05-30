@@ -101,9 +101,9 @@ def route_path():
 #     return get_requests.gettags(mycursor, post_id)
 
 
-# @app.route("/explore", methods=["POST"])
-# def explore():
-#     return get_requests.explore(mycursor)
+@app.route("/explore", methods=["POST"])
+def explore():
+    return get_requests.explore(databases, databaseID,tagsCollectionID,postsCollectionID,userCollectionID)
 
 
 # @app.route("/getcomment", methods=["POST"])
