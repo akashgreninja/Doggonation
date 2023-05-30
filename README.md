@@ -42,11 +42,11 @@
 </ul>
 
 <h2>Tech Stack Used</h2>
-![Python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![javascript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white)
+![python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![javascript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![c](https://img.shields.io/badge/c-A8B9CC?style=for-the-badge&logo=c&logoColor=black)
-![CSS3](https://img.shields.io/badge/CSS3-5391FE?style=for-the-badge&logo=css3&logoColor=white)
-![powershell](https://img.shields.io/badge/powershell-5391FE?style=for-the-badge&logo=powershell&logoColor=white)
+![CSS5](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![shell](https://img.shields.io/badge/shell-FFD500?style=for-the-badge&logo=shell&logoColor=black)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 
 <h2>CI/CD using GitHub Actions</h2>
