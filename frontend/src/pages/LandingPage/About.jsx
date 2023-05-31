@@ -9,9 +9,9 @@ const About = (props) => {
     //     props.Sidebarrender(false)
     //   }, [props])
   return (
-    <div id='about' style={{'margin-left':'17rem','padding-top':'62px'}}>
+    <div id='about'>
         <Wrapper>
-        <h1 className='text-5xl font-bold mt-10 text-center underline'>About Us</h1>
+        <h1 className='text-5xl font-bold mt-10 text-center'>About Us</h1>
         <div className='mt-10'>
             <div className='md:flex justify-between gap-8'>
                 <div>
@@ -45,10 +45,6 @@ const About = (props) => {
             <p className=' text-center'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus dolorem consectetur doloremque recusandae laborum expedita eligendi at, voluptatibus corporis porro fuga ducimus dolorum reiciendis sapiente consequatur ipsum consequuntur? Reiciendis, sequi.</p></div>
             </div>
         </div>
-
-        {/* Donation Area  */}
-
-        <Contact/>
         </Wrapper>
     </div>
   )
