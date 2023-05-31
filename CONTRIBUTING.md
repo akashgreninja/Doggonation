@@ -6,6 +6,8 @@ This documentation contains set of guidelines to help you during the contributio
 
 ## Directions for the frontend
 
+- Use the current explore page styling - Specifically the posts styling to style anything
+- Try to use tailwind classes as much as possible
 - ### Adhere to the following colour palette
 - Banana-0: `#FFFDF7`
 - Banana-50: `#FDD85D`
