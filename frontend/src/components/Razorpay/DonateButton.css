@@ -1,0 +1,7 @@
+#btn-donate{
+    width: 100%;
+    border-bottom-left-radius: var(--radii);
+    border-bottom-right-radius: var(--radii);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }

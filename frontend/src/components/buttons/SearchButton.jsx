@@ -2,7 +2,7 @@ import React from 'react'
 import './searchbutton.css'
 const SearchButton = () => {
   return (
-    <button class="btn-donate">
+    <button class="btn-search">
     Search
 </button>
   )

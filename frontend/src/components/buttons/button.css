@@ -1,84 +1,38 @@
-/* button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 25px 20px 22px;
-    box-shadow: rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-    background-color: #e8e8e8;
-    border-color: #ffe2e2;
-    border-style: solid;
-    border-width: 9px;
-    border-radius: 35px;
-    font-size: 25px;
-    font-weight: 900;
-    color: rgb(134, 124, 124);
-    font-family: monospace;
-    transition: transform 400ms cubic-bezier(.68,-0.55,.27,2.5), 
-    border-color 400ms ease-in-out,
-    background-color 400ms ease-in-out;
-    word-spacing: -2px;
+.button {
+  --clr-font-main: hsla(0 0% 20% / 100);
+  --btn-bg-1: #99D6EA;
+  --btn-bg-2: #77c4de;
+  --btn-bg-color: hsla(360 100% 100% / 1);
+  --radii: 0.5em;
+  cursor: pointer;
+  width: max-content;
+  justify-content: center;
+  padding: 0.9em 1.4em;
+  min-width: 100px;
+  height: 40px;
+  font-size: var(--size, 1rem);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-weight: 500;
+  transition: 0.8s;
+  background-size: 280% auto;
+  background-image: linear-gradient(325deg, var(--btn-bg-2) 0%, var(--btn-bg-1) 55%, var(--btn-bg-2) 90%);
+  border: none;
+  border-radius: var(--radii);
+  color: var(--btn-bg-color);
+  box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5), 0px 5px 5px -1px rgba(58, 125, 233, 0.25), inset 4px 4px 8px rgba(175, 230, 255, 0.5), inset -4px -4px 8px rgba(19, 95, 216, 0.35);
+}
+
+.button:hover {
+  background-position: right top;
+}
+
+.button:is(:focus, :focus-within,:active) {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--btn-bg-color), 0 0 0 6px var(--btn-bg-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: linear;
   }
-  
-  @keyframes movingBorders {
-    0% {
-      border-color: #fce4e4;
-    }
-  
-    50% {
-      border-color: #ffd8d8;
-    }
-  
-    90% {
-      border-color: #fce4e4;
-    }
-  }
-  
-  button:hover {
-    background-color: #eee;
-    transform: scale(105%);
-    animation: movingBorders 3s infinite;
-  }
-  
-  button svg {
-    margin-right: 11px;
-    fill: rgb(255, 110, 110);
-    transition: opacity 100ms ease-in-out;
-  }
-  
-  .filled {
-    position: absolute;
-    opacity: 0;
-    top: 20px;
-    left: 22px;
-  }
-  
-  @keyframes beatingHeart {
-    0% {
-      transform: scale(1);
-    }
-  
-    15% {
-      transform: scale(1.15);
-    }
-  
-    30% {
-      transform: scale(1);
-    }
-  
-    45% {
-      transform: scale(1.15);
-    }
-  
-    60% {
-      transform: scale(1);
-    }
-  }
-  
-  button:hover .empty {
-    opacity: 0;
-  }
-  
-  button:hover .filled {
-    opacity: 1;
-    animation: beatingHeart 1.2s infinite;
-  } */
+}

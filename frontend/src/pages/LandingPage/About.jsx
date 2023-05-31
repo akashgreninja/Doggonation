@@ -3,6 +3,8 @@ import img from "../../images/dogsimg/img2.jpg"
 import { useEffect } from 'react'
 import Wrapper from './Wrapper'
 import Contact from './Contact'
+import Razorpay from '../../components/Razorpay/Razorpay'
+import Donation from './Donation'
 
 const About = (props) => {
     // useEffect(() => {
@@ -47,6 +49,7 @@ const About = (props) => {
         </div>
 
         {/* Donation Area  */}
+        <Donation/>
 
         <Contact/>
         </Wrapper>

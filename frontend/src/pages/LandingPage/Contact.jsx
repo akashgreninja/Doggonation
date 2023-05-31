@@ -3,8 +3,6 @@ import React from 'react'
 const Contact = () => {
   return (
     <div className='mb-[100px]' id='contact'>
-        <h1 className='text-5xl font-bold mt-10 text-center'>Join</h1>
-
         <div className='h-[450px] md:h-[250px] border-2 mt-10 mx-[80px] rounded-lg '>
             <h2 className='p-4 text-2xl font-semibold'>Get in touch with us !</h2>
             <hr className='text-black mx-4 mb-4'/>
