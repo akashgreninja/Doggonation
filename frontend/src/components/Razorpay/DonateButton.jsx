@@ -1,9 +1,10 @@
 import React from 'react'
+import '../buttons/BlueButton.css'
 import './DonateButton.css'
-import '../buttons/button.css'
+
 const   DonateButton = (props) => {
   return (
-    <button id='btn-donate' class="button">
+    <button class="blue-button btn-donate">
     {props.children}
 </button>
   )

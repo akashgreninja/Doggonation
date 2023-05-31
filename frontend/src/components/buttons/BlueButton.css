@@ -1,4 +1,4 @@
-.button {
+.blue-button {
   --clr-font-main: hsla(0 0% 20% / 100);
   --btn-bg-1: #99D6EA;
   --btn-bg-2: #77c4de;
@@ -22,17 +22,17 @@
   box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5), 0px 5px 5px -1px rgba(58, 125, 233, 0.25), inset 4px 4px 8px rgba(175, 230, 255, 0.5), inset -4px -4px 8px rgba(19, 95, 216, 0.35);
 }
 
-.button:hover {
+.blue-button:hover {
   background-position: right top;
 }
 
-.button:is(:focus, :focus-within,:active) {
+.blue-button:is(:focus, :focus-within,:active) {
   outline: none;
   box-shadow: 0 0 0 3px var(--btn-bg-color), 0 0 0 6px var(--btn-bg-2);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .button {
+  .blue-button {
     transition: linear;
   }
 }

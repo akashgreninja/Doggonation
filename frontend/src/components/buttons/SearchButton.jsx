@@ -1,8 +1,9 @@
 import React from 'react'
-import './searchbutton.css'
+import './BlueButton.css'
+
 const SearchButton = () => {
   return (
-    <button class="btn-search">
+    <button className="blue-button mx-3">
     Search
 </button>
   )
