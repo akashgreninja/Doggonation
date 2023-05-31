@@ -2,6 +2,18 @@
 
 This documentation contains set of guidelines to help you during the contribution process.
 
+### Contributers! Please contribute only to the frontend
+### Adhere to the following colour palette
+#### People working on new themes may derive from these colours
+- Banana-0: `#FFFDF7`
+- Banana-50: #FDD85D
+- Banana-100: #FDC921
+- Ocean-50: #99D6EA
+- Ocean-100: #77c4de
+- Ocean-200: #6798C0
+
+##### *People using tailwind can also just use the name of the colour in classname
+
 # Submitting Contributions👨🏻‍💻
 Below you will find the process and workflow used to review and merge your changes.
 ## 1 : Choose an issue/ Create an issue
@@ -86,20 +98,6 @@ git push origin branch_name
 If no changes are needed, this means that your Pull Request has been reviewed and will be merged to the original code base by the maintainer.
 
 - Note : Always add screenshots to help the maintainer know what this enhancement/implementation is all about.
-
-
-<h1>Contributers! Please contribute only to the frontend</h1>
-<h3>Adhere to the following colour palette</h3>
-<small>People working on new themes may derive from these colours</small>
-<ul>
-  <li>Banana-0: #FFFDF7</li>
-  <li>Banana-50: #FDD85D</li>
-  <li>Banana-100: #FDC921</li>
-  <li>Ocean-50: #99D6EA</li>
-  <li>Ocean-100: #77c4de</li>
-  <li>Ocean-200: #6798C0</li>
-</ul>
-<small>*People using tailwind can also just use the name of the colour in classname</small>
 
 
 
