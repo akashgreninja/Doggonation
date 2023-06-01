@@ -20,6 +20,7 @@ This documentation contains set of guidelines to help you during the contributio
 ##### **People using tailwind can also just use the name of the colour in classname*
 
 - Try to reuse as much of the existing components as possible
+  - Use FA icons
   - Button css class for button styling
   - razorpay element for payment 
   - ask if you want the path of an existing element

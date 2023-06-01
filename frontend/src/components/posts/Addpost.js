@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import "./Addposts.css";
+import "../buttons/BlueButton.css"
 import ReactLoading from "react-loading";
 import React, { useState } from "react";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -170,7 +171,7 @@ const Addpost = (props) => {
           <div>
             <button
               onClick={handleOpen}
-              className="h-8 w-28 pl-3 bg-ocean-100 hover:bg-ocean-200 text-white"
+              className="blue-button"
             >
               Create Post
             </button>

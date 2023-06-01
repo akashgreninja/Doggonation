@@ -33,8 +33,10 @@ function App() {
               path="/"
               element={<PreLoaderPage shouldit={setsidebar} />}
             /> */}
+
             <Route path="/donation" element={<Landingpage Sidebarrender={setsidebar} />} />
             <Route path="/" element={<HomePage  Sidebarrender={setsidebar}/>} />
+
             <Route
               path="/SignUp"
               element={<RegisterPage Sidebarrender={setsidebar} />}
@@ -43,6 +45,7 @@ function App() {
               path="/About"
               element={<DonationPage Sidebarrender={setsidebar} />}
             />
+            <Route path="/donation" element={<About />} />
             <Route
               path="/Signin"
               element={<SignIn Sidebarrender={setsidebar} />}
