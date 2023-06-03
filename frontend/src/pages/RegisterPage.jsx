@@ -82,7 +82,7 @@ const RegisterPage = (props) => {
     }
   };
   return (
-    <div class="bg-main min-h-screen pl-11 flex justify-center items-center">
+    <div class="bg-[#FFFFE0] min-h-screen pl-11 flex justify-center items-center">
       {registered === true ? (
         <Stack sx={{ width: "100%" }} spacing={2}>
           <Alert severity="error">
@@ -176,7 +176,7 @@ const RegisterPage = (props) => {
 
             <div className="w-full flex justify-center items-center">
 
-              <button class="bg-[#2196f3] p-2 text-white hover:bg-blue-400 font-semibold text-center shadow-md" onClick={HandleClick}>
+              <button class="bg-banana-100 p-2 text-white font-semibold hover:bg-banana-50 text-center shadow-md" onClick={HandleClick}>
                 Sign Up
               </button>
 
@@ -185,7 +185,7 @@ const RegisterPage = (props) => {
           <div class="border-t-black border-t-2 flex p-2">
             <span>
               Already have an account ? SignIn <a
-                className="text-blue-500 hover:text-blue-400 hover:no-underline transition-all ease-in-out duration-500 font-semibold drop-shadow-lg"
+                className="text-banana-100 hover:text-banana-50 hover:no-underline transition-all ease-in-out duration-500 font-semibold cursor-pointer antialiased tracking-wide text-semibold"
                 href="/Signin">here</a>
             </span>
           </div>

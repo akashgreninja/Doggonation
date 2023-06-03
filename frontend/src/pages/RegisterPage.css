@@ -195,10 +195,3 @@
     opacity: 1;
   }
 }
-
-.bg-main {
-  --bg-1: #99D6EA;
-  --bg-2: #77c4de;
-  background: linear-gradient(325deg, var(--bg-2) 0%, var(--bg-1) 55%, var(--bg-2) 90%);
-  box-shadow: 0px 0px 20px rgba(71, 184, 255, 0.5), 0px 5px 5px -1px rgba(58, 125, 233, 0.25), inset 4px 4px 8px rgba(175, 230, 255, 0.5), inset -4px -4px 8px rgba(19, 95, 216, 0.35);
-}
