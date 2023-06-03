@@ -150,8 +150,7 @@ const Sidebar = () => {
             />
           </div>
           <span class="text-[15px] ml-4 text-black font-bold">
-            {" "}
-            <Link to={ `/profile/${profile[0]}`}>Profile</Link>
+            {profile!=null ? <Link to={ `/profile/${profile[0]}`}>Profile</Link> : null}
           </span>
         </div>
         <div
