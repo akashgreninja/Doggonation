@@ -19,7 +19,7 @@
 </div>
 <br/>
 
-<img src="https://firebasestorage.googleapis.com/v0/b/doggonation-612e8.appspot.com/o/helper%20folder%2Flogo-no-background.png?alt=media&token=25c940c0-1d8a-4d47-b117-426b73e9eff7"
+<img src="https://firebasestorage.googleapis.com/v0/b/doggonation-612e8.appspot.com/o/helper%20folder%2Flogo-no-background.png?alt=media&token=25c940c0-1d8a-4d47-b117-426b73e9eff7">
 
 
 
