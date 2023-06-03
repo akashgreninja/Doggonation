@@ -18,18 +18,23 @@ class Get:
         dict = {"message": "backend is online"}
         return dict
 
-    def explore(self,databases, databaseID,tagsCollectionID,postsCollectionID,userCollectionID):
-        check=(databases.list_documents(databaseID,tagsCollectionID))
-        result=(check['documents'])
-        
+    def explore(
+        self,
+        databases,
+        databaseID,
+        tagsCollectionID,
+        postsCollectionID,
+        userCollectionID,
+    ):
+        check = databases.list_documents(databaseID, tagsCollectionID)
+        result = check["documents"]
 
-        
         # result = cursor.fetchall()
         new = []
         for i in result:
-            new.append(i['tag'])
+            new.append(i["tag"])
         print(new)
-        
+
         text = " ".join(new)
         words = word_tokenize(text)
         fdist = FreqDist(words)
@@ -45,27 +50,38 @@ class Get:
         for i in returning_list:
             for j in range(len(new)):
                 if i == new[j]:
-                    final_postid.append(result[j]['post_id'])
+                    final_postid.append(result[j]["post_id"])
         explore_posts = []
         final_postid = set(final_postid)
         print(final_postid)
         # return jsonify("null")
         for i in final_postid:
-            result=databases.get_document(databaseID,postsCollectionID,i)
+            result = databases.get_document(databaseID, postsCollectionID, i)
             # cursor.execute(f"select * from `posts` where `post_id`={i}")
             # result = cursor.fetchone()
-            user_id = result['user_id']
+            user_id = result["user_id"]
             print(user_id)
-            user_res=databases.get_document(databaseID,userCollectionID,user_id)
-            # cursor.execute(
-                # f"select `name`,`profile_pic` from `user` where `user_id`='{user_id}'"
-            # )
-            user=[user_res['name'],user_res['profile_pic']]
+            user_res = databases.get_document(databaseID, userCollectionID, user_id)
+
+            user = [user_res["name"], user_res["profile_pic"]]
             result_fin = []
-            result_posts=[result['pic'],result['caption'],result['$id'],result['user_id'],result['liked'],result['location'],result['time'],result['reported'],result['likes'],result['comments'],user[0],user[1]]
+            result_posts = [
+                result["pic"],
+                result["caption"],
+                result["$id"],
+                result["user_id"],
+                result["liked"],
+                result["location"],
+                result["time"],
+                result["reported"],
+                result["likes"],
+                result["comments"],
+                user[0],
+                user[1],
+            ]
             print(result)
             if result_posts:
-                result_fin += [ result_posts  ]
+                result_fin += [result_posts]
             else:
                 continue
 
@@ -73,14 +89,16 @@ class Get:
             explore_posts.append(result_fin)
         return jsonify(explore_posts)
 
-    # def get_user(self, data, mycursor, mydb):
-    #     id = data["id"]
-    #     query = f"SELECT * FROM user WHERE user_id='{id}'"
-    #     mycursor.execute(query)
-    #     # mycursor.close()
-    #     console = mycursor.fetchone()
-    #     print(console)
-    #     return jsonify(console)
+    def get_user(    self, data, databases, databaseID, userCollectionID):
+        id = data["id"]
+        print(id)
+        query = [Query.equal("$id", id)]
+        result = databases.list_documents(databaseID, userCollectionID, queries=query)
+        
+  
+        
+        
+        return jsonify(result)
 
     # def followers(self, data, cursor):
     #     # route is /getfollowers
@@ -115,7 +133,7 @@ class Get:
     #     else:
     #         return jsonify(0)
 
-    def getallposts(self, user_id,databases, databaseID,postsCollectionID):
+    def getallposts(self, user_id, databases, databaseID, postsCollectionID):
         pass
 
         # cursor.execute(f"select `following` from `follow` where `follower`='{user_id}'")
@@ -136,32 +154,34 @@ class Get:
         #             final_res += [[result_post + user_result]]
         #         else:
         #             continue
-            # if result == []:
-            #     # return self.explore(cursor)
+        # if result == []:
+        #     # return self.explore(cursor)
 
-            # else:
-            # return jsonify(final_res)
-            
+        # else:
+        # return jsonify(final_res)
 
         # else:
         #     return self.explore(cursor)
 
-    # def getcomments(self, cursor, post_id):
-    #     query = f"SELECT * FROM `comments` WHERE post_id={post_id} ORDER BY  `comments`.`comment_id` DESC"
-    #     cursor.execute(query)
-    #     result = cursor.fetchall()
-    #     if result:
-    #         return jsonify(result)
-    #     else:
-    #         return Response("no comments", status=201, mimetype="application/json")
+    def getcomments(self, data,databases, databaseID,commentCollectionID):
+        # query = f"SELECT * FROM `comments` WHERE post_id={post_id} ORDER BY  `comments`.`comment_id` DESC"
+        qurty=[Query.equal("post_id",data["post_id"]),Query.orderDesc("comment_id")]
+        result=databases.list_documents(databaseID, commentCollectionID, queries=qurty)
+    
+        if result:
+            return jsonify(result)
+        else:
+            return Response("no comments", status=201, mimetype="application/json")
 
-    # def gettags(self, cursor, post_id):
-    #     cursor.execute(f"select * from `tags` where `post_id`='{post_id}'")
-    #     result = cursor.fetchall()
-    #     if result:
-    #         return jsonify(result)
-    #     else:
-    #         return Response("no tags", status=201, mimetype="application/json")
+    def gettags(databases, databaseID,tagsCollectionID, post_id):
+      
+        queries=[Query.equal("post_id",post_id)]
+        result=databases.list_documents(databaseID, tagsCollectionID,query=queries)
+     
+        if result:
+            return jsonify(result)
+        else:
+            return Response("no tags", status=201, mimetype="application/json")
 
     # def followers_list(self, data, cursor, user_id):
     #     user_id = data["user_id"]

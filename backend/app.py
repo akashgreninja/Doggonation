@@ -17,13 +17,7 @@ from datetime import datetime
 
 
 from flask_cors import CORS
-from flask_login import (
-    LoginManager,
-    login_required,
-    current_user,
-    logout_user,
-    login_user,
-)
+
 
 # import pyodbc   this was the azure connection
 import base64
@@ -34,7 +28,7 @@ import json
 # all internal modules here
 from getrequests import Get
 from postrequests import Post
-
+from appwrite.services.locale import Locale
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "13342"
@@ -59,6 +53,7 @@ razorpayCollectionID = os.getenv("RAZORPAY_COLLECTION_ID")
 postsCollectionID = os.getenv("POSTS_COLLECTION_ID")
 tagsCollectionID = os.getenv("TAGS_COLLECTION_ID")
 followCollectionID = os.getenv("FOLLOW_COLLECTION_ID")
+commentCollectionID = os.getenv("COMMENTS_COLLECTION_ID")
 get_requests = Get()
 post_requests = Post()
 
@@ -73,7 +68,11 @@ client = (
     .set_key(f"{apikey}")
 )
 databases = Databases(client)
-# data={
+# locale = Locale(client)
+
+# result = locale.list_countries()
+# print(result)
+# # data={
 #     "email":"akashuhulekal@gmail.com",
 #     "password":"1234567890",
 #     "user_id":12
@@ -94,11 +93,11 @@ def route_path():
     return post_requests.startup()
 
 
-# @app.route("/gettags", methods=["POST"])
-# def get_tags():
-#     data = request.json
-#     post_id = data["post_id"]
-#     return get_requests.gettags(mycursor, post_id)
+@app.route("/gettags", methods=["POST"])
+def get_tags():
+    data = request.json
+    post_id = data["post_id"]
+    return get_requests.gettags(databases, databaseID,tagsCollectionID, post_id)
 
 
 @app.route("/explore", methods=["POST"])
@@ -106,11 +105,11 @@ def explore():
     return get_requests.explore(databases, databaseID,tagsCollectionID,postsCollectionID,userCollectionID)
 
 
-# @app.route("/getcomment", methods=["POST"])
-# def get_comments():
-#     data = request.json
-#     post_id = data["post_id"]
-#     return get_requests.getcomments(mycursor, post_id)
+@app.route("/getcomment", methods=["POST"])
+def get_comments():
+    data = request.json
+    post_id = data["post_id"]
+    return get_requests.getcomments(data,databases, databaseID,commentCollectionID)
 
 
 @app.route("/getallposts", methods=["POST"])
@@ -173,17 +172,17 @@ def register():
 #     return post_requests.profile(data, mycursor, mydb)
 
 
-# @app.route("/login", methods=["GET", "POST"])
-# def login():
-#     data = request.json
-#     return post_requests.login(data, mycursor)
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    data = request.json
+    return post_requests.login(data, databases, databaseID, userCollectionID)
 
 
-# @app.route("/getuser", methods=["GET", "POST"])
-# def getuser():
-#     data = request.json
+@app.route("/getuser", methods=["GET", "POST"])
+def getuser():
+    data = request.json
 
-#     return get_requests.get_user(data, mycursor, mydb)
+    return get_requests.get_user(data, databases, databaseID, userCollectionID)
 
 
 @app.route("/follow", methods=["GET", "POST"])
@@ -256,11 +255,11 @@ def search():
 # #     return data
 
 
-# @app.route("/comment", methods=["POST", "GET"])
-# def pushcomment():
-#     data = request.json
+@app.route("/comment", methods=["POST", "GET"])
+def pushcomment():
+    data = request.json
 
-#     return post_requests.addcomment(data, mycursor, mydb)
+    return post_requests.addcomment(data, postsCollectionID,databases,databaseID)
 
 
 # @app.route("/likecomment", methods=["POST", "GET"])
