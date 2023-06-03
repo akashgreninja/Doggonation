@@ -12,13 +12,7 @@ from datetime import datetime
 
 
 from flask_cors import CORS
-from flask_login import (
-    LoginManager,
-    login_required,
-    current_user,
-    logout_user,
-    login_user,
-)
+
 
 # import pyodbc   this was the azure connection
 import base64
@@ -48,8 +42,7 @@ location = os.getenv("LOCATION")
 
 get_requests = Get()
 post_requests = Post()
-login_manager = LoginManager()
-login_manager.init_app(app)
+
 
 app.app_context().push()
 
@@ -110,6 +103,7 @@ def getall():
     data = request.json
     user_id = data["user_id"]
     return get_requests.getallposts(mycursor, user_id)
+
 
 @app.route("/getuserposts", methods=["POST"])
 def getuserposts():
@@ -199,13 +193,17 @@ def unfollow():
 @app.route("/getfollowers", methods=["GET", "POST"])
 def follower():
     data = request.json
-    return get_requests.followers(data, mycursor)
+    return post_requests.followers(data, mycursor)
 
 
 @app.route("/getfollowing", methods=["GET", "POST"])
 def following():
     data = request.json
-    return get_requests.following(data, mycursor)
+    return post_requests.following(data, mycursor)
+@app.route("/notfollowing", methods=["GET", "POST"])
+def notfollowing():
+    data = request.json
+    return post_requests.notfollowing(data, mycursor)
 
 
 @app.route("/search", methods=["POST"], strict_slashes=False)
@@ -376,7 +374,7 @@ def handle_message(data):
     room_id = data["room_id"]
     sender_id = data["sender_id"]
     text = data["data"]
-    print('room_id', room_id)
+    print("room_id", room_id)
     # newdict = f"{data['sender_id']:data['data']}"
     mycursor.execute(f"select * from `chats` where `msg_id`='{room_id}' ")
     result = mycursor.fetchone()
@@ -388,31 +386,28 @@ def handle_message(data):
     if result:
         # try:
 
-            existing_list = ast.literal_eval(str(result[3]))
+        existing_list = ast.literal_eval(str(result[3]))
+        print(existing_list)
+        if True:
+            new_element = {
+                "sender": sender_id,
+                "message": text,
+                "time": timestamp,
+            }
+            print(new_element)
+            existing_list.append(new_element)
             print(existing_list)
-            if True:
-                new_element = {
-                    "sender": sender_id,
-                    "message": text,
-                    "time": timestamp,
-                }
-                print(new_element)
-                existing_list.append(new_element)
-                print(existing_list)
-                updated_list_str = existing_list
-                mycursor.execute(
-                    f'UPDATE `chats` SET `text` = "{updated_list_str}" WHERE `chats`.`msg_id` = "{room_id}";'
-                )
-                mydb.commit()
-                socketio.emit(
-                    "messagerec", {"data": data["data"], "sender_id": data["sender_id"]}
-                )
+            updated_list_str = existing_list
+            mycursor.execute(
+                f'UPDATE `chats` SET `text` = "{updated_list_str}" WHERE `chats`.`msg_id` = "{room_id}";'
+            )
+            mydb.commit()
+            socketio.emit(
+                "messagerec", {"data": data["data"], "sender_id": data["sender_id"]}
+            )
 
-            
-                
-        # except :
-        #     print("sdsd")
-            
+    # except :
+    #     print("sdsd")
 
     # else:
     #     result=json.dumps(newdict)

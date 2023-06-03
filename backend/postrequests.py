@@ -3,17 +3,11 @@ import time
 import datetime
 from flask import Flask, jsonify, abort, request, send_file
 from flask import Flask, jsonify, abort, request, send_file, Response
-from flask_login import (
-    LoginManager,
-    login_required,
-    current_user,
-    logout_user,
-    login_user,
-)
+import math 
 import razorpay
 from fiftyonemodel import identifydog
 import requests, os, uuid, json
-
+import random
 
 class Post:
     def __init__(self):
@@ -26,7 +20,6 @@ class Post:
         result = identifydog.run_check(imageurl=image)
 
         if result != None:
-        
             pic = data["pic_url"]
             location = data["location"]
             caption = data["caption"]
@@ -40,11 +33,11 @@ class Post:
             post_id = cursor.fetchone()[0]
             print(tags)
             for i in tags:
-                cursor.execute(f"INSERT INTO `tags` (`tag`, `post_id`) VALUES  ('{i}', '{post_id}')"
+                cursor.execute(
+                    f"INSERT INTO `tags` (`tag`, `post_id`) VALUES  ('{i}', '{post_id}')"
                 )
             db.commit()
-        
-        
+
             return jsonify("post added succesfully")
         else:
             return Response("no dogs found", status=201, mimetype="application/json")
@@ -81,9 +74,11 @@ class Post:
     # like and unlike
     def like(self, post_id, cursor, db):
         cursor.execute(f"select `likes` from `posts` where `post_id`='{post_id}'")
-        likes=cursor.fetchone()[0]
-        likes+=1
-        cursor.execute(f"UPDATE `posts` SET `likes` = '{likes}' WHERE `posts`.`post_id` = '{post_id}';")
+        likes = cursor.fetchone()[0]
+        likes += 1
+        cursor.execute(
+            f"UPDATE `posts` SET `likes` = '{likes}' WHERE `posts`.`post_id` = '{post_id}';"
+        )
         cursor.execute(
             f"UPDATE `posts` SET `liked` = '1' WHERE `posts`.`post_id` = {post_id}"
         )
@@ -92,9 +87,11 @@ class Post:
 
     def rmlike(self, post_id, cursor, db):
         cursor.execute(f"select `likes` from `posts` where `post_id`='{post_id}'")
-        likes=cursor.fetchone()[0]
-        likes-=1
-        cursor.execute(f"UPDATE `posts` SET `comments` = '{likes}' WHERE `posts`.`post_id` = '{post_id}';")
+        likes = cursor.fetchone()[0]
+        likes -= 1
+        cursor.execute(
+            f"UPDATE `posts` SET `comments` = '{likes}' WHERE `posts`.`post_id` = '{post_id}';"
+        )
         cursor.execute(
             f"UPDATE `posts` SET `liked` = '0' WHERE `posts`.`post_id` = {post_id}"
         )
@@ -183,9 +180,11 @@ class Post:
         user_id = data["user_id"]
         post_id = data["post_id"]
         cursor.execute(f"select `comments` from `posts` where `post_id`='{post_id}'")
-        comments=cursor.fetchone()[0]
-        comments+=1
-        cursor.execute(f"UPDATE `posts` SET `comments` = '{comments}' WHERE `posts`.`post_id` = '{post_id}';")
+        comments = cursor.fetchone()[0]
+        comments += 1
+        cursor.execute(
+            f"UPDATE `posts` SET `comments` = '{comments}' WHERE `posts`.`post_id` = '{post_id}';"
+        )
         query = f"INSERT INTO comments  (`comment_id`, `post_id`, `user_id`, `comment`, `liked`) VALUES (NULL, '{post_id}', '{user_id}', '{comment}',0)"
         cursor.execute(query)
         mydb.commit()
@@ -212,10 +211,12 @@ class Post:
 
     def report(self, data, cursor, db):
         reason = data["reason"]["reason"]
-        
+
         post_id = data["post_id"]["post_id"]
-        print(reason,post_id)
-        cursor.execute(f"insert into `report` (`reason`,`post_id`) values ('{reason}','{post_id}')")
+        print(reason, post_id)
+        cursor.execute(
+            f"insert into `report` (`reason`,`post_id`) values ('{reason}','{post_id}')"
+        )
         cursor.execute(f"select `reported` from `posts` where `post_id`='{post_id}'")
         reported = cursor.fetchone()[0]
         reported += 1
@@ -226,7 +227,9 @@ class Post:
     def follow(self, data, cursor, db):
         user_id = data["user_id"]
         followed_id = data["followed_id"]
-        cursor.execute(f"select * from follow where `follower`={user_id}")
+        cursor.execute(
+            f"select * from follow where `follower`={user_id} and `following`='{followed_id}'"
+        )
         result = cursor.fetchall()
         if result:
             return jsonify("already following")
@@ -235,6 +238,83 @@ class Post:
         )
         db.commit()
         return jsonify("done")
+
+    def followers(self, data, cursor):
+        # route is /getfollowers
+
+        try:
+            user_id = data["user_id"]
+            onlynumber = data["onlynumber"]
+            if onlynumber:
+                query = f"select count(*) from follow where following={user_id}"
+                cursor.execute(query)
+                result = cursor.fetchone()
+                print(result)
+                return jsonify(result[0])
+        except:
+            user_id = data["user_id"]
+            cursor.execute(f"select follower from follow where following={user_id}")
+
+            followers = cursor.fetchall()
+
+            new = []
+            if followers != []:
+                for i in followers:
+                    cursor.execute(f"select * from user where user_id={i[0]}")
+                    result = cursor.fetchone()
+                    new.append(result)
+
+                return jsonify(new)
+            else:
+                return jsonify(0)
+
+    def following(self, data, cursor):
+        try:
+            user_id = data["user_id"]
+            onlynumber = data["onlynumber"]
+            if onlynumber:
+                query = f"select count(*) from follow where follower={user_id}"
+                cursor.execute(query)
+
+                result = cursor.fetchone()
+
+                print(result)
+                return jsonify(result[0])
+
+        except:
+            user_id = data["user_id"]
+            cursor.execute(f"select following from follow where follower={user_id}")
+
+            following = cursor.fetchall()
+
+            new = []
+            if following != []:
+                for i in following:
+                    cursor.execute(f"select * from user where user_id={i[0]}")
+                    result = cursor.fetchone()
+                    new.append(result)
+
+                return jsonify(new)
+            else:
+                return jsonify(0)
+
+    def notfollowing(self, data, cursor):
+        user_id = data["user_id"]
+        cursor.execute(
+            f"select following from follow where follower <> {user_id} AND following <> {user_id} LIMIT 5"
+        )
+        following = cursor.fetchall()
+        print(following)
+        new = []
+        if following != []:
+            for i in following:
+                cursor.execute(f"select * from user where user_id={i[0]}")
+                result = cursor.fetchone()
+                new.append(result)
+
+            return jsonify(random.shuffle(new))
+        else:
+            return jsonify(0)
 
     def unfollow(self, data, cursor, db):
         follower = data["user_id"]
@@ -292,27 +372,28 @@ class Post:
 
     def translatefn(self, key, endpoint, location, data):
         text = data["text"]
-        target_language = 'en'
-        path = '/translate?api-version=3.0'
-        target_language_parameter = '&to=' + target_language
+        target_language = "en"
+        path = "/translate?api-version=3.0"
+        target_language_parameter = "&to=" + target_language
         constructed_url = endpoint + path + target_language_parameter
         headers = {
-        'Ocp-Apim-Subscription-Key': key,
-        'Ocp-Apim-Subscription-Region': location,
-        'Content-type': 'application/json',
-        'X-ClientTraceId': str(uuid.uuid4())
-    }
-        body = [{ 'text': text }]
+            "Ocp-Apim-Subscription-Key": key,
+            "Ocp-Apim-Subscription-Region": location,
+            "Content-type": "application/json",
+            "X-ClientTraceId": str(uuid.uuid4()),
+        }
+        body = [{"text": text}]
         translator_request = requests.post(constructed_url, headers=headers, json=body)
         translator_response = translator_request.json()
-        translated_text = translator_response[0]['translations'][0]['text']
+        translated_text = translator_response[0]["translations"][0]["text"]
         print(translated_text)
         return jsonify({"message": translated_text})
-    
-    def msgfn(self,data,cursor):
-        room=data['room']
+
+    def msgfn(self, data, cursor):
+        room = data["room"]
         print(room)
-        cursor.execute(f"select `text` from `chats` where `msg_id`='7'")
-        result=cursor.fetchall()
+        cursor.execute(f"select `text` from `chats` where `msg_id`='{room}'")
+        result = cursor.fetchall()
         print(result)
+        print("dsdssd")
         return jsonify(result)

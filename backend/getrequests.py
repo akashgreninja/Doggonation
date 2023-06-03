@@ -19,10 +19,10 @@ class Get:
 
     def explore(self, cursor):
         cursor.execute(f"select * from `tags`")
-        result = cursor.fetchall()
-        new = []
-        for i in result:
-            new.append(i[0])
+
+        result=cursor.fetchall()
+        
+        new=[i[0] for i in result]
 
         text = " ".join(new)
         words = word_tokenize(text)
@@ -69,62 +69,11 @@ class Get:
         print(console)
         return jsonify(console)
 
-    def followers(self, data, cursor):
-        # route is /getfollowers
-
-        try:
-            user_id = data["user_id"]
-            onlynumber = data["onlynumber"]
-            if onlynumber:
-                query = f"select count(*) from follow where following={user_id}"
-                cursor.execute(query)
-                result = cursor.fetchone()
-                print(result)
-                return jsonify(result[0])
-        except:
-            user_id = data["user_id"]
-            cursor.execute(f"select follower from follow where following={user_id}")
-            followers = cursor.fetchall()
-
-            new = []
-            if followers != []:
-                for i in followers:
-                    cursor.execute(f"select * from user where user_id={i[0]}")
-                    result = cursor.fetchone()
-                    new.append(result)
-
-                return jsonify(new)
-            else:
-                return jsonify(0)
-
-    def following(self, data, cursor):
-        try:
-            user_id = data["user_id"]
-            onlynumber = data["onlynumber"]
-            if onlynumber:
-                query = f"select count(*) from follow where follower={user_id}"
-                cursor.execute(query)
-                result = cursor.fetchone()
-                print(result)
-                return jsonify(result[0])
-
-        except:
-            user_id = data["user_id"]
-            cursor.execute(f"select following from follow where follower={user_id}")
-            following = cursor.fetchall()
-            new = []
-            if following != []:
-                for i in following:
-                    cursor.execute(f"select * from user where user_id={i[0]}")
-                    result = cursor.fetchone()
-                    new.append(result)
-
-                return jsonify(new)
-            else:
-                return jsonify(0)
+    
 
     def getallposts(self, cursor, user_id):
         cursor.execute(f"select `following` from `follow` where `follower`='{user_id}'")
+     
         result = cursor.fetchall()
         print(result)
         final_res = []
@@ -155,11 +104,13 @@ class Get:
         # route is /getuserposts
         query = f"SELECT * FROM `posts` where `user_id`='{user_id}' ORDER BY `posts`.`post_id` DESC"
         cursor.execute(query)
+       
         result = cursor.fetchall()
+       
         if result:
             return jsonify(result)
         else:
-            return Response("no posts", status=201, mimetype="application/json")
+            return jsonify({"sucess":False})
 
     def getcomments(self, cursor, post_id):
         query = f"SELECT * FROM `comments` WHERE post_id={post_id} ORDER BY  `comments`.`comment_id` DESC"
@@ -178,21 +129,21 @@ class Get:
         else:
             return Response("no tags", status=201, mimetype="application/json")
 
-    def followers_list(self, data, cursor, user_id):
-        user_id = data["user_id"]
-        query = f"SELECT * FROM user JOIN follow ON user.user_id = follow.sl WHERE follow.sl IN (SELECT sl FROM follow WHERE user_id = {user_id}) AND follow.sl IN (SELECT user_id FROM user)"
-        cursor.execute(query)
-        result = cursor.fetchall()
-        print(len(result))
-        return jsonify(result[:-1])
+    # def followers_list(self, data, cursor, user_id):
+    #     user_id = data["user_id"]
+    #     query = f"SELECT * FROM user JOIN follow ON user.user_id = follow.sl WHERE follow.sl IN (SELECT sl FROM follow WHERE user_id = {user_id}) AND follow.sl IN (SELECT user_id FROM user)"
+    #     cursor.execute(query)
+    #     result = cursor.fetchall()
+    #     print(len(result))
+    #     return jsonify(result[:-1])
 
-    def following_list(self, data, cursor, user_id):
-        user_id = data["user_id"]
-        query = f"SELECT * FROM user JOIN followers ON followers.user_id = user.user_id WHERE followers.user_id IN (SELECT user_id FROM followe` WHERE follower_id = {user_id}) AND followers.follower_id IN (SELECT user_id FROM user)"
-        cursor.execute(query)
-        result = cursor.fetchall()
-        print(len(result))
-        return jsonify(result[:-1])
+    # def following_list(self, data, cursor, user_id):
+    #     user_id = data["user_id"]
+    #     query = f"SELECT * FROM user JOIN followers ON followers.user_id = user.user_id WHERE followers.user_id IN (SELECT user_id FROM followe` WHERE follower_id = {user_id}) AND followers.follower_id IN (SELECT user_id FROM user)"
+    #     cursor.execute(query)
+    #     result = cursor.fetchall()
+    #     print(len(result))
+    #     return jsonify(result[:-1])
 
     def search(self, data, cursor):
         keywords = data["keywords"]
@@ -216,3 +167,4 @@ class Get:
     def getRazorpayKey(self):
         key = {"key": "rzp_test_v0GwBrDGUuFtEq"}
         return jsonify(key)
+

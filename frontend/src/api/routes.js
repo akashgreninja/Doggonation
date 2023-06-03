@@ -10,6 +10,9 @@ export const GET_USER_DETAILS='/getuser'
 export const GET_FOLLOWING='/getfollowing'
 export const GET_FOLLOWERS='/getfollowers'
 export const FOLLOW_USER='/follow'
+export const UNFOLLOW_USER='/unfollow'
+export const NOT_FOLLOWING='/notfollowing'
+
 
 //Signup Api
 export const SIGNUP_URL='/register'

@@ -4,12 +4,14 @@ import TextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import "./Addposts.css";
+import "../buttons/BlueButton.css"
 import ReactLoading from "react-loading";
 import React, { useState } from "react";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { add_post } from "../../api/addpost";
 
 const Addpost = (props) => {
+  let {posts,setposts,load}=props
   const style = {
     position: "absolute",
     top: "50%",
@@ -21,6 +23,7 @@ const Addpost = (props) => {
     p: 4,
     borderRadius: 0.5,
   };
+
   const user_id = localStorage.getItem('token')
   const [loading, setloading] = useState(false);
   const [laodingtext, setlaodingtext] = useState("Post");
@@ -120,12 +123,14 @@ const Addpost = (props) => {
 
     if (data.status === 200) {
       setlaodingtext("upload successfull");
+      
       handleClose();
     } else {
       //add alert
       setloading(false);
       setlaodingtext("Retry");
-      
+      // window.location.reload();
+      load()
       setwarning(
         "upload unsuccessfull..sorry we didnt find any dogs in this picture retry to upload anyway"
       );
@@ -166,7 +171,7 @@ const Addpost = (props) => {
           <div>
             <button
               onClick={handleOpen}
-              className="h-8 w-28 pl-3 bg-ocean-100 hover:bg-ocean-200 text-white"
+              className="blue-button"
             >
               Create Post
             </button>

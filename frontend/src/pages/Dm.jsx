@@ -5,7 +5,7 @@ import { msg } from "../api/msg";
 import { useSelector } from "react-redux";
 
 import { GET_FOLLOWING } from "../api/routes";
-import { Getallfollowersforuser } from "../api/getallfollowers";
+import {GetNumberOfFollowersForUser } from "../api/getallfollowers";
 import ChatPage from "./ChatPage";
 
 const socket = io("http://localhost:3003");
@@ -18,16 +18,12 @@ const Dm = (props) => {
 
   const [roomid, setroomid] = useState(null);
   const [allusers, Setallusers] = useState([]);
+  const [recieverid, setrecieverid] = useState(0)
 
   useEffect(() => {
     props.Sidebarrender(true);
-    GetAllfollowers();
-    socket.emit("connectuser", { sender_id: user, reciever_id: 56 });
-    // loadmsgs();
+
   }, []);
-  socket.on("connection", (message) => {
-    setroomid(message["data"]);
-  });
 
   // const loadmsgs = async () => {
   //   const {data} = await msg(roomid);
@@ -45,18 +41,19 @@ const Dm = (props) => {
     // console.log(message);
   });
   const GetAllfollowers = async () => {
-    const { data } = await Getallfollowersforuser(user);
+    const { data } = await GetNumberOfFollowersForUser(user);
     console.log(data);
     Setallusers(data);
   };
 
   const sendMessage = () => {
     let msg = document.getElementById("textinput");
+    console.log(roomid);
     socket.emit("message", {
       data: msg.value,
       room_id: roomid,
       sender_id: user,
-      reciever_id: 56,
+      reciever_id: recieverid,
     });
     msg.value = "";
   };
@@ -71,7 +68,7 @@ const Dm = (props) => {
     //   <button onClick={sendMessage}>Send Message</button>
     // </div>
     <div className="ml-chatmargin pt-chatpaddingtop max-h-10 ">
-      <ChatPage sendMessage={sendMessage} RoomId={roomid} livemessages={messages} />
+      <ChatPage sendMessage={sendMessage} RoomId={setroomid} livemessages={messages} reciever_id={setrecieverid} />
     </div>
   );
 };

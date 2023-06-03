@@ -6,8 +6,12 @@ import { startsearch } from "../../../api/search";
 import { FaUserCircle } from "react-icons/fa";
 import { FiCompass } from "react-icons/fi";
 import { FaEnvelope } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
+  const profile = useSelector((state) => state.UserId.Userinfo);
+  console.log(profile);
+
   const navigate = useNavigate();
 
   const HandleLogout = () => {
@@ -60,6 +64,13 @@ const Sidebar = () => {
     // }
   };
 
+  const handlehome = () => {
+    navigate("/");
+  };
+  const handleabout = () => {
+    navigate("/donation");
+  };
+
   return (
     <div
       className="flex fixed  flex-row  h-10 "
@@ -85,43 +96,66 @@ const Sidebar = () => {
           </li>
         </ul>
 </div> */}
-        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-banana-50 text-black">
-          <i class="bi bi-house-door-fill"></i>
-          <span class="text-[15px] ml-4 text-black font-bold">Home</span>
-        </div>
-        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-banana-50 text-black">
-          <i class="bi bi-bookmark-fill"></i>
-          <span class="text-[15px] ml-4 text-black font-bold">Bookmark</span>
-        </div>
-        <div class="my-4 bg-gray-600 h-[1px]"></div>
-        <div
-          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-banana-50 text-black"
-          onClick={dropdown}
-        >
-          <i class="bi bi-chat-left-text-fill"></i>
-          <div class="flex justify-between w-full items-center">
-            <span class="text-[15px] ml-4 text-black font-bold">Chatbox</span>
-            <span class="text-sm rotate-180" id="arrow">
-              <i class="bi bi-chevron-down"></i>
+        <Link to="/">
+          <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200 text-black">
+            <i class="bi bi-house-door-fill"></i>
+            <span class="text-[15px] ml-4 text-black font-bold">Home</span>
+          </div>
+        </Link>
+        <Link to="/explore">
+          <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200  text-black">
+            <i class="bi bi-bookmark-fill"></i>
+            <span class="text-[15px] ml-4 text-black font-bold">
+              Discover
             </span>
           </div>
+        </Link>
+        <Link to="/dm">
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200 text-black">
+          <i class="bi bi-chat-left-dots-fill"></i>
+          <span class="text-[15px] ml-4 text-black font-bold">
+            {" "}
+            Messages
+          </span>
+        </div>
+        </Link>
+        <Link to="/donation">
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200 text-black">
+          <i class="bi bi-cash"></i>
+          <span class="text-[15px] ml-4 text-black font-bold">
+            {" "}
+            Donate
+          </span>
+        </div>
+        </Link>
+<Link to="/About">
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200  text-black">
+          <i class="bi bi-chat-left-dots-fill"></i>
+          <span class="text-[15px] ml-4 text-black font-bold">
+            {" "}
+            <Link to="/About">About </Link>
+          </span>
+        </div>
+        </Link>
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-profilepadding duration-300 cursor-pointer hover:bg-gray-200 text-black">
+          <div class="h-8 w-8 rounded-full overflow-hidden pl-0 ml-0">
+            <img
+              src={
+                profile
+                  ? profile[6]
+                  : "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
+              }
+              alt="Avatar"
+              class="object-cover h-full w-full"
+            />
+          </div>
+          <span class="text-[15px] ml-4 text-black font-bold">
+            {" "}
+            <Link to={ `/profile/${profile[0]}`}>Profile</Link>
+          </span>
         </div>
         <div
-          class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
-          id="submenu"
-        >
-          <h1 class="cursor-pointer p-2 hover:bg-banana-50 rounded-md mt-1">
-            Social
-          </h1>
-          <h1 class="cursor-pointer p-2 hover:bg-banana-50 rounded-md mt-1">
-            Personal
-          </h1>
-          <h1 class="cursor-pointer p-2 hover:bg-banana-50 rounded-md mt-1">
-            Friends
-          </h1>
-        </div>
-        <div
-          class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-banana-50 text-black"
+          class="p-2.5 mt-bottommargin flex items-center rounded-md px-3.5 duration-300 cursor-pointer hover:bg-gray-200 text-black"
           onClick={HandleLogout}
         >
           <i class="bi bi-box-arrow-in-right"></i>
