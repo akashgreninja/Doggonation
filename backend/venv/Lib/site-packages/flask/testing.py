@@ -1,17 +1,18 @@
+from __future__ import annotations
+
 import typing as t
 from contextlib import contextmanager
 from contextlib import ExitStack
 from copy import copy
 from types import TracebackType
+from urllib.parse import urlsplit
 
 import werkzeug.test
 from click.testing import CliRunner
 from werkzeug.test import Client
-from werkzeug.urls import url_parse
 from werkzeug.wrappers import Request as BaseRequest
 
 from .cli import ScriptInfo
-from .globals import _cv_request
 from .sessions import SessionMixin
 
 if t.TYPE_CHECKING:  # pragma: no cover
@@ -44,11 +45,11 @@ class EnvironBuilder(werkzeug.test.EnvironBuilder):
 
     def __init__(
         self,
-        app: "Flask",
+        app: Flask,
         path: str = "/",
-        base_url: t.Optional[str] = None,
-        subdomain: t.Optional[str] = None,
-        url_scheme: t.Optional[str] = None,
+        base_url: str | None = None,
+        subdomain: str | None = None,
+        url_scheme: str | None = None,
         *args: t.Any,
         **kwargs: t.Any,
     ) -> None:
@@ -68,7 +69,7 @@ class EnvironBuilder(werkzeug.test.EnvironBuilder):
             if url_scheme is None:
                 url_scheme = app.config["PREFERRED_URL_SCHEME"]
 
-            url = url_parse(path)
+            url = urlsplit(path)
             base_url = (
                 f"{url.scheme or url_scheme}://{url.netloc or http_host}"
                 f"/{app_root.lstrip('/')}"
@@ -105,12 +106,12 @@ class FlaskClient(Client):
     Basic usage is outlined in the :doc:`/testing` chapter.
     """
 
-    application: "Flask"
+    application: Flask
 
     def __init__(self, *args: t.Any, **kwargs: t.Any) -> None:
         super().__init__(*args, **kwargs)
         self.preserve_context = False
-        self._new_contexts: t.List[t.ContextManager[t.Any]] = []
+        self._new_contexts: list[t.ContextManager[t.Any]] = []
         self._context_stack = ExitStack()
         self.environ_base = {
             "REMOTE_ADDR": "127.0.0.1",
@@ -137,40 +138,35 @@ class FlaskClient(Client):
         :meth:`~flask.Flask.test_request_context` which are directly
         passed through.
         """
-        if self.cookie_jar is None:
-            raise RuntimeError(
-                "Session transactions only make sense with cookies enabled."
+        if self._cookies is None:
+            raise TypeError(
+                "Cookies are disabled. Create a client with 'use_cookies=True'."
             )
+
         app = self.application
-        environ_overrides = kwargs.setdefault("environ_overrides", {})
-        self.cookie_jar.inject_wsgi(environ_overrides)
-        outer_reqctx = _cv_request.get(None)
-        with app.test_request_context(*args, **kwargs) as c:
-            session_interface = app.session_interface
-            sess = session_interface.open_session(app, c.request)
-            if sess is None:
-                raise RuntimeError(
-                    "Session backend did not open a session. Check the configuration"
-                )
+        ctx = app.test_request_context(*args, **kwargs)
+        self._add_cookies_to_wsgi(ctx.request.environ)
 
-            # Since we have to open a new request context for the session
-            # handling we want to make sure that we hide out own context
-            # from the caller.  By pushing the original request context
-            # (or None) on top of this and popping it we get exactly that
-            # behavior.  It's important to not use the push and pop
-            # methods of the actual request context object since that would
-            # mean that cleanup handlers are called
-            token = _cv_request.set(outer_reqctx)  # type: ignore[arg-type]
-            try:
-                yield sess
-            finally:
-                _cv_request.reset(token)
+        with ctx:
+            sess = app.session_interface.open_session(app, ctx.request)
 
-            resp = app.response_class()
-            if not session_interface.is_null_session(sess):
-                session_interface.save_session(app, sess, resp)
-            headers = resp.get_wsgi_headers(c.request.environ)
-            self.cookie_jar.extract_wsgi(c.request.environ, headers)
+        if sess is None:
+            raise RuntimeError("Session backend did not open a session.")
+
+        yield sess
+        resp = app.response_class()
+
+        if app.session_interface.is_null_session(sess):
+            return
+
+        with ctx:
+            app.session_interface.save_session(app, sess, resp)
+
+        self._update_cookies_from_response(
+            ctx.request.host.partition(":")[0],
+            ctx.request.path,
+            resp.headers.getlist("Set-Cookie"),
+        )
 
     def _copy_environ(self, other):
         out = {**self.environ_base, **other}
@@ -195,7 +191,7 @@ class FlaskClient(Client):
         buffered: bool = False,
         follow_redirects: bool = False,
         **kwargs: t.Any,
-    ) -> "TestResponse":
+    ) -> TestResponse:
         if args and isinstance(
             args[0], (werkzeug.test.EnvironBuilder, dict, BaseRequest)
         ):
@@ -234,7 +230,7 @@ class FlaskClient(Client):
 
         return response
 
-    def __enter__(self) -> "FlaskClient":
+    def __enter__(self) -> FlaskClient:
         if self.preserve_context:
             raise RuntimeError("Cannot nest client invocations")
         self.preserve_context = True
@@ -242,9 +238,9 @@ class FlaskClient(Client):
 
     def __exit__(
         self,
-        exc_type: t.Optional[type],
-        exc_value: t.Optional[BaseException],
-        tb: t.Optional[TracebackType],
+        exc_type: type | None,
+        exc_value: BaseException | None,
+        tb: TracebackType | None,
     ) -> None:
         self.preserve_context = False
         self._context_stack.close()
@@ -256,7 +252,7 @@ class FlaskCliRunner(CliRunner):
     :meth:`~flask.Flask.test_cli_runner`. See :ref:`testing-cli`.
     """
 
-    def __init__(self, app: "Flask", **kwargs: t.Any) -> None:
+    def __init__(self, app: Flask, **kwargs: t.Any) -> None:
         self.app = app
         super().__init__(**kwargs)
 

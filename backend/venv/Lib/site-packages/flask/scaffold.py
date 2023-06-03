@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 import importlib.util
-import json
 import os
 import pathlib
 import pkgutil
@@ -12,12 +13,12 @@ from functools import update_wrapper
 from jinja2 import FileSystemLoader
 from werkzeug.exceptions import default_exceptions
 from werkzeug.exceptions import HTTPException
+from werkzeug.utils import cached_property
 
 from . import typing as ft
 from .cli import AppGroup
 from .globals import current_app
 from .helpers import get_root_path
-from .helpers import locked_cached_property
 from .helpers import send_from_directory
 from .templating import _default_template_ctx_processor
 
@@ -71,30 +72,16 @@ class Scaffold:
     """
 
     name: str
-    _static_folder: t.Optional[str] = None
-    _static_url_path: t.Optional[str] = None
-
-    #: JSON encoder class used by :func:`flask.json.dumps`. If a
-    #: blueprint sets this, it will be used instead of the app's value.
-    #:
-    #: .. deprecated:: 2.2
-    #:      Will be removed in Flask 2.3.
-    json_encoder: t.Union[t.Type[json.JSONEncoder], None] = None
-
-    #: JSON decoder class used by :func:`flask.json.loads`. If a
-    #: blueprint sets this, it will be used instead of the app's value.
-    #:
-    #: .. deprecated:: 2.2
-    #:      Will be removed in Flask 2.3.
-    json_decoder: t.Union[t.Type[json.JSONDecoder], None] = None
+    _static_folder: str | None = None
+    _static_url_path: str | None = None
 
     def __init__(
         self,
         import_name: str,
-        static_folder: t.Optional[t.Union[str, os.PathLike]] = None,
-        static_url_path: t.Optional[str] = None,
-        template_folder: t.Optional[t.Union[str, os.PathLike]] = None,
-        root_path: t.Optional[str] = None,
+        static_folder: str | os.PathLike | None = None,
+        static_url_path: str | None = None,
+        template_folder: str | os.PathLike | None = None,
+        root_path: str | None = None,
     ):
         #: The name of the package or module that this object belongs
         #: to. Do not change this once it is set by the constructor.
@@ -127,7 +114,7 @@ class Scaffold:
         #:
         #: This data structure is internal. It should not be modified
         #: directly and its format may change at any time.
-        self.view_functions: t.Dict[str, t.Callable] = {}
+        self.view_functions: dict[str, t.Callable] = {}
 
         #: A data structure of registered error handlers, in the format
         #: ``{scope: {code: {class: handler}}}``. The ``scope`` key is
@@ -142,9 +129,9 @@ class Scaffold:
         #:
         #: This data structure is internal. It should not be modified
         #: directly and its format may change at any time.
-        self.error_handler_spec: t.Dict[
+        self.error_handler_spec: dict[
             ft.AppOrBlueprintKey,
-            t.Dict[t.Optional[int], t.Dict[t.Type[Exception], ft.ErrorHandlerCallable]],
+            dict[int | None, dict[type[Exception], ft.ErrorHandlerCallable]],
         ] = defaultdict(lambda: defaultdict(dict))
 
         #: A data structure of functions to call at the beginning of
@@ -157,8 +144,8 @@ class Scaffold:
         #:
         #: This data structure is internal. It should not be modified
         #: directly and its format may change at any time.
-        self.before_request_funcs: t.Dict[
-            ft.AppOrBlueprintKey, t.List[ft.BeforeRequestCallable]
+        self.before_request_funcs: dict[
+            ft.AppOrBlueprintKey, list[ft.BeforeRequestCallable]
         ] = defaultdict(list)
 
         #: A data structure of functions to call at the end of each
@@ -171,8 +158,8 @@ class Scaffold:
         #:
         #: This data structure is internal. It should not be modified
         #: directly and its format may change at any time.
-        self.after_request_funcs: t.Dict[
-            ft.AppOrBlueprintKey, t.List[ft.AfterRequestCallable]
+        self.after_request_funcs: dict[
+            ft.AppOrBlueprintKey, list[ft.AfterRequestCallable]
         ] = defaultdict(list)
 
         #: A data structure of functions to call at the end of each
@@ -186,8 +173,8 @@ class Scaffold:
         #:
         #: This data structure is internal. It should not be modified
         #: directly and its format may change at any time.
-        self.teardown_request_funcs: t.Dict[
-            ft.AppOrBlueprintKey, t.List[ft.TeardownCallable]
+        self.teardown_request_funcs: dict[
+            ft.AppOrBlueprintKey, list[ft.TeardownCallable]
         ] = defaultdict(list)
 
         #: A data structure of functions to call to pass extra context
@@ -201,8 +188,8 @@ class Scaffold:
         #:
         #: This data structure is internal. It should not be modified
         #: directly and its format may change at any time.
-        self.template_context_processors: t.Dict[
-            ft.AppOrBlueprintKey, t.List[ft.TemplateContextProcessorCallable]
+        self.template_context_processors: dict[
+            ft.AppOrBlueprintKey, list[ft.TemplateContextProcessorCallable]
         ] = defaultdict(list, {None: [_default_template_ctx_processor]})
 
         #: A data structure of functions to call to modify the keyword
@@ -216,9 +203,9 @@ class Scaffold:
         #:
         #: This data structure is internal. It should not be modified
         #: directly and its format may change at any time.
-        self.url_value_preprocessors: t.Dict[
+        self.url_value_preprocessors: dict[
             ft.AppOrBlueprintKey,
-            t.List[ft.URLValuePreprocessorCallable],
+            list[ft.URLValuePreprocessorCallable],
         ] = defaultdict(list)
 
         #: A data structure of functions to call to modify the keyword
@@ -232,8 +219,8 @@ class Scaffold:
         #:
         #: This data structure is internal. It should not be modified
         #: directly and its format may change at any time.
-        self.url_default_functions: t.Dict[
-            ft.AppOrBlueprintKey, t.List[ft.URLDefaultCallable]
+        self.url_default_functions: dict[
+            ft.AppOrBlueprintKey, list[ft.URLDefaultCallable]
         ] = defaultdict(list)
 
     def __repr__(self) -> str:
@@ -243,7 +230,7 @@ class Scaffold:
         raise NotImplementedError
 
     @property
-    def static_folder(self) -> t.Optional[str]:
+    def static_folder(self) -> str | None:
         """The absolute path to the configured static folder. ``None``
         if no static folder is set.
         """
@@ -253,7 +240,7 @@ class Scaffold:
             return None
 
     @static_folder.setter
-    def static_folder(self, value: t.Optional[t.Union[str, os.PathLike]]) -> None:
+    def static_folder(self, value: str | os.PathLike | None) -> None:
         if value is not None:
             value = os.fspath(value).rstrip(r"\/")
 
@@ -268,7 +255,7 @@ class Scaffold:
         return self.static_folder is not None
 
     @property
-    def static_url_path(self) -> t.Optional[str]:
+    def static_url_path(self) -> str | None:
         """The URL prefix that the static route will be accessible from.
 
         If it was not configured during init, it is derived from
@@ -284,13 +271,13 @@ class Scaffold:
         return None
 
     @static_url_path.setter
-    def static_url_path(self, value: t.Optional[str]) -> None:
+    def static_url_path(self, value: str | None) -> None:
         if value is not None:
             value = value.rstrip("/")
 
         self._static_url_path = value
 
-    def get_send_file_max_age(self, filename: t.Optional[str]) -> t.Optional[int]:
+    def get_send_file_max_age(self, filename: str | None) -> int | None:
         """Used by :func:`send_file` to determine the ``max_age`` cache
         value for a given file path if it wasn't passed.
 
@@ -314,7 +301,7 @@ class Scaffold:
 
         return value
 
-    def send_static_file(self, filename: str) -> "Response":
+    def send_static_file(self, filename: str) -> Response:
         """The view function used to serve files from
         :attr:`static_folder`. A route is automatically registered for
         this view at :attr:`static_url_path` if :attr:`static_folder` is
@@ -332,8 +319,8 @@ class Scaffold:
             t.cast(str, self.static_folder), filename, max_age=max_age
         )
 
-    @locked_cached_property
-    def jinja_loader(self) -> t.Optional[FileSystemLoader]:
+    @cached_property
+    def jinja_loader(self) -> FileSystemLoader | None:
         """The Jinja loader for this object's templates. By default this
         is a class :class:`jinja2.loaders.FileSystemLoader` to
         :attr:`template_folder` if it is set.
@@ -455,9 +442,9 @@ class Scaffold:
     def add_url_rule(
         self,
         rule: str,
-        endpoint: t.Optional[str] = None,
-        view_func: t.Optional[ft.RouteCallable] = None,
-        provide_automatic_options: t.Optional[bool] = None,
+        endpoint: str | None = None,
+        view_func: ft.RouteCallable | None = None,
+        provide_automatic_options: bool | None = None,
         **options: t.Any,
     ) -> None:
         """Register a rule for routing incoming requests and building
@@ -683,7 +670,7 @@ class Scaffold:
 
     @setupmethod
     def errorhandler(
-        self, code_or_exception: t.Union[t.Type[Exception], int]
+        self, code_or_exception: type[Exception] | int
     ) -> t.Callable[[T_error_handler], T_error_handler]:
         """Register a function to handle errors by code or exception class.
 
@@ -728,7 +715,7 @@ class Scaffold:
     @setupmethod
     def register_error_handler(
         self,
-        code_or_exception: t.Union[t.Type[Exception], int],
+        code_or_exception: type[Exception] | int,
         f: ft.ErrorHandlerCallable,
     ) -> None:
         """Alternative error attach function to the :meth:`errorhandler`
@@ -742,8 +729,8 @@ class Scaffold:
 
     @staticmethod
     def _get_exc_class_and_code(
-        exc_class_or_code: t.Union[t.Type[Exception], int]
-    ) -> t.Tuple[t.Type[Exception], t.Optional[int]]:
+        exc_class_or_code: type[Exception] | int,
+    ) -> tuple[type[Exception], int | None]:
         """Get the exception class being handled. For HTTP status codes
         or ``HTTPException`` subclasses, return both the exception and
         status code.
@@ -751,7 +738,7 @@ class Scaffold:
         :param exc_class_or_code: Any exception class, or an HTTP status
             code as an integer.
         """
-        exc_class: t.Type[Exception]
+        exc_class: type[Exception]
 
         if isinstance(exc_class_or_code, int):
             try:

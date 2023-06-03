@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./ChatPage.css";
-import { Getallfollowersforuser } from "../api/getallfollowers";
+import { GetNumberOfFollowersForUser } from "../api/getallfollowers";
 import { msg } from "../api/msg";
 import clicktochat from "../images/Designer.png";
 import io from "socket.io-client";
 const socket = io("http://localhost:3003");
 const ChatPage = (props) => {
-  const { RoomId } = props;
   const [sideusers, setsideusers] = useState([]);
   const [Messages, setMessages] = useState([]);
   const [Note, setNote] = useState({ message: "" });
   const currentuser = localStorage.getItem("token");
+  const [roomid, setroomid] = useState(null);
   useEffect(() => {
     // Loadpreviousmessages();
     loadinactiveusers();
   }, []);
-
   socket.on("messagerec", (message) => {
     // setMessages([
     //   ...messages,
@@ -27,31 +26,43 @@ const ChatPage = (props) => {
 
     console.log(Messages);
   });
+  socket.on("connection", (message) => {
+    setroomid(message["data"]);
+    console.log(message["data"]);
+    props.RoomId(message["data"]);
+  });
 
   const HandleUserClick = (e) => {
+    console.log(e);
+    props.reciever_id(e);
+
     console.log(e);
     socket.emit("connectuser", { sender_id: currentuser, reciever_id: e });
     Loadpreviousmessages();
   };
   const loadinactiveusers = async () => {
-    const { data } = await Getallfollowersforuser(currentuser);
+    const { data } = await GetNumberOfFollowersForUser(currentuser);
 
     setsideusers(data);
-
-    console.log(sideusers);
   };
 
   const Loadpreviousmessages = async () => {
-    // console.log(RoomId);
-    const { data } = await msg(RoomId);
+    setMessages([]);
 
-    const dictValues = eval(data[0][0]);
-    for (let i = 0; i < dictValues.length; i++) {
-      const action = Object.values(dictValues[i]);
-      console.log(action);
-      setMessages((Messages) => [...Messages, action]);
+    const { data } = await msg(roomid);
+    console.log(data);
+
+    if (data.length === 0) {
+      setMessages([]);
+    } else {
+      const dictValues = eval(data[0][0]);
+      for (let i = 0; i < dictValues.length; i++) {
+        const action = Object.values(dictValues[i]);
+        console.log(action);
+        setMessages((Messages) => [...Messages, action]);
+      }
+      console.log(Messages);
     }
-    console.log(Messages);
 
     // console.log(action);
     // const das=JSON.parse(Messages[0][0])
@@ -95,9 +106,21 @@ const ChatPage = (props) => {
                             key={index}
                             onClick={() => HandleUserClick(e[0])}
                           >
-                            <img src={e[6]} alt="avatar" />
-                            <div class="about">
-                              <div class="name">{e[3]}</div>
+                            <img
+                              src={e[6]}
+                              alt="avatar"
+                              onClick={() => HandleUserClick(e[0])}
+                            />
+                            <div
+                              class="about"
+                              onClick={() => HandleUserClick(e[0])}
+                            >
+                              <div
+                                class="name"
+                                onClick={() => HandleUserClick(e[0])}
+                              >
+                                {e[3]}
+                              </div>
                               <div class="status">
                                 {" "}
                                 <i class="fa fa-circle online"></i> online{" "}
