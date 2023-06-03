@@ -23,12 +23,13 @@
 
 
 
+
+
 <h2> This Project is not completed yet,its UI is still in Progress . Feel free to contact me through my  email mentioned on my Github Profile for any type of support or help.  </h2>
-
-
 
 <p> Welcome to Doggonation, the ultimate innovative social media platform designed exclusively for dog owners and enthusiasts ! Whether you're looking to connect with fellow dog lovers, share adorable photos of your furry friends, or seek expert advice on canine care, Doggonation is the place to be.
 With Doggonation, you'll join a vibrant community that celebrates everything about dogs. It also features an array of cutting-edge functionalities that facilitate a safe and enjoyable user experience. </p>
+
 
 <h2>Features 🐶</h2>
 <ul>

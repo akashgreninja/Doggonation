@@ -51,8 +51,6 @@ const About = (props) => {
         {/* Donation Area  */}
         <Donation/>
 
-        <Contact/>
-
         </Wrapper>
     </div>
   )

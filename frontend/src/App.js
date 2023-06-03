@@ -15,6 +15,7 @@ import Explore from "./pages/Explore";
 import Dm from "./pages/Dm";
 import NotFound from "./pages/NotFound";
 import Landingpage from "./pages/LandingPage/Landingpage";
+import About from "./pages/LandingPage/About";
 
 function App() {
   // const [Sidebar, setsidebar] = useState(true);
@@ -45,7 +46,7 @@ function App() {
               path="/About"
               element={<DonationPage Sidebarrender={setsidebar} />}
             />
-            <Route path="/donation" element={<About />} />
+            {/* <Route path="/donation" element={<About />} /> */}
             <Route
               path="/Signin"
               element={<SignIn Sidebarrender={setsidebar} />}

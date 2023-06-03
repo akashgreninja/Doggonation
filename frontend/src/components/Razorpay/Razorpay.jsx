@@ -8,11 +8,12 @@ import { SendPaymentToDatabase, createOrder, getKey } from "../../api/razorpay";
 import DonateButton from "./DonateButton";
 
 const Razorpay = () => {
-  const [orderAmount, setorderAmount] = useState(0);
+  const [orderAmount, setorderAmount] = useState(null);
   const [prob, setprob] = useState([]);
   const [orders, setorders] = useState([]);
   const handleChange = (e) => {
     setorderAmount(e.target.value);
+    console.log("amt: ",orderAmount);
   };
 
   const loadRazorpay = async () => {
@@ -131,13 +132,13 @@ const Razorpay = () => {
     <div className="flex flex-col border-2 bg-white rounded-xl m-auto w-48 content-center">
       <input
         type="number"
-        placeholder="INR"
+        placeholder="Enter Amount"
         value={orderAmount}
         className="text-center py-0.5 rounded-xl m-auto w-28 rounded-b-none w-full"
         onChange={handleChange}
       />
       {/* <button className="btn-donate m-auto" onClick={loadRazorpay}>Razorpay</button> */}
-      <DonateButton>RazorPay</DonateButton>
+      <DonateButton onClick={loadRazorpay}>RazorPay</DonateButton>
     </div>
   );
 };
