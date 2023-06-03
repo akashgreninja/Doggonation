@@ -13,7 +13,7 @@ const Navbar = () => {
   const navigation = useNavigate();
 
   const handleclick = ()=>{
-    navigation("/home")
+    navigation("/")
   }
 
   return (
