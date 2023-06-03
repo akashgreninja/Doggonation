@@ -81,6 +81,7 @@ module.exports = {
       },
       padding: {
         chatpaddingtop: "5%",
+        profilepadding: "17px",
       },
       borderWidth: {
         1: "0.5px",

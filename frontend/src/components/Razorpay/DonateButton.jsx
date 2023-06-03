@@ -4,7 +4,7 @@ import './DonateButton.css'
 
 const   DonateButton = (props) => {
   return (
-    <button class="blue-button btn-donate">
+    <button onClick={props.onClick} className="blue-button btn-donate">
     {props.children}
 </button>
   )
