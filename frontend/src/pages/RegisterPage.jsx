@@ -185,7 +185,7 @@ const RegisterPage = (props) => {
           <div class="border-t-black border-t-2 flex p-2">
             <span>
               Already have an account ? SignIn <a
-                className="text-banana-100 hover:text-banana-50 hover:no-underline transition-all ease-in-out duration-500 font-semibold cursor-pointer antialiased tracking-wide text-semibold"
+                className="text-banana-100 hover:text-banana-50 hover:no-underline transition-all ease-in-out duration-500 font-semibold cursor-pointer antialiased tracking-wide"
                 href="/Signin">here</a>
             </span>
           </div>
