@@ -211,6 +211,16 @@ promise.then(function (response) {
               <input type="date" name="dob" onChange={HandleChange} />
               <p>Selected date: {ridata.dob}</p>
             </div>
+            <div>
+              
+              <select name="" id=""> select your country
+                {
+                  countries && countries.map((ele)=>{
+                    return <option value="">{ele['name']}</option>
+                  })
+                }
+              </select>
+            </div>
 
             <button class="submit-button" onClick={HandleClick}>
               Login
