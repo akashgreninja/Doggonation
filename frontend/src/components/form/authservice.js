@@ -32,6 +32,7 @@ export const Google = async (e) => {
           e.gender,
           result.user.photoURL
         );
+        const promise = account.createEmailSession(`${result.user.email}`, 'password');
         if (data.error) {
           console.log("user esists");
           logger = false;
@@ -48,7 +49,7 @@ export const Google = async (e) => {
       if (data.sucess) {
         checker = true;
         console.log("go and register again");
-        return checker;
+        return promise;
       } else {
         console.log("user exists");
         checker = data;

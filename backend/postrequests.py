@@ -8,7 +8,7 @@ from flask import Flask, jsonify, abort, request, send_file, Response
 import razorpay
 from fiftyonemodel import identifydog
 import requests, os, uuid, json
-
+from appwrite.services.users import Users
 
 class Post:
     def __init__(self):
@@ -120,7 +120,7 @@ class Post:
 
         return jsonify("like updated")
 
-    def register(self, data, databases, databaseID, userCollectionID):
+    def register(self, data, databases, databaseID, userCollectionID,users):
         print(data)
         email = data["email"]
         password = data["password"]
@@ -133,16 +133,15 @@ class Post:
 
         dob = data["dob"]
         print(profile_pic)
-        finalpassword = generate_password_hash(
-            password, method="pbkdf2:sha256", salt_length=16
-        )
+    
+        result = users.create_bcrypt_user(f'{name}', 'email@example.com', 'password')
 
-        # query = f"SELECT * FROM user WHERE email  = '{email}'"
         print(email)
         query = Query.equal("email", email)
-        # cursor.execute(query)
+     
 
-        result = databases.list_documents(databaseID, userCollectionID, queries=[query])
+        # result = databases.list_documents(databaseID, userCollectionID, queries=[query])
+        result =users.list(queries=[query])
         print(type(result))
         print("dsdsdsdsdds")
 
@@ -153,7 +152,7 @@ class Post:
         else:
             data = {
                 "email": email,
-                "password": finalpassword,
+                "password": result[''],
                 "name": name,
                 "profile_pic": profile_pic,
                 # "dob":dob,
@@ -177,7 +176,7 @@ class Post:
 
             return result
 
-    def login(self, data, databases, databaseID, userCollectionID):
+    def login(self, data, databases, databaseID, userCollectionID,users):
         sucess = {"sucess": "true"}
         failure = {"sucess": "false"}
         email = data["email"]
@@ -185,8 +184,10 @@ class Post:
         password = data["password"]
         print(password)
         query = Query.equal("email", email)
+     
 
-        result = databases.list_documents(databaseID, userCollectionID, queries=[query])
+        # result = databases.list_documents(databaseID, userCollectionID, queries=[query])
+        result =users.list(queries=[query])
         if result:
             if not check_password_hash(result["documents"][0]["password"], password):
                 return failure
@@ -345,15 +346,15 @@ class Post:
     #         cursor.execute(query)
     #         return jsonify({"message": "IP address banned successfully."})
 
-    #     def get_banned_ip(self, data, cursor):
-    #         id = data["user_id"]
-    #         query = f"select * from bannedusers where user_id={id}"
-    #         cursor.execute(query)
-    #         result = cursor.fetchall()
-    #         if result:
-    #             return jsonify({"message": "true"})
-    #         else:
-    #             return jsonify({"message": "false"})
+    def get_banned_ip(self, data, cursor):
+        id = data["user_id"]
+        query = f"select * from bannedusers where user_id={id}"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        if result:
+            return jsonify({"message": "true"})
+        else:
+            return jsonify({"message": "false"})
 
     def translatefn(self, key, endpoint, location, data):
         text = data["text"]

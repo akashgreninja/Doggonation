@@ -4,7 +4,7 @@ from flask import session
 from appwrite.client import Client
 from appwrite.services.databases import Databases
 from appwrite.query import Query
-
+from appwrite.services.users import Users
 from flask import Flask, jsonify, abort, request, send_file
 from dotenv import load_dotenv
 import ast
@@ -68,6 +68,7 @@ client = (
     .set_key(f"{apikey}")
 )
 databases = Databases(client)
+users = Users(client)
 # locale = Locale(client)
 
 # result = locale.list_countries()
@@ -163,7 +164,7 @@ def rmlike():
 @app.route("/register", methods=["POST"])
 def register():
     data = request.json
-    return post_requests.register(data, databases, databaseID, userCollectionID)
+    return post_requests.register(data, databases, databaseID, userCollectionID,users)
 
 
 # @app.route("/update_profile", methods=["POST"])
