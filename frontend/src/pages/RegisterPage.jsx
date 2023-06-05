@@ -6,8 +6,26 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+import { Client, Locale } from "appwrite";
+
 
 const RegisterPage = (props) => {
+  const client = new Client();
+
+const locale = new Locale(client);
+client
+    .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
+    .setProject('646ef8a4551ba4368766') // Your project ID
+;
+const [countries, setcountries] = useState([])
+const promise = locale.listCountries();
+
+promise.then(function (response) {
+    console.log(response); // Success
+    setcountries(response['countries'])
+}, function (error) {
+    console.log(error); // Failure
+});
   useEffect(() => {
    props.Sidebarrender(false)
   }, [])
