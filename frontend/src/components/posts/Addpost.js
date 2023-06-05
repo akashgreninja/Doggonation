@@ -8,8 +8,13 @@ import ReactLoading from "react-loading";
 import React, { useState } from "react";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { add_post } from "../../api/addpost";
+import { Client, Storage,realtime } from "appwrite";
+
 
 const Addpost = (props) => {
+  const client = new Client();
+
+const storage = new Storage(client);
   const style = {
     position: "absolute",
     top: "50%",
@@ -21,6 +26,8 @@ const Addpost = (props) => {
     p: 4,
     borderRadius: 0.5,
   };
+  let bucketID=""
+  let fileID=""
   const user_id = localStorage.getItem('token')
   const [loading, setloading] = useState(false);
   const [laodingtext, setlaodingtext] = useState("Post");
@@ -61,6 +68,31 @@ const Addpost = (props) => {
        
   };
   //uploading post
+  const uploadpic=async()=>{
+    realtime.subscribe(`storage.files.create`, (payload) => {
+      console.log('New file created:', payload);
+      const fileId = payload.$id;
+
+      // Get the download URL of the newly created file
+      storage.getFilePreview(fileId)
+          .then((downloadURL) => {
+              console.log('Download URL:', downloadURL);
+          })
+          .catch((error) => {
+              console.error('Error retrieving download URL:', error);
+          });
+  });
+
+const promise = storage.createFile(bucketID,fileID , document.getElementById('uploader').files[0]);
+promise.then(function (response) {
+    console.log(response); // Success
+}, function (error) {
+    console.log(error); // Failure
+});
+const result = storage.getFileDownload(bucketID, fileID);
+setimageurl(result)
+  }
+
   const CreateUpload = async (e) => {
     e.preventDefault();
     if (image===""){
@@ -84,6 +116,7 @@ const Addpost = (props) => {
 
     }
     
+
     try {
       setloading(true);
       const storage = getStorage();
