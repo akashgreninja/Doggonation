@@ -29,6 +29,8 @@ import json
 from getrequests import Get
 from postrequests import Post
 from appwrite.services.locale import Locale
+from appwrite.client import Client
+from appwrite.services.health import Health
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "13342"
@@ -67,7 +69,13 @@ client = (
     .set_project(f"{projectID}")
     .set_key(f"{apikey}")
 )
+health = Health(client)
+
+result = health.get()
 databases = Databases(client)
+result = health.get_db()
+if databases['status'] or result['status'] != "pass":
+    print("server is down")
 # locale = Locale(client)
 
 # result = locale.list_countries()
