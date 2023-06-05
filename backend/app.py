@@ -4,7 +4,7 @@ from flask import session
 from appwrite.client import Client
 from appwrite.services.databases import Databases
 from appwrite.query import Query
-
+from appwrite.services.users import Users
 from flask import Flask, jsonify, abort, request, send_file
 from dotenv import load_dotenv
 import ast
@@ -73,9 +73,13 @@ health = Health(client)
 
 result = health.get()
 databases = Databases(client)
+<<<<<<< HEAD
+users = Users(client)
+=======
 result = health.get_db()
 if databases['status'] or result['status'] != "pass":
     print("server is down")
+>>>>>>> 07e110a106ded3bd420da1fe989ae25266f60df0
 # locale = Locale(client)
 
 # result = locale.list_countries()
@@ -171,7 +175,7 @@ def rmlike():
 @app.route("/register", methods=["POST"])
 def register():
     data = request.json
-    return post_requests.register(data, databases, databaseID, userCollectionID)
+    return post_requests.register(data, databases, databaseID, userCollectionID,users)
 
 
 # @app.route("/update_profile", methods=["POST"])

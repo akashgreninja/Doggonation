@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./Loginform.css";
+import { Client, Account } from "appwrite";
+
 import { useNavigate } from "react-router-dom";
 import logo from "../../images/logo-white.png";
 import { Facebook, Google } from "./authservice";
@@ -9,7 +11,9 @@ const LoginForm = () => {
   const [ridata, setridata] = useState({ email: "", password: "" });
 
   const [loginErrorMessage, setloginErrorMessage] = useState(" ");
+  const client = new Client();
 
+  const account = new Account(client);
 
   const HandleGoogle = async (e) => {
     e.preventDefault();
@@ -25,7 +29,7 @@ const LoginForm = () => {
         nav("/SignUp");
       } else {
         console.log(data[0][0]);
-        localStorage.setItem("token", data[0][0]);
+        localStorage.setItem("token", data.token);
 
         nav("/");
         window.location.reload();
