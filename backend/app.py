@@ -73,13 +73,10 @@ health = Health(client)
 
 result = health.get()
 databases = Databases(client)
-<<<<<<< HEAD
 users = Users(client)
-=======
 result = health.get_db()
 if databases['status'] or result['status'] != "pass":
     print("server is down")
->>>>>>> 07e110a106ded3bd420da1fe989ae25266f60df0
 # locale = Locale(client)
 
 # result = locale.list_countries()
