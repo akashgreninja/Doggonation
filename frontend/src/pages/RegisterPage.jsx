@@ -7,7 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import FacebookIcon from '@mui/icons-material/Facebook';
-
+import image from '../images/dogsimg/start.png'
+import image2 from '../images/dogsimg/giphy.gif'
+import image3 from '../images/dogsimg/aa9cd4b25d251ac5a328991ebe587dc3.gif'
 
 
 const RegisterPage = (props) => {
@@ -82,7 +84,19 @@ const RegisterPage = (props) => {
     }
   };
   return (
-    <div class="bg-[#FFFFE0] min-h-screen pl-11 flex justify-center items-center">
+    <div class="bg-doggo-background-register min-h-screen  flex justify-center items-center">
+      <div className="pl-0 ml-0">
+      <div className="mt-0">
+      <img src={image} alt="" srcset=""  />
+      </div>
+       
+      <div className=" flex flex-row justify-between -mt-4">
+      <img src={image2} alt="" srcset=""  className="h-72 "/>
+      <img src={image3} alt="" srcset=""  className="h-64 ml-10"/>
+      </div>
+      </div>
+
+     
       {registered === true ? (
         <Stack sx={{ width: "100%" }} spacing={2}>
           <Alert severity="error">
@@ -90,7 +104,8 @@ const RegisterPage = (props) => {
           </Alert>
         </Stack>
       ) : null}
-      <div class="flex border rounded-lg shadow-2xl bg-white p-5">
+      <div class="flex border rounded-lg shadow-2xl bg-white p-5 ml-2">
+        
         <form class="flex flex-col gap-[15px]">
           <div class="flex flex-col justify-between items-center gap-[15px]">
             <h1 className="font-bold">Sign up using: </h1>
@@ -117,6 +132,7 @@ const RegisterPage = (props) => {
               />
 
             </label>
+            
             <label className="flex flex-col gap-2">
               <legend className="font-semibold">Email</legend>
               <input

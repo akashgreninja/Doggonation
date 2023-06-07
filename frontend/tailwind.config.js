@@ -92,7 +92,7 @@ module.exports = {
       },
       backgroundImage: {
         "doggo-background": "url('/src/images/signuppage.jpg')",
-        "doggo-background-register": "url('/src/images/DogSocial.png')",
+        "doggo-background-register": "url('/src/images/dog-bones.jpg')",
       },
       fontSize: {
         bigg: "6rem",
