@@ -8,7 +8,7 @@ const NFTCard = () => {
                 <div className="nftcard2">
                     <img 
                     src="https://i.seadn.io/gcs/files/f24edf17022dfca66186a1fa0199d500.jpg?auto=format&dpr=1&w=1000"
-                    className="mx-auto mb-3"
+                    className="mx-auto mb-3 rounded-lg border-4"
                     />
                     <p>Product Name:</p>
                     <p>Product ID:</p>
