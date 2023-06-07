@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap');
 .form-container {
   /* margin-top: 7rem; */
   /* margin-top:23px; */
@@ -19,6 +20,9 @@
   
  
 }
+.doggoClass{
+  font-family: 'Cherry Bomb One', cursive;
+}
 
 .form-container form {
   border: 2px solid rgb(0, 0, 0, 0.1);
@@ -37,7 +41,7 @@
 }
 
 .form-container button {
-  user-select: none;
+  /* user-select: none;
   padding: 10px 14px;
   width: 100%;
   display: flex;
@@ -53,22 +57,22 @@
   margin-bottom: 15px;
   transition: all 0.1s ease-in-out;
   outline: 2px solid transparent;
-  box-shadow: 0 1px 5px rgb(0, 0, 0, 0.1);
+  box-shadow: 0 1px 5px rgb(0, 0, 0, 0.1); */
 }
 
 .form-container button:active {
-  transform: scale(0.96);
+  /* transform: scale(0.96); */
 }
 
 .form-container button:disabled {
-  opacity: 0.7;
-  cursor: default;
+  /* opacity: 0.7;
+  cursor: default; */
 }
 
 .form-container button:focus:not(:active),
 .form-container button:focus:not(:hover) {
-  outline-offset: 2px;
-  outline-color: rgba(0, 0, 0, 0.25);
+  /* outline-offset: 2px;
+  outline-color: rgba(0, 0, 0, 0.25); */
 }
 
 .form-container__sign-buttons {
@@ -115,24 +119,24 @@
 }
 
 .form-container .submit-button {
-  color: #fff;
-  background: #2196f3;
+  /* color: #fff;
+  background: #2196f3; */
 }
 
 .form-container__auth-block {
-  padding-top: 20px;
+  /* padding-top: 20px;
   margin-top: 20px;
   border-top: 2px solid rgb(0, 0, 0, 0.1);
-  font-weight: normal;
+  font-weight: normal; */
 }
 
 .form-container__auth-block a {
-  color: #6495ed;
-  text-decoration: none;
+  /* color: #6495ed;
+  text-decoration: none; */
 }
 
 .form-container__auth-block a:hover {
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 /* checkmark */

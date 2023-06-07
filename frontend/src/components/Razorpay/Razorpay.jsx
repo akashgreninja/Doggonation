@@ -5,14 +5,15 @@
 
 import React, { useState } from "react";
 import { SendPaymentToDatabase, createOrder, getKey } from "../../api/razorpay";
-import './RazorpayButton.css';
+import DonateButton from "./DonateButton";
 
 const Razorpay = () => {
-  const [orderAmount, setorderAmount] = useState(0);
+  const [orderAmount, setorderAmount] = useState(null);
   const [prob, setprob] = useState([]);
   const [orders, setorders] = useState([]);
   const handleChange = (e) => {
     setorderAmount(e.target.value);
+    console.log("amt: ",orderAmount);
   };
 
   const loadRazorpay = async () => {
@@ -128,15 +129,16 @@ const Razorpay = () => {
     paymentObject.open();
   };
   return (
-    <div className="border-2 bg-white rounded-xl m-auto w-fit">
+    <div className="flex flex-col border-2 bg-white rounded-xl m-auto w-48 content-center">
       <input
         type="number"
-        placeholder="INR"
+        placeholder="Enter Amount"
         value={orderAmount}
-        className="pl-10 py-0.5 rounded-xl m-auto w-28 rounded-b-none "
+        className="text-center py-0.5 rounded-xl m-auto w-28 rounded-b-none w-full"
         onChange={handleChange}
       />
-      <button className="btn-donate m-auto" onClick={loadRazorpay}>Razorpay</button>
+      {/* <button className="btn-donate m-auto" onClick={loadRazorpay}>Razorpay</button> */}
+      <DonateButton onClick={loadRazorpay}>RazorPay</DonateButton>
     </div>
   );
 };

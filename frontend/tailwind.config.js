@@ -77,10 +77,12 @@ module.exports = {
         bottommargin: "70px",
         threething: "65%",
         chatmargin: "30%",
+        dogmi: "20%",
         
       },
       padding: {
         chatpaddingtop: "5%",
+        profilepadding: "17px",
       },
       borderWidth: {
         1: "0.5px",
@@ -91,7 +93,7 @@ module.exports = {
       },
       backgroundImage: {
         "doggo-background": "url('/src/images/signuppage.jpg')",
-        "doggo-background-register": "url('/src/images/DogSocial.png')",
+        "doggo-background-register": "url('/src/images/dog-bones.jpg')",
       },
       fontSize: {
         bigg: "6rem",

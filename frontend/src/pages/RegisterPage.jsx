@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./RegisterPage.css";
 import { Register } from "../api/register";
 import { Facebook, Google } from "../components/form/authservice";
@@ -6,12 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+import FacebookIcon from '@mui/icons-material/Facebook';
+import image from '../images/dogsimg/start.png'
+import image2 from '../images/dogsimg/doggo2.png'
+import image3 from '../images/dogsimg/aa9cd4b25d251ac5a328991ebe587dc3.gif'
+
 
 const RegisterPage = (props) => {
   useEffect(() => {
-   props.Sidebarrender(false)
-  }, [])
-  
+    props.Sidebarrender(false);
+  }, []);
+
   const nav = useNavigate();
   // const isregistered=useSelector((state)=> state)
   const [registered, setregistered] = useState(false);
@@ -45,10 +50,10 @@ const RegisterPage = (props) => {
       // this line will induce a bug for sure
       else {
         localStorage.setItem("token", data);
-      
-    nav("/");
+
+        nav("/");
         window.location.reload();
-        console.log(data)
+        console.log(data);
       }
     } catch (error) {
       console.log(error);
@@ -67,7 +72,6 @@ const RegisterPage = (props) => {
     try {
       if (data.error) {
         console.log("user register error");
-        
       } else {
         console.log("in the else");
         console.log(data.result);
@@ -80,7 +84,23 @@ const RegisterPage = (props) => {
     }
   };
   return (
-    <div class="bg-cover bg-no-repeat main-cont bg-opacity-20 bg-right bg-doggo-background-register s  pl-11">
+    <div class="bg-doggo-background-register min-h-screen  flex justify-center items-center">
+      
+      <div className="pl-0 ml-0">
+      <h2 className="doggoClass text-white text-8xl">Doggonation</h2>
+      
+      <div className="mt-0">
+        
+      <img src={image} alt="" srcset=""  className="h-64" />
+      </div>
+       
+      <div className=" flex flex-row justify-between -mt-4 ">
+      <img src={image2} alt="" srcset=""  className="h-72 "/>
+      <img src={image3} alt="" srcset=""  className="h-64 ml-10"/>
+      </div>
+      </div>
+
+     
       {registered === true ? (
         <Stack sx={{ width: "100%" }} spacing={2}>
           <Alert severity="error">
@@ -88,64 +108,37 @@ const RegisterPage = (props) => {
           </Alert>
         </Stack>
       ) : null}
-      <div class="form-container opacity-100 ">
-        <form class="need-padding">
-          <div class="form-container__sign-buttons">
-            <button type="button" onClick={Facebook}>
-              <svg viewBox="0 0 24 24" width="16" height="40">
-                <path
-                  fill="currentColor"
-                  d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205
-            11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422
-            18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084
-            1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93
-            0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267
-            1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12
-            3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0
-            1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24
-            12.297c0-6.627-5.373-12-12-12"
-                ></path>
-              </svg>
-              <div>Sign Up with GitHub</div>
-            </button>
-            <button type="button" onClick={HandleGoogle}>
-              <svg width="16" height="16">
-                <g fill="none">
-                  <path
-                    d="M2.629 10.659A5.893 5.893 0 0 1 2 8c0-.956.226-1.858.629-2.659l2.065 1.544a3.487 3.487 0 0 0 0 2.23L2.629 10.66z"
-                    fill="#FBBC05"
-                  ></path>
-                  <path
-                    d="M2.629 5.341C3.627 3.357 5.713 2 8.139 2c1.563 0 2.959.573 4.047 1.5L10.4 5.245a3.6 3.6 0 0 0-2.26-.79c-1.61 0-2.97 1.015-3.446 2.43L2.629 5.34z"
-                    fill="#EA4335"
-                  ></path>
-                  <path
-                    d="M2.628 10.657L4.692 9.11c.475 1.417 1.835 2.435 3.448 2.435 1.702 0 2.986-.845 3.293-2.318H8.14V6.91h5.72c.084.355.14.736.14 1.091 0 3.818-2.79 6-5.86 6-2.427 0-4.514-1.358-5.512-3.343z"
-                    fill="#34A853"
-                  ></path>
-                  <path
-                    d="M12.141 12.506l-1.96-1.483a2.704 2.704 0 0 0 1.252-1.796H8.14V6.91h5.72c.084.355.14.736.14 1.091 0 1.956-.732 3.482-1.859 4.506z"
-                    fill="#4285F4"
-                  ></path>
-                </g>
-              </svg>
-              <div>Sign in with Google</div>
-            </button>
+      <div class="flex border rounded-lg shadow-2xl bg-white p-5 ml-dogmi">
+        
+        <form class="flex flex-col gap-[15px]">
+          <div class="flex flex-col justify-between items-center gap-[15px]">
+            <h1 className="font-bold">Sign up using: </h1>
+            <div className="flex justify-between gap-[20px] items-center">
+              <button type="button" onClick={Facebook}>
+                <FacebookIcon
+                  className="transition-all ease-in-out duration-500 hover:text-[#3b5998]" />
+              </button>
+              <button type="button" onClick={HandleGoogle}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" className="" preserveAspectRatio="xMidYMid" viewBox="0 0 256 262" id="google"><path fill="#4285F4" d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"></path><path fill="#34A853" d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"></path><path fill="#FBBC05" d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"></path><path fill="#EB4335" d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"></path></svg>
+              </button>
+            </div>
           </div>
-          <div class="form-container__sign-inputs">
-            <label>
-              <legend>Name</legend>
+          <div class="flex flex-col gap-5 justify-center items-start">
+            <label className="flex flex-col gap-2">
+              <legend className="font-semibold">Name</legend>
               <input
                 required=""
                 type="text"
                 name="name"
                 placeholder="Input your Username"
                 onChange={HandleChange}
+                className="w-[150%] border border-gray-400 rounded-sm shadow-md pl-1 text-center pr-1"
               />
-              <span></span>
+
             </label>
-            <label>
-              <legend>Email</legend>
+            
+            <label className="flex flex-col gap-2">
+              <legend className="font-semibold">Email</legend>
               <input
                 pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                 required=""
@@ -153,11 +146,12 @@ const RegisterPage = (props) => {
                 name="email"
                 placeholder="Input with email validation"
                 onChange={HandleChange}
+                className="w-[150%] border border-gray-400 rounded-sm shadow-md pl-1 text-center pr-1"
               />
               <span></span>
             </label>
-            <label>
-              <legend>Password</legend>
+            <label className="flex flex-col gap-2">
+              <legend className="font-semibold">Password</legend>
               <input
                 required=""
                 pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$"
@@ -165,12 +159,13 @@ const RegisterPage = (props) => {
                 name="password"
                 placeholder="Input with password validation"
                 onChange={HandleChange}
+                className="w-[150%] border border-gray-400 rounded-sm shadow-md pl-1 text-center pr-1"
               />
-              <span></span>
+
             </label>
-            <div class="relative inline-block w-64 mb-7">
+            <div class="relative inline-block w-64">
               <select
-                class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                className="font-semibold flex appearance-none w-[120%] bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded-sm shadow-lg leading-tight focus:outline-none focus:shadow-outline"
                 onChange={HandleChange}
                 name="gender"
               >
@@ -179,9 +174,9 @@ const RegisterPage = (props) => {
                 <option>Not specified</option>
                 <option>Banana</option>
               </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <div className="pointer-events-none absolute inset-y-0 -right-12 flex items-center px-2 text-gray-700">
                 <svg
-                  class="fill-current h-4 w-4"
+                  className="fill-current h-4 w-4"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                 >
@@ -189,18 +184,29 @@ const RegisterPage = (props) => {
                 </svg>
               </div>
             </div>
-            <div>
-              <input type="date" name="dob" onChange={HandleChange} />
-              <p>Selected date: {ridata.dob}</p>
+            <div className="flex flex-col gap-2">
+              <div className="flex gap-14 items-center">
+                <legend className="font-semibold">Date of Birth: </legend>
+                <input type="date" name="dob" onChange={HandleChange} />
+              </div>
+              <div>
+                <p>Selected date: {ridata.dob}</p>
+              </div>
             </div>
 
-            <button class="submit-button" onClick={HandleClick}>
-              Login
-            </button>
+            <div className="w-full flex justify-center items-center">
+
+              <button class="bg-banana-100 p-2 text-white font-semibold hover:bg-banana-50 text-center shadow-md" onClick={HandleClick}>
+                Sign Up
+              </button>
+
+            </div>
           </div>
-          <div class="form-container__auth-block">
+          <div class="border-t-black border-t-2 flex p-2">
             <span>
-              Already have an account ? SignIn <a href="/Signin">here</a>
+              Already have an account ? SignIn <a
+                className="text-banana-100 hover:text-banana-50 hover:no-underline transition-all ease-in-out duration-500 font-semibold cursor-pointer antialiased tracking-wide"
+                href="/Signin">here</a>
             </span>
           </div>
         </form>

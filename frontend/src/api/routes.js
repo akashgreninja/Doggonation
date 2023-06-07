@@ -11,6 +11,7 @@ export const GET_FOLLOWING='/getfollowing'
 export const GET_FOLLOWERS='/getfollowers'
 export const FOLLOW_USER='/follow'
 export const UNFOLLOW_USER='/unfollow'
+export const NOT_FOLLOWING='/notfollowing'
 
 
 //Signup Api

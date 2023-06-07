@@ -125,7 +125,14 @@ def get_comments():
 def getall():
     data = request.json
     user_id = data["user_id"]
-    return get_requests.getallposts(user_id,databases, databaseID,postsCollectionID)
+    return get_requests.getallposts(mycursor, user_id)
+
+
+@app.route("/getuserposts", methods=["POST"])
+def getuserposts():
+    data = request.json
+    user_id = data["user_id"]
+    return get_requests.getuserposts(mycursor, user_id)
 
 
 # # report
@@ -212,10 +219,14 @@ def unfollow():
 #     return get_requests.followers(data, mycursor)
 
 
-# @app.route("/getfollowing", methods=["GET", "POST"])
-# def following():
-#     data = request.json
-#     return get_requests.following(data, mycursor)
+@app.route("/getfollowing", methods=["GET", "POST"])
+def following():
+    data = request.json
+    return post_requests.following(data, mycursor)
+@app.route("/notfollowing", methods=["GET", "POST"])
+def notfollowing():
+    data = request.json
+    return post_requests.notfollowing(data, mycursor)
 
 
 @app.route("/search", methods=["POST"], strict_slashes=False)
@@ -403,51 +414,49 @@ def handle_connect(data):
 #     pass
 
 
-# @socketio.on("message")
-# def handle_message(data):
-#     room_id = data["room_id"]
-#     sender_id = data["sender_id"]
-#     text = data["data"]
-#     print('room_id', room_id)
-#     # newdict = f"{data['sender_id']:data['data']}"
-#     mycursor.execute(f"select * from `chats` where `msg_id`='{room_id}' ")
-#     result = mycursor.fetchone()
-#     print(result)
-#     existing_list = json.loads(str(result[0]))
-#     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-#     # print(result)
+@socketio.on("message")
+def handle_message(data):
+    room_id = data["room_id"]
+    sender_id = data["sender_id"]
+    text = data["data"]
+    print("room_id", room_id)
+    # newdict = f"{data['sender_id']:data['data']}"
+    mycursor.execute(f"select * from `chats` where `msg_id`='{room_id}' ")
+    result = mycursor.fetchone()
+    print(result)
+    existing_list = json.loads(str(result[0]))
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # print(result)
 
 #     if result:
 #         # try:
 
-#             existing_list = ast.literal_eval(str(result[3]))
-#             print(existing_list)
-#             if True:
-#                 new_element = {
-#                     "sender": sender_id,
-#                     "message": text,
-#                     "time": timestamp,
-#                 }
-#                 print(new_element)
-#                 existing_list.append(new_element)
-#                 print(existing_list)
-#                 updated_list_str = existing_list
-#                 mycursor.execute(
-#                     f'UPDATE `chats` SET `text` = "{updated_list_str}" WHERE `chats`.`msg_id` = "{room_id}";'
-#                 )
-#                 mydb.commit()
-#                 socketio.emit(
-#                     "messagerec", {"data": data["data"], "sender_id": data["sender_id"]}
-#                 )
+        existing_list = ast.literal_eval(str(result[3]))
+        print(existing_list)
+        if True:
+            new_element = {
+                "sender": sender_id,
+                "message": text,
+                "time": timestamp,
+            }
+            print(new_element)
+            existing_list.append(new_element)
+            print(existing_list)
+            updated_list_str = existing_list
+            mycursor.execute(
+                f'UPDATE `chats` SET `text` = "{updated_list_str}" WHERE `chats`.`msg_id` = "{room_id}";'
+            )
+            mydb.commit()
+            socketio.emit(
+                "messagerec", {"data": data["data"], "sender_id": data["sender_id"]}
+            )
 
+    # except :
+    #     print("sdsd")
 
-#         # except :
-#         #     print("sdsd")
-
-
-#     # else:
-#     #     result=json.dumps(newdict)
-#     #     mycursor.execute(f"UPDATE `chats` SET `text` = '{result}' WHERE `chats`.`msg_id` = '{room_id}';")
+    # else:
+    #     result=json.dumps(newdict)
+    #     mycursor.execute(f"UPDATE `chats` SET `text` = '{result}' WHERE `chats`.`msg_id` = '{room_id}';")
 
 
 if __name__ == "__main__":

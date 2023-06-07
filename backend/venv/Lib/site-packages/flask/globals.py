@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import typing as t
 from contextvars import ContextVar
 
@@ -17,30 +19,17 @@ class _FakeStack:
         self.name = name
         self.cv = cv
 
-    def _warn(self):
+    @property
+    def top(self) -> t.Any | None:
         import warnings
 
         warnings.warn(
-            f"'_{self.name}_ctx_stack' is deprecated and will be"
-            " removed in Flask 2.3. Use 'g' to store data, or"
-            f" '{self.name}_ctx' to access the current context.",
+            f"'_{self.name}_ctx_stack' is deprecated and will be removed in Flask 2.4."
+            f" Use 'g' to store data, or '{self.name}_ctx' to access the current"
+            " context.",
             DeprecationWarning,
-            stacklevel=3,
+            stacklevel=2,
         )
-
-    def push(self, obj: t.Any) -> None:
-        self._warn()
-        self.cv.set(obj)
-
-    def pop(self) -> t.Any:
-        self._warn()
-        ctx = self.cv.get(None)
-        self.cv.set(None)
-        return ctx
-
-    @property
-    def top(self) -> t.Optional[t.Any]:
-        self._warn()
         return self.cv.get(None)
 
 
@@ -51,15 +40,15 @@ This typically means that you attempted to use functionality that needed
 the current application. To solve this, set up an application context
 with app.app_context(). See the documentation for more information.\
 """
-_cv_app: ContextVar["AppContext"] = ContextVar("flask.app_ctx")
+_cv_app: ContextVar[AppContext] = ContextVar("flask.app_ctx")
 __app_ctx_stack = _FakeStack("app", _cv_app)
-app_ctx: "AppContext" = LocalProxy(  # type: ignore[assignment]
+app_ctx: AppContext = LocalProxy(  # type: ignore[assignment]
     _cv_app, unbound_message=_no_app_msg
 )
-current_app: "Flask" = LocalProxy(  # type: ignore[assignment]
+current_app: Flask = LocalProxy(  # type: ignore[assignment]
     _cv_app, "app", unbound_message=_no_app_msg
 )
-g: "_AppCtxGlobals" = LocalProxy(  # type: ignore[assignment]
+g: _AppCtxGlobals = LocalProxy(  # type: ignore[assignment]
     _cv_app, "g", unbound_message=_no_app_msg
 )
 
@@ -70,15 +59,15 @@ This typically means that you attempted to use functionality that needed
 an active HTTP request. Consult the documentation on testing for
 information about how to avoid this problem.\
 """
-_cv_request: ContextVar["RequestContext"] = ContextVar("flask.request_ctx")
+_cv_request: ContextVar[RequestContext] = ContextVar("flask.request_ctx")
 __request_ctx_stack = _FakeStack("request", _cv_request)
-request_ctx: "RequestContext" = LocalProxy(  # type: ignore[assignment]
+request_ctx: RequestContext = LocalProxy(  # type: ignore[assignment]
     _cv_request, unbound_message=_no_req_msg
 )
-request: "Request" = LocalProxy(  # type: ignore[assignment]
+request: Request = LocalProxy(  # type: ignore[assignment]
     _cv_request, "request", unbound_message=_no_req_msg
 )
-session: "SessionMixin" = LocalProxy(  # type: ignore[assignment]
+session: SessionMixin = LocalProxy(  # type: ignore[assignment]
     _cv_request, "session", unbound_message=_no_req_msg
 )
 
@@ -88,7 +77,7 @@ def __getattr__(name: str) -> t.Any:
         import warnings
 
         warnings.warn(
-            "'_app_ctx_stack' is deprecated and will be removed in Flask 2.3.",
+            "'_app_ctx_stack' is deprecated and will be removed in Flask 2.4.",
             DeprecationWarning,
             stacklevel=2,
         )
@@ -98,7 +87,7 @@ def __getattr__(name: str) -> t.Any:
         import warnings
 
         warnings.warn(
-            "'_request_ctx_stack' is deprecated and will be removed in Flask 2.3.",
+            "'_request_ctx_stack' is deprecated and will be removed in Flask 2.4.",
             DeprecationWarning,
             stacklevel=2,
         )
