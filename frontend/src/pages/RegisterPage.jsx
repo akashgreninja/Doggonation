@@ -8,7 +8,7 @@ import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import image from '../images/dogsimg/start.png'
-import image2 from '../images/dogsimg/giphy.gif'
+import image2 from '../images/dogsimg/doggo2.png'
 import image3 from '../images/dogsimg/aa9cd4b25d251ac5a328991ebe587dc3.gif'
 
 
@@ -85,12 +85,16 @@ const RegisterPage = (props) => {
   };
   return (
     <div class="bg-doggo-background-register min-h-screen  flex justify-center items-center">
+      
       <div className="pl-0 ml-0">
+      <h2 className="doggoClass text-white text-8xl">Doggonation</h2>
+      
       <div className="mt-0">
-      <img src={image} alt="" srcset=""  />
+        
+      <img src={image} alt="" srcset=""  className="h-64" />
       </div>
        
-      <div className=" flex flex-row justify-between -mt-4">
+      <div className=" flex flex-row justify-between -mt-4 ">
       <img src={image2} alt="" srcset=""  className="h-72 "/>
       <img src={image3} alt="" srcset=""  className="h-64 ml-10"/>
       </div>
@@ -104,7 +108,7 @@ const RegisterPage = (props) => {
           </Alert>
         </Stack>
       ) : null}
-      <div class="flex border rounded-lg shadow-2xl bg-white p-5 ml-2">
+      <div class="flex border rounded-lg shadow-2xl bg-white p-5 ml-dogmi">
         
         <form class="flex flex-col gap-[15px]">
           <div class="flex flex-col justify-between items-center gap-[15px]">
