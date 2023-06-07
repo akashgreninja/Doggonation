@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getallposts } from "../../api/allpost";
 import ExploreCard from "../posts/ExploreCard";
 import { getExplorePosts } from "../../api/explore";

@@ -16,6 +16,7 @@ import Dm from "./pages/Dm";
 import NotFound from "./pages/NotFound";
 import Landingpage from "./pages/LandingPage/Landingpage";
 import About from "./pages/LandingPage/About";
+import NFTPage from "./pages/NFTPage";
 
 function App() {
   // const [Sidebar, setsidebar] = useState(true);
@@ -58,6 +59,10 @@ function App() {
             <Route
               path="/explore"
               element={<Explore Sidebarrender={setsidebar} />}
+            />
+            <Route 
+              path="/nft" 
+              element={<NFTPage Sidebarrender={setsidebar}/> }
             />
             <Route path="/dm" element={<Dm Sidebarrender={setsidebar} />} />
             <Route path="*" element={<NotFound />} />

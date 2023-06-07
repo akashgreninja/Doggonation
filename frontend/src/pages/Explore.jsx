@@ -12,8 +12,6 @@ const Explore = (props) => {
   useEffect(() => {
     props.Sidebarrender(true);
     getUserDetails();
-   
-
   }, []);
 
 

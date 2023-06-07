@@ -1,0 +1,33 @@
+.nftcard {
+    min-width: 15rem;
+    border-radius: 10px;
+    background: #ffc300;
+    background: linear-gradient(94deg, #ffc300 0%, #77c4de 100%);
+    transition: all .3s;
+    color: #fff;
+   }
+
+   .nftcard *:hover{
+    text-decoration: none;
+   }
+
+   .nftcard2 {
+    width: 100%;
+    padding: 20px;
+    background: radial-gradient(ellipse at top left, #99d6ea 20%, #d41ce59f 62%, #FDC921 90%);    
+    border-radius: 10px;
+    transition: all .2s;
+   }
+   
+   .nftcard2:hover {
+    transform: scale(0.97);
+    border-radius: 30px;
+   }
+   
+   .nftcard:hover {
+    box-shadow: 0px 0px 30px 1px rgba(162, 0, 255, 0.314);
+    border-radius: 31px;
+   }
+   .pink-shadow {
+    box-shadow: inset 4px 4px 8px rgba(175, 230, 255, 0.5), inset -4px -4px 8px #d41ce5;
+   }

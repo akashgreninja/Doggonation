@@ -46,7 +46,7 @@ module.exports = {
         ocean: {
           50: "#99D6EA",
           100: "#77c4de",
-          200: "#6798C0",
+          200: "#1a91b9",
         },
       },
       height: {
