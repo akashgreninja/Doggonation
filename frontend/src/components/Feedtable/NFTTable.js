@@ -10,8 +10,7 @@ const NFTTable = (props) => {
     >
       <div className="flex flex-row mx-auto mt-10 w-10/12 ">
         <NFTCard/>
-        <NFTCard/>
-        <NFTCard/>
+    
 
       </div>
     </div>

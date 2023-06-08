@@ -199,6 +199,8 @@ def follower():
 def following():
     data = request.json
     return post_requests.following(data, mycursor)
+
+
 @app.route("/notfollowing", methods=["GET", "POST"])
 def notfollowing():
     data = request.json
