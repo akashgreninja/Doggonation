@@ -12,13 +12,6 @@ from datetime import datetime
 
 
 from flask_cors import CORS
-from flask_login import (
-    LoginManager,
-    login_required,
-    current_user,
-    logout_user,
-    login_user,
-)
 
 # import pyodbc   this was the azure connection
 import base64
@@ -48,8 +41,7 @@ location = os.getenv("LOCATION")
 
 get_requests = Get()
 post_requests = Post()
-login_manager = LoginManager()
-login_manager.init_app(app)
+
 
 app.app_context().push()
 
