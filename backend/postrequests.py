@@ -171,7 +171,7 @@ class Post:
 
         if result:
             print(result[0][0])
-            return result
+            return jsonify(result)
         else:
             return failure
 
