@@ -61,7 +61,7 @@ const PostModal = (props) => {
   const [loadcomments, setloadcomments] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   let element = props.element;
-  console.log(element);
+  
   let openPost = props.openPost;
   let handleClosePost = props.handleClosePost;
   let commentRef = useRef();
