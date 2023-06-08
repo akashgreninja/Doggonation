@@ -5,7 +5,6 @@
 
 import React, { useState } from "react";
 import { SendPaymentToDatabase, createOrder, getKey } from "../../api/razorpay";
-import DonateButton from "./DonateButton";
 
 const Razorpay = () => {
   const [orderAmount, setorderAmount] = useState(null);
@@ -138,7 +137,7 @@ const Razorpay = () => {
         onChange={handleChange}
       />
       {/* <button className="btn-donate m-auto" onClick={loadRazorpay}>Razorpay</button> */}
-      <DonateButton onClick={loadRazorpay}>RazorPay</DonateButton>
+      <button className="rounded-t-none w-full rounded-b-xl bg-blue-500 px-12 py-2" onClick={loadRazorpay}>RazorPay</button>
     </div>
   );
 };

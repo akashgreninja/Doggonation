@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../../images/logo-no-background.png";
 import { Link, json, useNavigate } from "react-router-dom";
-import SearchButton from "../../buttons/SearchButton";
 import { startsearch } from "../../../api/search";
 import { FaUserCircle } from "react-icons/fa";
 import { FiCompass } from "react-icons/fi";
 import { FaEnvelope } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import StyleButton from "../../buttons/StyleButton";
 
 const Sidebar = () => {
   const profile = useSelector((state) => state.UserId.Userinfo);
@@ -105,37 +105,29 @@ const Sidebar = () => {
         <Link to="/explore">
           <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200  text-black">
             <i class="bi bi-bookmark-fill"></i>
-            <span class="text-[15px] ml-4 text-black font-bold">
-              Discover
-            </span>
+            <span class="text-[15px] ml-4 text-black font-bold">Discover</span>
           </div>
         </Link>
         <Link to="/dm">
-        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200 text-black">
-          <i class="bi bi-chat-left-dots-fill"></i>
-          <span class="text-[15px] ml-4 text-black font-bold">
-            {" "}
-            Messages
-          </span>
-        </div>
+          <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200 text-black">
+            <i class="bi bi-chat-left-dots-fill"></i>
+            <span class="text-[15px] ml-4 text-black font-bold"> Messages</span>
+          </div>
         </Link>
         <Link to="/donation">
-        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200 text-black">
-          <i class="bi bi-cash"></i>
-          <span class="text-[15px] ml-4 text-black font-bold">
-            {" "}
-            Donate
-          </span>
-        </div>
+          <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200 text-black">
+            <i class="bi bi-cash"></i>
+            <span class="text-[15px] ml-4 text-black font-bold"> Donate</span>
+          </div>
         </Link>
-<Link to="/About">
-        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200  text-black">
-          <i class="bi bi-chat-left-dots-fill"></i>
-          <span class="text-[15px] ml-4 text-black font-bold">
-            {" "}
-            <Link to="/About">About </Link>
-          </span>
-        </div>
+        <Link to="/About">
+          <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200  text-black">
+            <i class="bi bi-chat-left-dots-fill"></i>
+            <span class="text-[15px] ml-4 text-black font-bold">
+              {" "}
+              <Link to="/About">About </Link>
+            </span>
+          </div>
         </Link>
         <div class="p-2.5 mt-3 flex items-center rounded-md px-profilepadding duration-300 cursor-pointer hover:bg-gray-200 text-black">
           <div class="h-8 w-8 rounded-full overflow-hidden pl-0 ml-0">
@@ -150,7 +142,9 @@ const Sidebar = () => {
             />
           </div>
           <span class="text-[15px] ml-4 text-black font-bold">
-            {profile!=null ? <Link to={ `/profile/${profile[0]}`}>Profile</Link> : null}
+            {profile != null ? (
+              <Link to={`/profile/${profile[0]}`}>Profile</Link>
+            ) : null}
           </span>
         </div>
         <div
@@ -191,7 +185,7 @@ const Sidebar = () => {
               id="searchbar"
               onChange={handleValue}
             />
-            <SearchButton />
+            <StyleButton>Search</StyleButton>
           </div>
 
           {searchdata.length > 0
