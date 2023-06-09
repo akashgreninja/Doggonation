@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../../images/logo-no-background.png";
 import { Link, json, useNavigate } from "react-router-dom";
-import { startsearch } from "../../../api/search";
-import { FaUserCircle } from "react-icons/fa";
-import { FiCompass } from "react-icons/fi";
-import { FaEnvelope } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import SideBarOption from "./SideBarOption";
 import Searchbar from "./Searchbar";
@@ -24,50 +20,6 @@ const Sidebar = (props) => {
     const check = document.querySelector("#submenu").classList.toggle("hidden");
     console.log(check);
     document.querySelector("#arrow").classList.toggle("rotate-0");
-  };
-
-  const [searchmodalopen, setsearchmodalopen] = useState(false);
-
-  const opensearchmodal = () => setsearchmodalopen(true);
-  const closesearchmodal = () => setsearchmodalopen(false);
-
-  useEffect(() => {
-    search();
-  }, []);
-
-  const [searchdata, setsearchdata] = useState([]);
-  const [emptyinput, setemptyinput] = useState(false);
-
-  const handleValue = (e) => {
-    if (e.target.value === "") {
-      setemptyinput(true);
-    } else {
-      setemptyinput(false);
-    }
-  };
-
-  const search = async () => {
-    let searchbar = document.getElementById("searchbar").value;
-    if (searchbar === "") {
-      setemptyinput(true);
-      return;
-    }
-
-    const { data } = await startsearch(searchbar);
-    //   const response =await fetch('http://127.0.0.1:3003/search', {
-    //     method: "POST",
-
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({ keywords:searchbar}),
-    //   });
-
-    //     let json = await response.json();
-    setsearchdata(data);
-    console.log(data);
-
-    // }
   };
 
   const handlehome = () => {
@@ -122,8 +74,9 @@ const Sidebar = (props) => {
             />
           </div>
           <div className="bg-white">
-            <nav className="w-navbarw h-navbarh bg-white flex flex-row justify-between shadow-sm">
-              <p>Home</p>
+            <nav className="w-navbarw h-navbarh bg-white flex flex-row content-center justify-between shadow-sm">
+              <p className="ml-[3vw] my-7 font-bold text-xl">Home</p>
+
               <div class="p-2.5 m-3 flex items-center rounded-md px-profilepadding duration-300 cursor-pointer hover:bg-gray-200 text-black">
                 <div class="h-8 w-8 rounded-full overflow-hidden pl-0 ml-0">
                   <img
