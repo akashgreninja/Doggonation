@@ -96,8 +96,8 @@ const Sidebar = (props) => {
                 </span>
               </div>
             </nav>
-            <div className="w-[2vw] h-[2vw] bg-white " />
-            <div className="w-[2vw] h-[2vw] rounded-tl-xl shadow-inner translate-y-[-2vw] " />
+            <div className="w-[1vw] h-[1vw] bg-white " />
+            <div className="w-[1vw] h-[1vw] rounded-tl-xl shadow-[inset_1px_1px_1px_rgba(0,0,0,0.06)] translate-y-[-1vw] " />
           </div>
         </div>
       )}
