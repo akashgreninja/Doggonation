@@ -7,15 +7,14 @@ const ExploreTable = (props) => {
   const [exploredata, setexploredata] = useState([]);
 
   useEffect(() => {
-    renderexplore()
+    renderexplore();
+  }, []);
 
-  }, [])
-
-  const renderexplore = async() => {
-      const {data}=await getExplorePosts()
-      setexploredata(data)
-      console.log(exploredata)
-  }
+  const renderexplore = async () => {
+    const { data } = await getExplorePosts();
+    setexploredata(data);
+    console.log(exploredata);
+  };
 
   // placehlder for getposts
   // let user_id = 29;
@@ -30,11 +29,8 @@ const ExploreTable = (props) => {
   // };
 
   return (
-    <div
-      className="bg-[#f5f1eb] w-full h-[100vh]"
-      style={{ "padding-left": "17rem", "padding-top": "62px" }}
-    >
-      <div className="flex flex-row mx-auto mt-10 w-10/12 ">
+    <div className="bg-white w-full">
+      <div className="flex flex-row m-auto mt-[8vh] w-10/12 ">
         <div className="w-1/3">
           {exploredata !== []
             ? exploredata?.map((element, index) => {
@@ -67,7 +63,7 @@ const ExploreTable = (props) => {
                 if (index % 3 == 2) {
                   return (
                     <div key={element}>
-                      <ExploreCard element={element}/>
+                      <ExploreCard element={element} />
                     </div>
                   );
                 }

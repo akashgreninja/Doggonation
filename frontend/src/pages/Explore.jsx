@@ -29,7 +29,7 @@ const Explore = (props) => {
   }
 
   return (
-    <div>
+    <div className='pl-contentTrayXOffset pt-contentTrayYOffset bg-white'>
       <ExploreTable/>
   </div>
   )

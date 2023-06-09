@@ -13,12 +13,12 @@ const ExploreCard = (props) => {
   const handleClosePost = () => setOpenPost(false);
 
   return (
-    <div className="mx-px py-px ">
+    <div className="mx-4 py-4 ">
       <img
         src={element[0]}
         alt=""
         srcset=""
-        className="w-full cursor-pointer hover:shadow-[inset_0_-2px_4px_rgba(0,0,0,0.6)]"
+        className="w-full rounded-3xl cursor-pointer hover:shadow"
         onClick={handleOpenPost}
       />
       <PostModal element={element[0]} openPost={openPost} handleClosePost={handleClosePost}/>
