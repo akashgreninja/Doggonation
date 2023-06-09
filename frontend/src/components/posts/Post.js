@@ -116,18 +116,6 @@ const Post = (props) => {
             {showOptions && (
               <div className="absolute mt-2 w-48 bg-white rounded-lg shadow-xl">
                 <Report post_id={element[2]}/>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-800 hover:bg-banana-100 hover:text-white"
-                >
-                  Option 2
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-800 hover:bg-banana-100 hover:text-white"
-                >
-                  Option 3
-                </a>
               </div>
             )}
           </div>

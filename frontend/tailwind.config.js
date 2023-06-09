@@ -54,7 +54,7 @@ module.exports = {
         forgif: "30rem",
         // "footer-height": "16rem",
         lastsectionh: "10vw",
-        sidebarh: "3.95rem",
+        navbarh: "13vh",
         sidebarhimg: "2.75rem",
         postheight: "40rem",
         postimage: "20rem",
@@ -62,7 +62,7 @@ module.exports = {
       width: {
         forgif: "70vw",
         lastsectionw: "30vw",
-        sidebarw: "17rem",
+        sidebarw: "24vw",
         sidebarwimg: "8.75rem",
         searchbarw: "28rem",
         half: "70%",
@@ -82,6 +82,8 @@ module.exports = {
         
       },
       padding: {
+        contentTrayYOffset: "13vh",
+        contentTrayXOffset: "24vw",
         chatpaddingtop: "5%",
         profilepadding: "17px",
       },

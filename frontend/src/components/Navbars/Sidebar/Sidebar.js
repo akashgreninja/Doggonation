@@ -7,6 +7,7 @@ import { FiCompass } from "react-icons/fi";
 import { FaEnvelope } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import StyleButton from "../../buttons/StyleButton";
+import SearchModal from "./SearchModal";
 
 const Sidebar = () => {
   const profile = useSelector((state) => state.UserId.Userinfo);
@@ -24,6 +25,11 @@ const Sidebar = () => {
     console.log(check);
     document.querySelector("#arrow").classList.toggle("rotate-0");
   };
+
+  const [searchmodalopen, setsearchmodalopen] = useState(false);
+
+  const opensearchmodal = () => setsearchmodalopen(true);
+  const closesearchmodal = () => setsearchmodalopen(false);
 
   useEffect(() => {
     search();
@@ -76,9 +82,9 @@ const Sidebar = () => {
       className="flex fixed  flex-row  h-10 "
       style={{ "pointer-events": "auto" }}
     >
-      <div className="h-screen bg-white  w-sidebarw  border-r-1 border-gray-400">
+      <div className="h-screen bg-white pl-[2vw] w-sidebarw  border-gray-400">
         <div className="flex justify-center  m-5">
-          <img src={logo} alt="" className="w-sidebarwimg h-sidebarhimg" />
+          <img src={logo} alt="" className="" width={300} />
         </div>
         <br />
         {/* <div className="float-left mx-10 ">
@@ -97,34 +103,41 @@ const Sidebar = () => {
         </ul>
 </div> */}
         <Link to="/">
-          <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200 text-black">
-            <i class="bi bi-house-door-fill"></i>
+          <div class="p-2.5 m-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200 text-black ">
+            <i class="bi bi-house-door-fill "></i>
             <span class="text-[15px] ml-4 text-black font-bold">Home</span>
           </div>
         </Link>
+        <div
+          onClick={opensearchmodal}
+          class="p-2.5 m-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200  text-black"
+        >
+          {searchmodalopen && <SearchModal />}
+          <i class="bi bi-search"></i>
+          <span class="text-[15px] ml-4 text-black font-bold">Search</span>
+        </div>
         <Link to="/explore">
-          <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200  text-black">
+          <div class="p-2.5 m-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200  text-black">
             <i class="bi bi-bookmark-fill"></i>
             <span class="text-[15px] ml-4 text-black font-bold">Discover</span>
           </div>
         </Link>
         <Link to="/dm">
-          <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200 text-black">
+          <div class="p-2.5 m-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200 text-black">
             <i class="bi bi-chat-left-dots-fill"></i>
             <span class="text-[15px] ml-4 text-black font-bold"> Messages</span>
           </div>
         </Link>
         <Link to="/donation">
-          <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200 text-black">
+          <div class="p-2.5 m-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200 text-black">
             <i class="bi bi-cash"></i>
             <span class="text-[15px] ml-4 text-black font-bold"> Donate</span>
           </div>
         </Link>
         <Link to="/About">
-          <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200  text-black">
+          <div class="p-2.5 m-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200  text-black">
             <i class="bi bi-chat-left-dots-fill"></i>
             <span class="text-[15px] ml-4 text-black font-bold">
-              {" "}
               <Link to="/About">About </Link>
             </span>
           </div>
@@ -136,7 +149,7 @@ const Sidebar = () => {
           </span>
         </div>
         </Link>
-        <div class="p-2.5 mt-3 flex items-center rounded-md px-profilepadding duration-300 cursor-pointer hover:bg-gray-200 text-black">
+        <div class="p-2.5 m-3 flex items-center rounded-md px-profilepadding duration-300 cursor-pointer hover:bg-gray-200 text-black">
           <div class="h-8 w-8 rounded-full overflow-hidden pl-0 ml-0">
             <img
               src={
@@ -162,28 +175,9 @@ const Sidebar = () => {
           <span class="text-[15px] ml-4 text-black font-bold">Logout</span>
         </div>
       </div>
-      <nav className="w-screen h-sidebarh bg-white flex flex-row border-b-1 justify-items-center">
-        {/* <div class="flex items-center ml-10 mr-9">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-            />
-          </svg>
-
-          <span class="font-bold text-lg ml-4">Home</span>
-        </div> */}
-
+      <nav className="w-screen h-navbarh bg-white flex flex-row border-b-1 justify-items-center">
         <div class="flex flex-col">
-          <div className="flex items-center w-searchbarw rounded-lg px-4 py-2">
+          <div className="flex items-center w-full rounded-lg px-4 py-2">
             <input
               className="w-full px-4 py-2 rounded-lg text-gray-700 focus:outline-none border"
               type="text"
