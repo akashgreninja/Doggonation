@@ -92,7 +92,7 @@ const Post = (props) => {
    
 }
   return (
-    <div className="w-full bg-white  mb-2 mt-2 rounded-lg border-2 border-grey-500">
+    <div className="w-full bg-white  mb-2 mt-2 rounded-3xl border-2 border-grey-500">
       <div className="flex flex-col w-full">
         <div className="flex items-center justify-content-between  pt-3 pl-3 pr-5">
           <div class="flex items-center">
@@ -116,18 +116,6 @@ const Post = (props) => {
             {showOptions && (
               <div className="absolute mt-2 w-48 bg-white rounded-lg shadow-xl">
                 <Report post_id={element[2]}/>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-800 hover:bg-banana-100 hover:text-white"
-                >
-                  Option 2
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-800 hover:bg-banana-100 hover:text-white"
-                >
-                  Option 3
-                </a>
               </div>
             )}
           </div>

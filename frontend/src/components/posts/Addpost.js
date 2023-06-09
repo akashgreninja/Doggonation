@@ -7,7 +7,6 @@ import "./Addposts.css";
 import { create } from "ipfs-http-client";
 import { Buffer } from "buffer";
 
-import "../buttons/BlueButton.css";
 import ReactLoading from "react-loading";
 import React, { useState } from "react";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -17,6 +16,7 @@ import { Client, Account, ID, Avatars } from "appwrite";
 import Web3 from "web3";
 import { ethers } from "ethers";
 import NFTContractABI from "./NFTContractABI.json";
+import StyleButton from "../buttons/StyleButton";
 const Addpost = (props) => {
   let { posts, setposts, load } = props;
   const style = {
@@ -182,7 +182,7 @@ const Addpost = (props) => {
         const txId = transactionReceipt.transactionHash;
         setTransactionId(txId);
         console.log(`Transaction ID: ${txId}`);
-        const result = avatars.getQR(`${txId}`);  
+        const result = avatars.getQR(`${txId}`);
         console.log(result);
         const downloadLink = document.createElement("a");
         downloadLink.href = result.href;
@@ -267,8 +267,8 @@ const Addpost = (props) => {
   };
 
   return (
-    <div className="h-32 bg-white  mb-2 mt-2 rounded-lg p-2 border-2 border-grey-500">
-      <div className="flex w-full items-center h-12  bg-stone-100 border border-gray-800 rounded p-2">
+    <div className="h-32 bg-white  mb-2 mt-2 rounded-3xl p-2 border-2 border-grey-500">
+      <div className="flex w-full items-center h-12  bg-stone-100 border border-gray-800 rounded-2xl p-2">
         <input
           type="text"
           readOnly
@@ -277,9 +277,10 @@ const Addpost = (props) => {
           className="w-full px-2 py-1 text-gray-800 bg-stone-100"
         />
         <div className="z-10">
-          <button onClick={handleOpen} className="blue-button ">
+          <StyleButton onClick={handleOpen}>Create Post</StyleButton>
+          {/* <button onClick={handleOpen} className=" ">
             Create Post
-          </button>
+          </button> */}
         </div>
 
         <Modal

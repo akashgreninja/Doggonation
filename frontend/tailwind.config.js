@@ -44,9 +44,9 @@ module.exports = {
           100: "#FDC921",
         },
         ocean: {
-          50: "#99D6EA",
-          100: "#77c4de",
-          200: "#1a91b9",
+          50: "#77c4de",
+          100: "#99D6EA",
+          200: "#6798C0",
         },
       },
       height: {
@@ -54,7 +54,7 @@ module.exports = {
         forgif: "30rem",
         // "footer-height": "16rem",
         lastsectionh: "10vw",
-        sidebarh: "3.95rem",
+        navbarh: "10vh",
         sidebarhimg: "2.75rem",
         postheight: "40rem",
         postimage: "20rem",
@@ -62,9 +62,10 @@ module.exports = {
       width: {
         forgif: "70vw",
         lastsectionw: "30vw",
-        sidebarw: "17rem",
+        sidebarw: "24vw",
         sidebarwimg: "8.75rem",
         searchbarw: "28rem",
+        navbarw: "76vw",
         half: "70%",
         postwidth: "35rem",
         buttonli: "10rem",
@@ -82,6 +83,8 @@ module.exports = {
         
       },
       padding: {
+        contentTrayYOffset: "10vh",
+        contentTrayXOffset: "24vw",
         chatpaddingtop: "5%",
         profilepadding: "17px",
       },

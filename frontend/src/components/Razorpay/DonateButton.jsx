@@ -1,5 +1,4 @@
 import React from 'react'
-import '../buttons/BlueButton.css'
 import './DonateButton.css'
 
 const   DonateButton = (props) => {
