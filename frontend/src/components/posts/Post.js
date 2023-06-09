@@ -92,7 +92,7 @@ const Post = (props) => {
    
 }
   return (
-    <div className="w-full bg-white  mb-2 mt-2 rounded-lg border-2 border-grey-500">
+    <div className="w-full bg-white  mb-2 mt-2 rounded-3xl border-2 border-grey-500">
       <div className="flex flex-col w-full">
         <div className="flex items-center justify-content-between  pt-3 pl-3 pr-5">
           <div class="flex items-center">

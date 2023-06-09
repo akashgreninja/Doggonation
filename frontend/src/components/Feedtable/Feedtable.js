@@ -12,7 +12,7 @@ const Feedtable = (props) => {
     setposts(data);
   };
   return (
-      <div className="w-[45vw] mx-4 my-2 mb-50 pointer-events-auto">
+      <div className="w-[40vw] mx-10 my-2 mb-50 pointer-events-auto">
 
        <Addpost loader={props.loader} posts={posts} setposts={setposts} load={load}/>
         <div className="just">

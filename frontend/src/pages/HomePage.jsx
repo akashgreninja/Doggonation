@@ -24,7 +24,7 @@ const HomePage = (props) => {
   };
 
   return (
-    <div className="bg-[#f5f1eb] flex flex-col pl-contentTrayXOffset pt-contentTrayYOffset">
+    <div className="flex flex-col pl-contentTrayXOffset pt-contentTrayYOffset bg-white">
         <Feedtable loader={props.shouldit} />
         <HomepageRight />
     </div>
