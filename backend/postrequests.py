@@ -316,9 +316,10 @@ class Post:
                 result = cursor.fetchone()
                 new.append(result)
 
-            return jsonify(random.shuffle(new))
+            
         else:
             return jsonify(0)
+        return jsonify(new)
 
     def unfollow(self, data, cursor, db):
         follower = data["user_id"]
