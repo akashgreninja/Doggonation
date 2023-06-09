@@ -78,6 +78,7 @@ module.exports = {
         threething: "65%",
         chatmargin: "30%",
         dogmi: "20%",
+        buttonmar:"80px"
         
       },
       padding: {

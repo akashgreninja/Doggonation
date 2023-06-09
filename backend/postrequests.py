@@ -171,7 +171,7 @@ class Post:
 
         if result:
             print(result[0][0])
-            return result
+            return jsonify(result)
         else:
             return failure
 
@@ -245,7 +245,9 @@ class Post:
         try:
             user_id = data["user_id"]
             onlynumber = data["onlynumber"]
+            print(onlynumber)
             if onlynumber:
+                print("onlynumber")
                 query = f"select count(*) from follow where following={user_id}"
                 cursor.execute(query)
                 result = cursor.fetchone()
@@ -272,13 +274,15 @@ class Post:
         try:
             user_id = data["user_id"]
             onlynumber = data["onlynumber"]
-            if onlynumber:
+            if onlynumber==True:
                 query = f"select count(*) from follow where follower={user_id}"
+                print("Dsdsdssdsd")
                 cursor.execute(query)
 
                 result = cursor.fetchone()
 
                 print(result)
+                print("we wew ")
                 return jsonify(result[0])
 
         except:

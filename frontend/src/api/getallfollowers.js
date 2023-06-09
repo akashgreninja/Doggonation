@@ -20,6 +20,7 @@ export const GetNumberOfFollowingForUser = (user_id) => {
 export const GetNumberOfFollowersForUser = (user_id) => {
   const check = {
     user_id: user_id,
+    onlynumber: true,
   };
   return apiConfig.post(GET_FOLLOWING, check);
 };

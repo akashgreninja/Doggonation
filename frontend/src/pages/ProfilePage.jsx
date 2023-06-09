@@ -51,6 +51,7 @@ const ProfilePage = (props) => {
   const getFolloowers = async () => {
     const { data } = await GetNumberOfFollowersForUser(id);
     setfollowers(data);
+    console.log(data);
 
     if (data[0] === null) {
       setfollowers(0);
@@ -59,17 +60,18 @@ const ProfilePage = (props) => {
 
   const getAllPosts = async () => {
     const { data } = await getuserposts(id);
-    console.log(data);
+    
     if (data.sucess == false) {
       setposts([]);
     }
     setposts(data);
-    console.log(posts);
+  
   };
 
   const getFollowing = async () => {
     const { data } = await GetNumberOfFollowingForUser(id);
     setfollowing(data);
+    console.log(data);
 
     if (data[0] === null) {
       setfollowing(0);
@@ -77,11 +79,12 @@ const ProfilePage = (props) => {
   };
 
   const getuser = async () => {
-    console.log(id);
+  
 
     const { data } = await Getuser(id);
 
     setbody(data);
+   
 
     if (data === null) {
       nav("/404");
@@ -110,7 +113,7 @@ const ProfilePage = (props) => {
             <div class="media-body mb-5 text-white">
               {/* <h4 class="mt-0 mb-0">{body[1]}</h4> */}
               <p class="small mb-4">
-                <i class="fas fa-map-marker-alt mr-2"></i>Earth
+                <i class="fas fa-map-marker-alt mr-2"></i>Bangalore
               </p>
             </div>
           </div>
@@ -154,14 +157,7 @@ const ProfilePage = (props) => {
           <h5 class="mb-0">About</h5>
           <div class="p-4 rounded shadow-sm bg-light">
             <p class="font-italic mb-0">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis
-              dolorem modi illo ipsum, est ex atque? Ex atque culpa ducimus et
-              at dolores ad facere minima eligendi quisquam, hic debitis aliquid
-              iusto quia nobis harum commodi nisi. Quia inventore eaque facere
-              excepturi facilis fuga beatae aliquam ipsam deleniti labore velit
-              totam cum iste unde suscipit impedit, dicta sed. Distinctio,
-              aspernatur incidunt dolore totam culpa, debitis placeat ratione
-              ipsa ipsum possimus eaque, cumque saepe quia non.
+              cute doggo, loves long walks, belly rubs and eating chicken
             </p>
           </div>
         </div>
@@ -180,8 +176,9 @@ const ProfilePage = (props) => {
                     <img
                       src={post[0]}
                       alt="..."
-                      class="img-fluid rounded shadow-sm"
+                      class="img-fluid rounded shadow-sm h-64"
                       onClick={handleOpenPost}
+                    
                     />
                     <PostModal
                       element={post}

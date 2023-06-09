@@ -128,6 +128,13 @@ const Sidebar = () => {
               <Link to="/About">About </Link>
             </span>
           </div>
+        <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-200  text-black">
+        <i class="bi bi-currency-dollar"></i>
+          <span class="text-[15px] ml-4 text-black font-bold">
+            {" "}
+            <Link to="/nft">My NFT's </Link>
+          </span>
+        </div>
         </Link>
         <div class="p-2.5 mt-3 flex items-center rounded-md px-profilepadding duration-300 cursor-pointer hover:bg-gray-200 text-black">
           <div class="h-8 w-8 rounded-full overflow-hidden pl-0 ml-0">
