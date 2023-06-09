@@ -2,9 +2,9 @@
 
 // on top is the link to the documentation of razorpay its easy to use and implement
 
-
 import React, { useState } from "react";
 import { SendPaymentToDatabase, createOrder, getKey } from "../../api/razorpay";
+import StyleButton from "../buttons/StyleButton";
 
 const Razorpay = () => {
   const [orderAmount, setorderAmount] = useState(null);
@@ -12,7 +12,7 @@ const Razorpay = () => {
   const [orders, setorders] = useState([]);
   const handleChange = (e) => {
     setorderAmount(e.target.value);
-    console.log("amt: ",orderAmount);
+    console.log("amt: ", orderAmount);
   };
 
   const loadRazorpay = async () => {
@@ -39,9 +39,9 @@ const Razorpay = () => {
     document.body.appendChild(script);
   };
   const click_2 = async (req, res) => {
-    const legitamt=100
+    const legitamt = 100;
     const header = {
-      amount: 100 +"00",
+      amount: 100 + "00",
     };
     const { data } = await createOrder(header);
 
@@ -62,17 +62,17 @@ const Razorpay = () => {
 
       handler: async function (response) {
         console.log(response);
-        try{
-          const {data}=await SendPaymentToDatabase(
+        try {
+          const { data } = await SendPaymentToDatabase(
             response.razorpay_payment_id,
             response.razorpay_order_id,
             response.razorpay_signature,
             legitamt
-          )
-        }catch(err){
-          console.log(err)
+          );
+        } catch (err) {
+          console.log(err);
         }
-     
+
         // console.log("hit")
         // const result=await axios.post(`${host}/pay-order`,{
         //     amount: orderAmount,
@@ -128,16 +128,21 @@ const Razorpay = () => {
     paymentObject.open();
   };
   return (
-    <div className="flex flex-col border-2 bg-white rounded-xl m-auto w-48 content-center">
+    <div className="border-2 bg-white rounded-xl m-auto w-48 content-center">
       <input
         type="number"
         placeholder="Enter Amount"
         value={orderAmount}
-        className="text-center py-0.5 rounded-xl m-auto w-28 rounded-b-none w-full"
+        className="text-center py-0.5 rounded-xl m-auto rounded-b-none w-full"
         onChange={handleChange}
       />
       {/* <button className="btn-donate m-auto" onClick={loadRazorpay}>Razorpay</button> */}
-      <button className="rounded-t-none w-full rounded-b-xl bg-blue-500 px-12 py-2" onClick={loadRazorpay}>RazorPay</button>
+      <StyleButton
+        className="rounded-t-none w-full rounded-b-xl bg-blue-500 px-12 py-2"
+        onClick={loadRazorpay}
+      >
+        RazorPay
+      </StyleButton>
     </div>
   );
 };
