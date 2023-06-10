@@ -8,7 +8,7 @@ const NFTPage = (props) => {
       }, []);
 
   return (
-    <div className='flex flex-col'  >
+    <div className='flex flex-col pl-contentTrayXOffset pt-contentTrayYOffset bg-white'  >
         <NFTTable/>
     </div>
   );

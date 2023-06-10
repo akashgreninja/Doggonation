@@ -268,7 +268,7 @@ const Addpost = (props) => {
 
   return (
     <div className="h-32 bg-white  mb-2 mt-2 rounded-3xl p-2 border-2 border-grey-500">
-      <div className="flex w-full items-center h-12  bg-stone-100 border border-gray-800 rounded-2xl p-2">
+      <div className="flex w-full items-center h-12  bg-stone-100 border border-gray-800 rounded-3xl p-2 pr-1">
         <input
           type="text"
           readOnly

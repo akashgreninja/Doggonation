@@ -38,7 +38,7 @@ const PostModal = (props) => {
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
-    borderRadius: 0.5,
+    borderRadius: 100,
   };
   const [msgsent, setmsgsent] = useState(false);
   const [roomid, setroomid] = useState(null);
@@ -116,10 +116,10 @@ const PostModal = (props) => {
       aria-describedby="modal-modal-post"
     >
       <Box sx={Modalstyle}>
-        <div className="h-full bg-white rounded-lg border-2 border-grey-500">
+        <div className="h-full bg-white rounded-3xl">
           <div className="h-full flex">
             <div className="">
-              <img src={element[0]} alt="" srcset="" className="h-full" />
+              <img src={element[0]} alt="" srcset="" className="h-full rounded-l-3xl" />
             </div>
             <div className="flex flex-col w-96 p-2">
               <div className="flex items-center justify-content-between  pt-3 pl-3 pr-5">
