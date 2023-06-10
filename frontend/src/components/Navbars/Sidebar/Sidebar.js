@@ -123,7 +123,7 @@ const Sidebar = (props) => {
           </div>
           <div className="bg-white">
             <nav className="w-navbarw h-navbarh bg-white flex flex-row justify-between shadow-sm">
-              <p>Home</p>
+              {/* <p>Home</p> */} <p></p>
               <div class="p-2.5 m-3 flex items-center rounded-md px-profilepadding duration-300 cursor-pointer hover:bg-gray-200 text-black">
                 <div class="h-8 w-8 rounded-full overflow-hidden pl-0 ml-0">
                   <img
