@@ -23,7 +23,7 @@ function App() {
     <>
       <Router>
         {/* {sidebar === true ? <Sidebar /> : null} */}
-        <Sidebar/>
+        <Sidebar />
 
         <Suspense>
           <Routes>
