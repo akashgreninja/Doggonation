@@ -62,11 +62,11 @@ const Sidebar = (props) => {
               icon="bi bi-chat-left-dots-fill"
               label="About"
             />
-            <SideBarOption
+            {/* <SideBarOption
               to="/nft"
               icon="bi bi-currency-dollar"
               label="My NFT's"
-            />
+            /> */}
             <SideBarOption
               onClick={HandleLogout}
               icon="bi bi-box-arrow-in-right"
