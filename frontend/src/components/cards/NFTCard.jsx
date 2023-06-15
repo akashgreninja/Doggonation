@@ -11,9 +11,9 @@ const NFTCard = () => {
           <img src={image1} alt="" srcset="" className="z-10 h-64" />
           <div className="z-10 pt-10 text-center">
             <p className="text-white"> DoggoName: Aard Mathacha</p>
-            <p className="text-white"> UploadDate: 09-06-23</p>
+            <p className="text-white"> UploadDate: 11-06-23</p>
             <p className="text-white"> TransID: 0x499acce.....</p>
-           <a href="https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/63281979494229544123467746873783103813610368747147527633129247368696274354177">   <button className= "ml-buttonmar mt-5 bg-green-500 py-3 px-5 text-center justify-center align-middle">Valid</button></a>
+           <a href="https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/63281979494229544123467746873783103813610368747147527633129247369795785981953">   <button className= "ml-buttonmar mt-5 bg-green-500 py-3 px-5 text-center justify-center align-middle">Valid</button></a>
          
           </div>
         </div>
