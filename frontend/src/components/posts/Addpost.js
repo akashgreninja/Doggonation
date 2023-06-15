@@ -139,7 +139,7 @@ const Addpost = (props) => {
     if (data.status === 200) {
       setlaodingtext("upload successfull NFT sucessful ");
       // const reader = new FileReader();
-      handleTransaction();
+      // handleTransaction();
 
       handleClose();
     } else {
@@ -153,69 +153,69 @@ const Addpost = (props) => {
       );
     }
   };
-  const handleTransaction = async () => {
-    if (typeof window.ethereum !== "undefined") {
-      try {
-        // Request access to MetaMask accounts
-        await window.ethereum.enable();
+  // const handleTransaction = async () => {
+  //   if (typeof window.ethereum !== "undefined") {
+  //     try {
+  //       // Request access to MetaMask accounts
+  //       await window.ethereum.enable();
 
-        // Create a new Web3 instance using the MetaMask provider
-        const web3 = new Web3(window.ethereum);
+  //       // Create a new Web3 instance using the MetaMask provider
+  //       const web3 = new Web3(window.ethereum);
 
-        // Get the selected account from MetaMask
-        const accounts = await web3.eth.getAccounts();
-        const sender = accounts[0];
+  //       // Get the selected account from MetaMask
+  //       const accounts = await web3.eth.getAccounts();
+  //       const sender = accounts[0];
 
-        // Create a transaction object
-        const transactionObject = {
-          from: sender,
-          to: ContractAddress, // Replace with your contract address
-          value: MinimumTransactionAmount, // Amount in wei
-        };
+  //       // Create a transaction object
+  //       const transactionObject = {
+  //         from: sender,
+  //         to: ContractAddress, // Replace with your contract address
+  //         value: MinimumTransactionAmount, // Amount in wei
+  //       };
 
-        // Send the transaction
-        const transactionReceipt = await web3.eth.sendTransaction(
-          transactionObject
-        );
+  //       // Send the transaction
+  //       const transactionReceipt = await web3.eth.sendTransaction(
+  //         transactionObject
+  //       );
 
-        // Retrieve the transaction ID
-        const txId = transactionReceipt.transactionHash;
-        setTransactionId(txId);
-        console.log(`Transaction ID: ${txId}`);
-        const result = avatars.getQR(`${txId}`);
-        console.log(result);
-        const downloadLink = document.createElement("a");
-        downloadLink.href = result.href;
-        downloadLink.download = "qrcode.png"; // Set the desired file name
-        downloadLink.click();
-        console.log("QR code downloaded successfully!");
+  //       // Retrieve the transaction ID
+  //       const txId = transactionReceipt.transactionHash;
+  //       setTransactionId(txId);
+  //       console.log(`Transaction ID: ${txId}`);
+  //       const result = avatars.getQR(`${txId}`);
+  //       console.log(result);
+  //       const downloadLink = document.createElement("a");
+  //       downloadLink.href = result.href;
+  //       downloadLink.download = "qrcode.png"; // Set the desired file name
+  //       downloadLink.click();
+  //       console.log("QR code downloaded successfully!");
 
-        // Read the image file
+  //       // Read the image file
 
-        // const file = image;
-        // const reader = new FileReader();
+  //       // const file = image;
+  //       // const reader = new FileReader();
 
-        // reader.onloadend = async () => {
-        //   const base64Data = reader.result;
-        //   setImageBase64(base64Data);
+  //       // reader.onloadend = async () => {
+  //       //   const base64Data = reader.result;
+  //       //   setImageBase64(base64Data);
 
-        //   // Create NFT using the contract
-        //   await createNFT(web3, sender, base64Data, txId);
-        // };
+  //       //   // Create NFT using the contract
+  //       //   await createNFT(web3, sender, base64Data, txId);
+  //       // };
 
-        // reader.readAsDataURL(file);
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      console.error("MetaMask is not installed.");
-    }
-  };
-  const ipfs = create({
-    host: "localhost", // IPFS node host
-    port: 5001, // IPFS node API port
-    protocol: "http", // IPFS node API protocol
-  });
+  //       // reader.readAsDataURL(file);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   } else {
+  //     console.error("MetaMask is not installed.");
+  //   }
+  // };
+  // const ipfs = create({
+  //   host: "localhost", // IPFS node host
+  //   port: 5001, // IPFS node API port
+  //   protocol: "http", // IPFS node API protocol
+  // });
 
   const createNFT = async (web3, sender, imageBase64, txId) => {
     try {

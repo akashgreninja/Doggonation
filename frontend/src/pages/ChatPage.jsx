@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ChatPage.css";
-import { GetNumberOfFollowersForUser } from "../api/getallfollowers";
+import { Getallfollowersforuser } from "../api/getallfollowers";
 import { msg } from "../api/msg";
 import clicktochat from "../images/Designer.png";
 import io from "socket.io-client";
@@ -41,7 +41,7 @@ const ChatPage = (props) => {
     Loadpreviousmessages();
   };
   const loadinactiveusers = async () => {
-    const { data } = await GetNumberOfFollowersForUser(currentuser);
+    const { data } = await Getallfollowersforuser(currentuser);
 
     setsideusers(data);
   };
