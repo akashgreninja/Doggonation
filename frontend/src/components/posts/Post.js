@@ -80,7 +80,7 @@ const Post = (props) => {
   };
 
   const handleshare = async (reciever_id, msg) => {
-    socket.emit("connectuser", { sender_id: user_id, reciever_id: 2 });
+    socket.emit("connectuser", { sender_id: user_id, reciever_id: reciever_id});
     await socket.on("connection", (message) => {
       setroomid(message["data"]);
     });

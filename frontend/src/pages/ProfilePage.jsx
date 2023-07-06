@@ -61,11 +61,12 @@ const ProfilePage = (props) => {
   const getAllPosts = async () => {
     const { data } = await getuserposts(id);
     
-    if (data.sucess == false) {
+    if (data.sucess === false) {
       setposts([]);
     }
     setposts(data);
-  
+ 
+     console.log(posts)
   };
 
   const getFollowing = async () => {
@@ -170,18 +171,18 @@ const ProfilePage = (props) => {
           </div>
           <div class="row">
             {posts.length > 0 ? (
-              posts.map((post) => {
+              posts.map((postlist) => {
                 return (
-                  <div class="col-lg-6 mb-2 pr-lg-1">
+                  <div key={postlist[0]} class="col-lg-6 mb-2 pr-lg-1">
                     <img
-                      src={post[0]}
+                      src={postlist[0]}
                       alt="..."
                       class="img-fluid rounded shadow-sm h-64"
                       onClick={handleOpenPost}
                     
                     />
                     <PostModal
-                      element={post}
+                      element={postlist}
                       openPost={openPost}
                       handleClosePost={handleClosePost}
                     />
@@ -191,7 +192,7 @@ const ProfilePage = (props) => {
             ) : (
               <h3>Posts are empty</h3>
             )}
-          </div>
+          </div>  
         </div>
       </div>
     </div>

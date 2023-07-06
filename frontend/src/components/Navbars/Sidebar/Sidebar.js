@@ -66,7 +66,7 @@ const Sidebar = (props) => {
               to="/nft"
               icon="bi bi-currency-dollar"
               label="My NFT's"
-            /> */}
+            /> */}  
             <SideBarOption
               onClick={HandleLogout}
               icon="bi bi-box-arrow-in-right"

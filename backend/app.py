@@ -360,7 +360,7 @@ def handle_connect(data):
         ##
         print("created")
         room_id = result[0]
-
+        print(room_id)
     #    join_room(room_id)
     socketio.emit("connection", {"data": room_id})
 
