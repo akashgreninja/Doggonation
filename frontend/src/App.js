@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import Twitter from "./components/buttons/twitter";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Sidebar from "./components/Navbars/Sidebar/Sidebar";
@@ -21,6 +21,9 @@ import NFTPage from "./pages/NFTPage";
 function App() {
   // const [Sidebar, setsidebar] = useState(true);
   const [sidebar, setsidebar] = useState(false);
+  useEffect(() => {
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+  }, []);
 
   return (
     <>
@@ -72,6 +75,31 @@ function App() {
           {/* <Footer /> */}
         </Suspense>
       </Router>
+      <button
+        onClick={() => {
+          window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        }}
+        style={{
+          position: 'fixed',
+          padding: '0.45rem 0.5rem',
+          fontSize: '30px',
+          marginTop:"2px",
+          bottom: '40px',
+          right: '40px',
+          backgroundColor: '#0C9',
+          color: '#fff',
+          textAlign: 'center',
+          height: "40px",
+          width: "40px",
+          borderRadius:"50%",
+          display:"flex",
+          justifyContent:"center",
+          alignItems:"center"
+        }}
+        className="hover:scale-[0.9] hover:bg-blue-800 duration-200"
+      >
+        ^
+      </button>
     </>
   );
 }
