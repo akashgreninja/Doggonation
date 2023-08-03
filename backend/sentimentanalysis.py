@@ -7,51 +7,49 @@
 
 
 # there is a error line below this ignore it its the vs code error
-from transformers import AutoTokenizer
-from transformers import AutoModelForSequenceClassification
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from scipy.special import softmax
-# from transformers import pipeline
 
 class SentimentAnalysis:
-    # vader= no grammer and no context
-
-    def __init__(self):
-        self.MODEL=f"cardiffnlp/twitter-roberta-base-sentiment"
+    def __init__(self, model_name="cardiffnlp/twitter-roberta-base-sentiment"):
+        self.MODEL = model_name
         self.tokenizer = AutoTokenizer.from_pretrained(self.MODEL)
         self.model = AutoModelForSequenceClassification.from_pretrained(self.MODEL)
-        # self.sent_pipeline=pipeline("sentiment-analysis")
 
-    def get_sentiment(self,text):
-        encoded_text=self.tokenizer(text,return_tensors='pt')
-        output=self.model(**encoded_text)
-        scores=output[0][0].detach().numpy()
-        scores=softmax(scores)
-        scores
-        scores_dict={
-            'negative':scores[0],
-            'neutral':scores[1],
-            'positive':scores[2]
+    def get_sentiment(self, text):
+        try:
+            # Tokenize input text and get model output
+            encoded_text = self.tokenizer(text, return_tensors='pt')
+            output = self.model(**encoded_text)
+            scores = output.logits[0].detach().numpy()
+            scores = softmax(scores)
 
-        }
+            # Create a dictionary with sentiment label and confidence scores
+            sentiment_labels = ['negative', 'neutral', 'positive']
+            scores_dict = dict(zip(sentiment_labels, scores))
 
-      
-        maximunval=max(scores_dict, key=scores_dict.get)
-        print(maximunval)
+            # Determine the sentiment label with the highest confidence score
+            max_sentiment_label = max(scores_dict, key=scores_dict.get)
 
+            # Return the result as a dictionary
+            result = {
+                'sentiment_label': max_sentiment_label,
+                'confidence_scores': scores_dict
+            }
+            return result
 
-        # maximunval= self.sent_pipeline('thats bad')
-        #if you want to use the transformers pipeline uncomment the following line and comment the above line
-        if maximunval == 'positive':
-            return 'positive'
-        elif maximunval == 'negative' and scores_dict['negative'] > 0.6:
-            return len(maximunval)
-        else:
-            return 'neutral'
+        except Exception as e:
+            # Handle any potential errors and return an error message
+            return {
+                'error': str(e),
+                'message': 'An error occurred during sentiment analysis.'
+            }
 
-
-
-checkers=SentimentAnalysis()
-print(checkers.get_sentiment('wow good boy'))
-
+# Example usage
+if __name__ == "__main__":
+    checkers = SentimentAnalysis()
+    text = 'wow good boy'
+    result = checkers.get_sentiment(text)
+    print(result)
 
 
